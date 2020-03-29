@@ -1,12 +1,17 @@
-import React from 'react';
-import styled from 'styled-components'
+import React, {useState} from 'react';
+import styled, {css} from 'styled-components'
 import MainTemplate from "../templates/MainTemplate";
 import Logo from "../components/atoms/Logo/Logo";
-import Heading from "../components/atoms/Headings/Heading";
-import Paragraph from "../components/atoms/Paragraphs/Paragraph";
 import Button from "../components/atoms/Button/Button";
 import {HomeBackgroundShape} from "../components/atoms/Shapes/HomeBackgroundShape";
 import MainHomeImage from "../components/molecules/Images/MainHomeImage";
+import {RightTopYellowShape} from "../components/atoms/Shapes/RightTopYellowShape";
+import {RightTopSoftShape} from "../components/atoms/Shapes/RightTopSoftShape";
+import laptop from "../assets/learn_laptop.png";
+import {HomeInfoContainer} from "../components/molecules/Containers/HomeInfoContainer";
+import {LeftBottomSoftShape} from "../components/atoms/Shapes/LeftBottomSoftShape";
+import {RightBottomSoftShape} from "../components/atoms/Shapes/RightBottomSoftShape";
+import SignInForm from "../components/organisms/SignInForm/SignInForm";
 
 const ContentWrapper = styled.div`
       display: flex;
@@ -17,33 +22,46 @@ const ContentWrapper = styled.div`
       flex-direction: column;
 `;
 
-const InfoSection = styled.section`
+const Laptop = styled.div`
       display: flex;
-      width: 40%;
-      text-align: center;
+      position: absolute;
+      width: 55rem;
+      height: 45rem;
+      left: calc(50% - 27.5rem);
+      top: 23%;
+      background-image: url(${laptop});
+      background-size: contain;
+      background-repeat: no-repeat;
+      transition: left .4s;
+      
+      ${({isHidden}) =>
+    isHidden &&
+    css`
+          left: -55rem;
+      `}
 `;
 
 function HomePage() {
+
+    const [showAuthForm, setShowAuthForm] = useState(false);
+
+
     return (
         <MainTemplate>
+            {console.log(showAuthForm)}
             <HomeBackgroundShape/>
             <Logo/>
-            <MainHomeImage/>
+            <MainHomeImage>
+                <Laptop isHidden={showAuthForm}/>
+                <SignInForm isHidden={!showAuthForm}/>
+            </MainHomeImage>
+            <RightTopSoftShape/>
+            <RightTopYellowShape/>
+            <LeftBottomSoftShape/>
+            <RightBottomSoftShape/>
             <ContentWrapper>
-                <Heading big>
-                    System Zarządzania Kursami Studenckimi
-                </Heading>
-                <InfoSection>
-                    <Paragraph>
-                        Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut
-                        labore
-                        et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi
-                        ut
-                        aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
-                        cillum dolore eu fugiat nulla pariatur.
-                    </Paragraph>
-                </InfoSection>
-                <Button>Przejdź do systemu {'>'}</Button>
+                {!showAuthForm && <HomeInfoContainer/>}
+                {!showAuthForm && <Button onClick={() => setShowAuthForm(true)}>Przejdź do systemu {'>'}</Button>}
             </ContentWrapper>
         </MainTemplate>
     );

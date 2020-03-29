@@ -11,6 +11,7 @@ const AppWrapper = styled.div`
    min-height: 100vh;
    position: relative;
    flex-direction: column;
+   overflow: hidden;
 `;
 
 const MainTemplate = ({children}) => (
