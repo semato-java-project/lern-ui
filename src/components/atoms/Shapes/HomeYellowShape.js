@@ -14,8 +14,8 @@ export const HomeYellowShape = () => (
                        viewBox="0 0 1107.602 554.107">
         <defs>
             <linearGradient id="linear-gradient" x1="0.5" x2="0.5" y2="1" gradientUnits="objectBoundingBox">
-                <stop offset="0" stop-color="#fd0"/>
-                <stop offset="1" stop-color="#fc0"/>
+                <stop offset="0" stopColor="#fd0"/>
+                <stop offset="1" stopColor="#fc0"/>
             </linearGradient>
         </defs>
         <path id="yellow_shape"
