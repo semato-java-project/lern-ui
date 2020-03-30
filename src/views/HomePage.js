@@ -1,6 +1,5 @@
 import React, {useState} from 'react';
 import styled, {css} from 'styled-components'
-import MainTemplate from "../templates/MainTemplate";
 import Logo from "../components/atoms/Logo/Logo";
 import Button from "../components/atoms/Button/Button";
 import {HomeBackgroundShape} from "../components/atoms/Shapes/HomeBackgroundShape";
@@ -23,7 +22,6 @@ const ContentWrapper = styled.div`
       flex-direction: column;
 `;
 
-
 const Student = styled.div`
       display: flex;
       position: absolute;
@@ -40,8 +38,8 @@ const Student = styled.div`
       ${({isHidden}) =>
     isHidden &&
     css`
-      opacity: 1;
-      left: 60%;
+        opacity: 1;
+        left: 60%;
       `}
 `;
 
@@ -60,17 +58,15 @@ const Laptop = styled.div`
       ${({isHidden}) =>
     isHidden &&
     css`
-          left: -55rem;
+            left: -55rem;
       `}
 `;
-
-function HomePage() {
+const HomePage = () => {
 
     const [showAuthForm, setShowAuthForm] = useState(false);
 
     return (
-        <MainTemplate>
-            {console.log(showAuthForm)}
+        <>
             <HomeBackgroundShape/>
             <Logo/>
             <MainHomeImage>
@@ -86,7 +82,7 @@ function HomePage() {
                 {!showAuthForm && <HomeInfoContainer/>}
                 {!showAuthForm && <Button onClick={() => setShowAuthForm(true)}>Przejdź do systemu {'>'}</Button>}
             </ContentWrapper>
-        </MainTemplate>
+        </>
     );
 }
 

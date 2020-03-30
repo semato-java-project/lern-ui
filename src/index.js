@@ -1,11 +1,11 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import HomePage from './views/HomePage';
 import * as serviceWorker from './serviceWorker';
+import Root from "./views/Root";
 
 ReactDOM.render(
   <React.StrictMode>
-    <HomePage />
+    <Root/>
   </React.StrictMode>,
   document.getElementById('root')
 );
