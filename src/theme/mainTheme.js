@@ -6,6 +6,7 @@ export const theme = {
     app_yellow: '#FFCC00',
     app_text_gray: '#B2B2B2',
     app_gray: '#D1D2D5',
+    app_gray_light: '#EDF2F6',
     app_yellow_gradient: 'linear-gradient(#FFDD00, #FFCC00)',
 
     fontWeight: {

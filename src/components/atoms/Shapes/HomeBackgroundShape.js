@@ -7,6 +7,8 @@ const StyledBackground = styled.svg`
   top: 0;
   left: 0;
   position:relative;
+  width: 100%;
+  height: auto;
 `;
 
 export const HomeBackgroundShape = () => (

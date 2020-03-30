@@ -7,7 +7,7 @@ const Input = styled.input`
       padding: 15px 30px;
       font-size: ${({theme}) => theme.fontSize.s};
       font-weight: ${({theme}) => theme.fontWeight.regular};
-      background-color: ${({theme}) => theme.app_gray};
+      background-color: ${({theme}) => theme.app_gray_light};
       border: none;
       border-radius: 10px;
       width: ${({width}) => width || '32rem'};

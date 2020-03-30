@@ -5,9 +5,10 @@ import Button from "../../atoms/Button/Button";
 import {ErrorMessage, Form, Formik} from 'formik';
 import {routes} from "../../../routes";
 import {Redirect} from "react-router-dom";
+import {PersonIcon} from "../../atoms/Icons/PersonIcon";
 
 const InfoParagraph = styled.h1`
-   margin-bottom: 8rem;
+   margin-bottom: 5rem;
    margin-top: 5rem;
    text-align: center;
    font-size: small;
@@ -18,8 +19,8 @@ const InfoParagraph = styled.h1`
     ${({badRequest}) =>
     badRequest &&
     css`
-              margin-bottom: 0rem;
-                 margin-top: 2rem;
+       margin-bottom: 0;
+       margin-top: 2rem;
     `}
 `;
 
@@ -34,7 +35,7 @@ const LoginForm = styled.div`
    //justify-content: center;
    //justify-items:center; 
    align-items: center;
-   z-index: 10;
+   z-index: 1;
 `;
 
 const StyledErrorMsg = styled.div`
@@ -43,6 +44,17 @@ const StyledErrorMsg = styled.div`
   font-size: ${({theme}) => theme.fontSize.s};
   color: red;
   text-align: center;
+`;
+
+
+const StyledButton = styled(Button)`
+    //opacity: 0;
+    //transition: top 0.4s  ease-in-out;
+    position: absolute;
+    top: 100%;
+    //z-index: 0 !important;
+    // TODO: HANDLE SLIDE ANIMAITON
+  
 `;
 
 
@@ -74,11 +86,11 @@ const SignInForm = ({isHidden}) => (
                 const errors = {};
 
                 if (!values.username) {
-                    errors.username = 'Email jest wymagany';
+                    errors.username = 'Email jest wymagany (TODO: improve styles)';
                 }
 
                 if (!values.password) {
-                    errors.password = 'Hasło jest wymagane';
+                    errors.password = 'Hasło jest wymagane (TODO: improve styles)';
                 }
 
                 return errors;
@@ -94,9 +106,11 @@ const SignInForm = ({isHidden}) => (
 
                 return (
                     <FormWrapper isHidden={isHidden}>
+                        <PersonIcon/>
                         <LoginForm>
                             <InfoParagraph>Logowanie do systemu</InfoParagraph>
                             <Input
+                                width={'80%'}
                                 name="username"
                                 type="text"
                                 placeholder="Email"
@@ -106,6 +120,7 @@ const SignInForm = ({isHidden}) => (
                             />
                             <ErrorMessage name="username" component={StyledErrorMsg}/>
                             <Input
+                                width={'80%'}
                                 name="password"
                                 type="password"
                                 placeholder="Hasło"
@@ -114,7 +129,7 @@ const SignInForm = ({isHidden}) => (
                                 value={values.password}
                             />
                             <ErrorMessage name="password" component={StyledErrorMsg}/>
-                            <Button type="submit" login>Zaloguj</Button>
+                            <StyledButton type="submit" login>Zaloguj</StyledButton>
                             {false && <InfoParagraph badRequest>Podano nieprawidłowy login lub hasło.</InfoParagraph>}
                         </LoginForm>
                     </FormWrapper>

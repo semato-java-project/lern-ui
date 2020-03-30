@@ -21,7 +21,7 @@ const Button = styled.button`
               display: none;
   }
  
-  transition: all .4s;
+  transition: background-position .4s;
   background-position: 0;
   background-image: linear-gradient(120deg, transparent 0%, transparent 50%, ${({theme}) => theme.app_yellow} 50%);
   background-size: 220%;

@@ -8,6 +8,7 @@ import MainHomeImage from "../components/molecules/Images/MainHomeImage";
 import {RightTopYellowShape} from "../components/atoms/Shapes/RightTopYellowShape";
 import {RightTopSoftShape} from "../components/atoms/Shapes/RightTopSoftShape";
 import laptop from "../assets/learn_laptop.png";
+import student from "../assets/student-girl.png";
 import {HomeInfoContainer} from "../components/molecules/Containers/HomeInfoContainer";
 import {LeftBottomSoftShape} from "../components/atoms/Shapes/LeftBottomSoftShape";
 import {RightBottomSoftShape} from "../components/atoms/Shapes/RightBottomSoftShape";
@@ -20,6 +21,28 @@ const ContentWrapper = styled.div`
       height: 10vh;
       align-items: center;
       flex-direction: column;
+`;
+
+
+const Student = styled.div`
+      display: flex;
+      position: absolute;
+      width: 14.6rem;
+      height: 24rem;
+      left: 50%;
+      opacity: 0;
+      top: 44%;
+      background-image: url(${student});
+      background-size: contain;
+      background-repeat: no-repeat;
+      transition: all 0.7s 0.4s ease-in-out;
+      
+      ${({isHidden}) =>
+    isHidden &&
+    css`
+      opacity: 1;
+      left: 60%;
+      `}
 `;
 
 const Laptop = styled.div`
@@ -45,7 +68,6 @@ function HomePage() {
 
     const [showAuthForm, setShowAuthForm] = useState(false);
 
-
     return (
         <MainTemplate>
             {console.log(showAuthForm)}
@@ -54,6 +76,7 @@ function HomePage() {
             <MainHomeImage>
                 <Laptop isHidden={showAuthForm}/>
                 <SignInForm isHidden={!showAuthForm}/>
+                <Student isHidden={showAuthForm}/>
             </MainHomeImage>
             <RightTopSoftShape/>
             <RightTopYellowShape/>
