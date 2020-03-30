@@ -1,4 +1,4 @@
-import styled, {css} from "styled-components";
+import styled from "styled-components";
 import logo from "../../../assets/learn_logo_white.svg";
 
 
@@ -12,6 +12,7 @@ const Logo = styled.div`
    position: absolute;
    left: 5rem;
    top: 5rem;
+   z-index: 10;
 `;
 
 

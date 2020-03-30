@@ -1,6 +1,5 @@
 import React, {useState} from 'react';
 import styled, {css} from 'styled-components'
-import Logo from "../components/atoms/Logo/Logo";
 import Button from "../components/atoms/Button/Button";
 import {HomeBackgroundShape} from "../components/atoms/Shapes/HomeBackgroundShape";
 import MainHomeImage from "../components/molecules/Images/MainHomeImage";
@@ -68,7 +67,6 @@ const HomePage = () => {
     return (
         <>
             <HomeBackgroundShape/>
-            <Logo/>
             <MainHomeImage>
                 <Laptop isHidden={showAuthForm}/>
                 <SignInForm isHidden={!showAuthForm}/>
