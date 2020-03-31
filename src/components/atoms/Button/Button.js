@@ -7,7 +7,7 @@ const Button = styled.button`
   width: ${({width}) => width || '220px'};
   min-height: 47px;
   border: none;
-  border-radius: 30px;
+  border-radius: 3rem;
   font-weight: ${({theme}) => theme.fontWeight.bold};
   font-size: ${({theme}) => theme.fontSize.s};
   color: ${({theme}) => theme.app_background};

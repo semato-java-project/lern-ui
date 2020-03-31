@@ -3,12 +3,11 @@ import styled from "styled-components";
 
 const StyledShape = styled.svg`
   display: flex;
-  z-index: 50;
-  top: -7rem;
-  right: 4rem;
-  position:absolute;
-  width: 30%;
+  z-index: 10;
+  width: 100%;
   height: auto;
+  position: absolute;
+  top: -7rem;
 `;
 
 export const UserPathShape = () => (

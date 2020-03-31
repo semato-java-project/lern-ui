@@ -4,6 +4,7 @@ import Menu from "../components/organisms/Menu/Menu";
 import Logo from "../components/atoms/Logo/Logo";
 import {UserPathShape} from "../components/atoms/Shapes/UserPathSHape";
 import {RightBottomSoftShape} from "../components/atoms/Shapes/RightBottomSoftShape";
+import CurrentUser from "../components/organisms/CurrentUser/CurrentUser";
 
 const AppWrapper = styled.div`
     width: 100%;
@@ -21,6 +22,7 @@ const ContentWrapper = styled.div`
     flex-direction: column;
     background-color: ${({theme}) => theme.app_background};
     margin: 0 auto 0 15%;
+    padding: 5rem;
 `;
 
 const SidebarTemplate = ({children}) => {
@@ -29,8 +31,8 @@ const SidebarTemplate = ({children}) => {
             <Logo/>
             <Menu/>
             <ContentWrapper>
+                <CurrentUser/>
                 <RightBottomSoftShape/>
-                <UserPathShape/>
                 {children}
             </ContentWrapper>
         </AppWrapper>

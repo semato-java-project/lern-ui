@@ -71,8 +71,6 @@ const FormWrapper = styled(Form)`
     css`
     left: 100%;
      `}
-   
-   
 `;
 
 const SignInForm = ({isHidden}) => (

@@ -8,6 +8,7 @@ const MenuShape = styled.div`
    display: flex;
    height: 100vh;
    width: 15%;
+   min-width: 22rem;
    position: fixed;
    justify-content: center;
    background-color: ${({theme}) => theme.app_blue_dark};
