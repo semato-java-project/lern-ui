@@ -16,8 +16,8 @@ const Root = () => (
     <MainTemplate>
         <BrowserRouter>
             <Switch>
-                <Route exact path={routes.home} component={HomePage}/>
-                <Route exact path={routes.dashboard} component={Dashboard}/>
+                <Route exact path={routes.HOME} component={HomePage}/>
+                <Route exact path={routes.TEACHER_DASHBOARD} component={Dashboard}/>
             </Switch>
         </BrowserRouter>
     </MainTemplate>
