@@ -3,11 +3,8 @@ import SidebarTemplate from "../templates/SidebarTemplate";
 import styled from "styled-components";
 import {HorizontalSeparator} from "../components/atoms/Shapes/HorizontalSeparator";
 import LastCourseContainer, {LastCourseWrapper} from "../components/organisms/Course/LastCourseContainer";
-import Heading from "../components/atoms/Headings/Heading";
-import {theme} from "../theme/mainTheme";
-import {AddCourseImage} from '../components/molecules/Images/AddCourseImage'
-import Button from "../components/atoms/Button/Button";
 import AddCourseContainer from "../components/organisms/Course/AddCourseContainer";
+import CourseStats, {StatsWrapper} from "../components/organisms/Stats/CourseStats";
 
 const HeaderPathInfoContainer = styled.div`
       display: flex;
@@ -25,12 +22,14 @@ const StyledSeparator = styled(HorizontalSeparator)`
       margin-top: 1.5rem;
 `;
 
-const StatsWrapper = styled.div`
+const ContentSection = styled.div`
       display: flex;
       flex-direction: column;
       width: 70%;
       height: 100%;
       padding-top: 3rem;
+      color: ${({theme}) => theme.app_blue_dark};
+      font-size: ${({theme}) => theme.fontSize.l};
 `;
 
 const LastCoursesSection = styled.section`
@@ -42,6 +41,24 @@ const LastCoursesSection = styled.section`
       }
 `;
 
+const StatsSection = styled.div`
+      display: flex;
+      width: 100%;
+      height: 36rem;
+      ${StatsWrapper}:last-child{
+           margin-right: 0;
+      }
+      margin-top: 6vh;
+`;
+
+const HorizontalTitle = styled.div`
+      display: flex;
+      width: 100%;
+      height: 3rem;
+      margin-bottom: 2vh;
+`;
+
+
 
 const Dashboard = () => {
 
@@ -51,14 +68,19 @@ const Dashboard = () => {
                 Dashboard
                 <StyledSeparator/>
             </HeaderPathInfoContainer>
-            <StatsWrapper>
+            <ContentSection>
+                <HorizontalTitle>Ostatnio wyświetlone kursy</HorizontalTitle>
                 <LastCoursesSection>
                     <LastCourseContainer/>
                     <LastCourseContainer/>
                     <LastCourseContainer/>
                 </LastCoursesSection>
                 <AddCourseContainer/>
-            </StatsWrapper>
+                <StatsSection>
+                    <CourseStats/>
+                    <CourseStats/>
+                </StatsSection>
+            </ContentSection>
         </SidebarTemplate>
     );
 };
