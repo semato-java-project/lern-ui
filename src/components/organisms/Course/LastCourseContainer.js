@@ -1,21 +1,21 @@
 import React from "react";
 import {CourseIcon} from "../../atoms/Icons/CourseIcon";
 import styled from "styled-components";
-
-const LastCourseWrapper = styled.div`
+import Heading from "../../atoms/Headings/Heading";
+export const LastCourseWrapper = styled.div`
       height: auto;
-      width: 30%;
+      width: 33.3%;
       display: flex;
       border-radius: 10px;
       background-color: ${({theme}) => theme.app_background};
       box-shadow: 0 10px 15px 0 rgba(0, 0, 0, 0.04), 0 10px 20px 0 rgba(0, 0, 0, 0.09);
       position: relative;
       align-items: center;
-      margin-right: 1.5rem;
       cursor: pointer;
+      margin-right: 1.5rem;
     
       &:hover::before {
-        background-color: ${({theme}) => theme.app_blue_dark};
+        background-color: ${({theme}) => theme.app_blue_light};
       }
     
       &::before {
@@ -51,9 +51,6 @@ const LastCourseIcon = styled.div`
 const CourseNameContainer = styled.div`
       width: 100%;
       display: flex;
-      color: ${({theme}) => theme.app_blue_dark};
-      font-weight: ${({theme}) => theme.fontWeight.semiBold};
-      font-size: ${({theme}) => theme.fontSize.xl};
 `;
 
 const CourseDateContainer = styled.div`
@@ -78,7 +75,7 @@ const LastCourseContainer = () => {
             </LastCourseIcon>
             <LastCourseContent>
                 <CourseNameContainer>
-                    Nazwa kursu
+                    <Heading>Nazwa kursu</Heading>
                 </CourseNameContainer>
                 <CourseDateContainer>
                     Ostatnio edytowany: <span>28.03.2020</span>

@@ -2,6 +2,7 @@ import Heading from "../../atoms/Headings/Heading";
 import Paragraph from "../../atoms/Paragraphs/Paragraph";
 import React from "react";
 import styled from "styled-components";
+import {theme} from "../../../theme/mainTheme";
 
 const InfoSection = styled.section`
       display: flex;
@@ -11,7 +12,7 @@ const InfoSection = styled.section`
 
 export const HomeInfoContainer = () => (
     <>
-        <Heading big>
+        <Heading fontWeight={theme.fontWeight.bold}>
             System Zarządzania Kursami Studenckimi
         </Heading>
         <InfoSection>

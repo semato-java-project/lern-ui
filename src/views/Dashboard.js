@@ -2,8 +2,12 @@ import React from 'react';
 import SidebarTemplate from "../templates/SidebarTemplate";
 import styled from "styled-components";
 import {HorizontalSeparator} from "../components/atoms/Shapes/HorizontalSeparator";
-import {CourseIcon, CourseSvgIcon} from "../components/atoms/Icons/CourseIcon";
-import LastCourseContainer from "../components/organisms/Course/LastCourseContainer";
+import LastCourseContainer, {LastCourseWrapper} from "../components/organisms/Course/LastCourseContainer";
+import Heading from "../components/atoms/Headings/Heading";
+import {theme} from "../theme/mainTheme";
+import {AddCourseImage} from '../components/molecules/Images/AddCourseImage'
+import Button from "../components/atoms/Button/Button";
+import AddCourseContainer from "../components/organisms/Course/AddCourseContainer";
 
 const HeaderPathInfoContainer = styled.div`
       display: flex;
@@ -24,17 +28,18 @@ const StyledSeparator = styled(HorizontalSeparator)`
 const StatsWrapper = styled.div`
       display: flex;
       flex-direction: column;
-      width: 75%;
+      width: 70%;
       height: 100%;
       padding-top: 3rem;
-      //background-color: springgreen;
 `;
 
-const LastCoursesWrapper = styled.div`
+const LastCoursesSection = styled.section`
       display: flex;
       width: 100%;
       height: 12rem;
-      //background-color: springgreen;
+      ${LastCourseWrapper}:last-child{
+           margin-right: 0;
+      }
 `;
 
 
@@ -47,11 +52,12 @@ const Dashboard = () => {
                 <StyledSeparator/>
             </HeaderPathInfoContainer>
             <StatsWrapper>
-                <LastCoursesWrapper>
+                <LastCoursesSection>
                     <LastCourseContainer/>
                     <LastCourseContainer/>
                     <LastCourseContainer/>
-                </LastCoursesWrapper>
+                </LastCoursesSection>
+                <AddCourseContainer/>
             </StatsWrapper>
         </SidebarTemplate>
     );

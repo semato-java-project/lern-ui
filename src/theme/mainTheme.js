@@ -8,6 +8,7 @@ export const theme = {
     app_gray: '#D1D2D5',
     app_gray_light: '#EDF2F6',
     app_yellow_gradient: 'linear-gradient(#FFDD00, #FFCC00)',
+    app_blue_gradient: 'linear-gradient(#3C4BAD, #1C268B)',
 
     fontWeight: {
         light: 300,

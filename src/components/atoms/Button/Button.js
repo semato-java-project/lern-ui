@@ -1,4 +1,4 @@
-import styled, {css} from 'styled-components';
+import styled from 'styled-components';
 
 const Button = styled.button`
   padding: 0;
@@ -18,15 +18,14 @@ const Button = styled.button`
   cursor: pointer;
   box-shadow: 0 10px 15px 0 rgba(0, 0, 0, 0.1), 0 10px 20px 0 rgba(0, 0, 0, 0.06);
   :disabled{
-              display: none;
+    display: none;
   }
  
-  transition: background-position .4s;
+  transition: background-position .3s;
   background-position: 0;
   background-image: linear-gradient(120deg, transparent 0%, transparent 50%, ${({theme}) => theme.app_yellow} 50%);
   background-size: 220%;
           &:hover{
-            //background-color: ${({theme}) => theme.app_yellow};
             color: ${({theme}) => theme.app_blue_dark};
             background-position: 100%;
           }
