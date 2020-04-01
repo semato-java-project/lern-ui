@@ -11,6 +11,7 @@ import {HomeInfoContainer} from "../components/molecules/Containers/HomeInfoCont
 import {LeftBottomSoftShape} from "../components/atoms/Shapes/LeftBottomSoftShape";
 import {RightBottomSoftShape} from "../components/atoms/Shapes/RightBottomSoftShape";
 import SignInForm from "../components/organisms/SignInForm/SignInForm";
+import Logo from "../components/atoms/Logo/Logo";
 
 const ContentWrapper = styled.div`
       display: flex;
@@ -66,6 +67,7 @@ const HomePage = () => {
 
     return (
         <>
+            <Logo/>
             <HomeBackgroundShape/>
             <MainHomeImage>
                 <Laptop isHidden={showAuthForm}/>

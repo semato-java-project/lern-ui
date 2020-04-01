@@ -12,7 +12,7 @@ const Logo = styled.div`
    position: absolute;
    left: 5rem;
    top: 5rem;
-   z-index: 10;
+   z-index: 99;
 `;
 
 

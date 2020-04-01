@@ -22,7 +22,8 @@ const ContentWrapper = styled.div`
     flex-direction: column;
     background-color: ${({theme}) => theme.app_background};
     margin: 0 auto 0 15%;
-    padding: 5rem;
+    padding: 0 5rem;
+    z-index: 0;
 `;
 
 const SidebarTemplate = ({children}) => {
