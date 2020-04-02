@@ -55,7 +55,7 @@ const StyledButton = styled(Button)`
     min-height: 1rem;
     height: 4rem;
     font-weight: ${({theme}) => theme.fontWeight.regular};
-    background-color: ${({theme}) => theme.app_blue_light};;
+    background-color: ${({theme}) => theme.app_blue_light};
 `;
 
 const AddCourseContainer = () => {
