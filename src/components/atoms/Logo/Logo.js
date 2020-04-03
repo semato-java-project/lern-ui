@@ -9,7 +9,7 @@ const Logo = styled.div`
    background-position: center;
    height: 7rem;
    width: 18rem;
-   position: absolute;
+   position: fixed;
    left: 5rem;
    top: 5rem;
    z-index: 99;

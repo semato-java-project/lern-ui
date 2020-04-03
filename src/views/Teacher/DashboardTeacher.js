@@ -1,12 +1,12 @@
 import React from 'react';
-import SidebarTemplate from "../templates/SidebarTemplate";
+import SidebarTemplate from "../../templates/SidebarTemplate";
 import styled from "styled-components";
-import {HorizontalSeparator} from "../components/atoms/Shapes/HorizontalSeparator";
-import LastCourseContainer, {LastCourseWrapper} from "../components/organisms/Course/LastCourseContainer";
-import AddCourseContainer from "../components/organisms/Course/AddCourseContainer";
-import CourseStats, {StatsWrapper} from "../components/organisms/Stats/CourseStats";
-import AddPublicationContainer from "../components/organisms/Publication/AddPublicationContainer";
-import NewsSideContainer from "../components/organisms/News/NewsSideContainer";
+import {HorizontalSeparator} from "../../components/atoms/Shapes/HorizontalSeparator";
+import LastCourseContainer, {LastCourseWrapper} from "../../components/organisms/Course/LastCourseContainer";
+import AddCourseContainer from "../../components/organisms/Course/AddCourseContainer";
+import CourseStats, {StatsWrapper} from "../../components/organisms/Stats/CourseStats";
+import AddPublicationContainer from "../../components/organisms/Publication/AddPublicationContainer";
+import NewsSideContainer from "../../components/organisms/News/NewsSideContainer";
 
 const HeaderPathInfoContainer = styled.div`
       display: flex;
@@ -24,7 +24,7 @@ const StyledSeparator = styled(HorizontalSeparator)`
       margin-top: 1.5rem;
 `;
 
-const ContentWrapper = styled.div`
+export const ContentWrapper = styled.div`
       display: flex;
       width: 100%;
       padding-top: 4rem;
@@ -77,7 +77,7 @@ const HorizontalTitle = styled.div`
 `;
 
 
-const Dashboard = () => {
+const DashboardTeacher = () => {
 
     return (
         <SidebarTemplate>
@@ -108,4 +108,4 @@ const Dashboard = () => {
     );
 };
 
-export default Dashboard;
+export default DashboardTeacher;
