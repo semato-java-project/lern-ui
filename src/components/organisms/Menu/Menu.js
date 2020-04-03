@@ -12,7 +12,7 @@ const MenuShape = styled.div`
    position: fixed;
    justify-content: center;
    background-color: ${({theme}) => theme.app_blue_dark};
-   border-right: 10px solid ${({theme}) => theme.app_yellow};;
+   border-right: 10px solid ${({theme}) => theme.app_yellow};
 `;
 
 const NavWrapper = styled.div`

@@ -5,7 +5,8 @@ import {HorizontalSeparator} from "../components/atoms/Shapes/HorizontalSeparato
 import LastCourseContainer, {LastCourseWrapper} from "../components/organisms/Course/LastCourseContainer";
 import AddCourseContainer from "../components/organisms/Course/AddCourseContainer";
 import CourseStats, {StatsWrapper} from "../components/organisms/Stats/CourseStats";
-import AddPublicationContainer from "../components/organisms/Course/AddPublicationContainer";
+import AddPublicationContainer from "../components/organisms/Publication/AddPublicationContainer";
+import NewsSideContainer from "../components/organisms/News/NewsSideContainer";
 
 const HeaderPathInfoContainer = styled.div`
       display: flex;
@@ -100,6 +101,7 @@ const Dashboard = () => {
                 </MainContentSection>
                 <SideContentSection>
                     <AddPublicationContainer/>
+                    <NewsSideContainer/>
                 </SideContentSection>
             </ContentWrapper>
         </SidebarTemplate>

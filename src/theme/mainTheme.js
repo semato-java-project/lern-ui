@@ -2,6 +2,7 @@ export const theme = {
     primary: 'black',
     app_background: '#F9FAFC',
     app_blue_light: '#3C4BAD',
+    app_blue_light_text: '#5163c2',
     app_blue_dark: '#252B69',
     app_yellow: '#FFCC00',
     app_text_gray: '#B2B2B2',
