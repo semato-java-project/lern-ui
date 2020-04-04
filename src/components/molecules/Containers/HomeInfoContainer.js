@@ -16,7 +16,7 @@ export const HomeInfoContainer = () => (
             System Zarządzania Kursami Studenckimi
         </Heading>
         <InfoSection>
-            <Paragraph>
+            <Paragraph marginTop={'2rem'}>
                 Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut
                 labore
                 et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi

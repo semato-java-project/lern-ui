@@ -41,7 +41,7 @@ const StyledButton = styled(Button)`
     width: 16rem;
     min-height: 1rem;
     height: 4rem;
-    margin: 3rem 0 0;
+    margin: 2rem 0 0;
     font-weight: ${({theme}) => theme.fontWeight.regular};
     background-color: ${({theme}) => theme.app_blue_light};
 `;

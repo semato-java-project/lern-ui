@@ -2,13 +2,9 @@ import React from 'react';
 import SidebarTemplate from "../../templates/SidebarTemplate";
 import styled from "styled-components";
 import {HorizontalSeparator} from "../../components/atoms/Shapes/HorizontalSeparator";
-import LastCourseContainer, {LastCourseWrapper} from "../../components/organisms/Course/LastCourseContainer";
-import AddCourseContainer from "../../components/organisms/Course/AddCourseContainer";
-import CourseStats, {StatsWrapper} from "../../components/organisms/Stats/CourseStats";
-import AddPublicationContainer from "../../components/organisms/Publication/AddPublicationContainer";
 import NewsSideContainer from "../../components/organisms/News/NewsSideContainer";
 import AddCourseSideContainer from "../../components/organisms/Course/AddCourseSideContainer";
-import CourseContainer, {CourseWrapper} from "../../components/organisms/Course/CourseContainer";
+import CourseContainer from "../../components/organisms/Course/CourseContainer";
 
 const HeaderPathInfoContainer = styled.div`
       display: flex;
@@ -59,37 +55,16 @@ const CoursesSection = styled.section`
       justify-content: space-between;
 `;
 
-const StatsSection = styled.div`
-      display: flex;
-      width: 100%;
-      height: 36rem;
-      ${StatsWrapper}:last-child{
-           margin-right: 0;
-      }
-      margin-top: 6vh;
-`;
-
-const HorizontalTitle = styled.div`
-      display: flex;
-      width: 100%;
-      height: 3rem;
-      margin-bottom: 2vh;
-`;
-
-
-
-
 const CoursesTeacher = () => {
 
     return (
         <SidebarTemplate>
             <HeaderPathInfoContainer>
-                Courses
+                Twoje kursy
                 <StyledSeparator/>
             </HeaderPathInfoContainer>
             <ContentWrapper>
                 <MainContentSection>
-                    <HorizontalTitle>Twoje kursy</HorizontalTitle>
                     <CoursesSection>
                         <CourseContainer/>
                         <CourseContainer/>
