@@ -1,16 +1,26 @@
 import styled, {css} from 'styled-components';
 
-const Input = styled.input`
+const InputControlled = styled.input`
       display: flex;
-      margin-top: ${({marginTop}) => marginTop || '2.5rem'};
+      margin-top: ${({marginTop}) => marginTop || '0'};
       height: ${({height}) => height || '4rem'};
-      padding: 15px ${({paddingRight}) => paddingRight || '30px'} 15px ${({paddingLeft}) => paddingLeft || '30px'};
+      padding: 15px ${({paddingRight}) => paddingRight || '1rem'} 15px ${({paddingLeft}) => paddingLeft || '7rem'};
       font-size: ${({theme}) => theme.fontSize.s};
       font-weight: ${({theme}) => theme.fontWeight.regular};
       background-color: ${({theme}) => theme.app_gray_light};
       border: none;
       border-radius: 10px;
-      width: ${({width}) => width || '32rem'};
+      width: ${({width}) => width || '12rem'};
+      
+      &::-webkit-outer-spin-button,
+      &::-webkit-inner-spin-button {
+      -webkit-appearance: none;
+      margin: 0;
+      }
+      &[type=number] {
+      -moz-appearance: textfield;
+      }
+
 
       ::placeholder {
         color: ${({theme}) => theme.app_text_gray};
@@ -27,4 +37,4 @@ const Input = styled.input`
       `}
 `;
 
-export default Input;
+export default InputControlled;

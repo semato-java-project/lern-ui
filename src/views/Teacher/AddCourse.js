@@ -1,8 +1,16 @@
-import React from 'react';
+import React, {useState} from 'react';
 import SidebarTemplate from "../../templates/SidebarTemplate";
 import styled from "styled-components";
 import {HorizontalSeparator} from "../../components/atoms/Shapes/HorizontalSeparator";
 import StepsContainer from "../../components/organisms/Course/StepsContainer";
+import {ColumnWrapper} from "../../components/molecules/Wrappers/ColumnWrapper";
+import Heading from "../../components/atoms/Headings/Heading";
+import Input from "../../components/atoms/Input/Input";
+import TextArea from "../../components/atoms/Textarea/Textarea";
+import Button from "../../components/atoms/Button/Button";
+import {Link} from "react-router-dom";
+import {routes} from "../../routes";
+import {InputWithButtons} from "../../components/molecules/InputWithButtons/InputWithButtons";
 
 const HeaderPathInfoContainer = styled.div`
       display: flex;
@@ -51,7 +59,62 @@ const StepsSection = styled.section`
       flex-wrap: wrap;
 `;
 
+const AddCourseFormSection = styled.section`
+      display: flex;
+      width: 100%;
+      margin-top: 4rem;
+`;
+
+const StyledButton = styled(Button)`
+    width: 16rem;
+    min-height: 1rem;
+    height: 4rem;
+    margin: 2rem 0 0;
+    font-weight: ${({theme}) => theme.fontWeight.regular};
+    background-color: ${({theme}) => theme.app_blue_light};
+    justify-self: flex-end;
+    align-self: flex-end;
+`;
+
 const AddCourse = () => {
+
+
+    const [activeStep, setActiveStep] = useState(1);
+
+
+    const generateFormByActiveStep = (step) => {
+        switch (step) {
+            case 0 :
+                return (
+                    <ColumnWrapper>
+                        <Heading>Nazwa kursu</Heading>
+                        <Input withShadow placeholder={'Wprowadź nazwę kursu...'} marginTop={'1rem'} width={'40rem'}/>
+                        <Heading marginTop={'4rem'}>Opis kursu</Heading>
+                        <TextArea placeholder={'Wprowadź opis kursu...'} width={'100%'}/>
+                        <StyledButton onClick={() => setActiveStep(1)}>Następny krok {'>'}</StyledButton>
+                    </ColumnWrapper>
+                );
+            case 1 :
+                return (
+                    <ColumnWrapper>
+                        <Heading>Egzamin</Heading>
+                        <InputWithButtons/>
+                        <Heading>Ćwiczenia</Heading>
+                        <Heading>Laboratorium</Heading>
+                        <Heading>Projekt</Heading>
+                        <StyledButton onClick={() => setActiveStep(2)}>Następny krok {'>'}</StyledButton>
+                    </ColumnWrapper>
+                );
+            case 2 :
+                return (
+                    <ColumnWrapper>
+                        <Heading>Studenci</Heading>
+                        <StyledButton onClick={() => console.log('save!')}>Zapisz kurs {'>'}</StyledButton>
+                    </ColumnWrapper>
+                )
+        }
+    };
+
 
     return (
         <SidebarTemplate>
@@ -64,6 +127,9 @@ const AddCourse = () => {
                     <StepsSection>
                         <StepsContainer/>
                     </StepsSection>
+                    <AddCourseFormSection>
+                        {generateFormByActiveStep(activeStep)}
+                    </AddCourseFormSection>
                 </MainContentSection>
                 <SideContentSection>
                     sdfsd

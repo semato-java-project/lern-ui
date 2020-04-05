@@ -1,7 +1,6 @@
 import React from "react";
 import styled from "styled-components";
 import Heading from "../../atoms/Headings/Heading";
-import {AddPublicationImage} from "../../molecules/Images/AddPublicationImage";
 import Button from "../../atoms/Button/Button";
 import {theme} from "../../../theme/mainTheme";
 import {AddCourseImage} from "../../molecules/Images/AddCourseImage";
