@@ -13,7 +13,7 @@ const Wrapper = styled.div`
     margin-top: 1.5rem;
 `;
 
-export const StepContainer = ({stepNo, stepName, insideColor, outsideColor}) => (
+export const StepContainer = ({stepNo, stepName, insideColor = '#B2B2B2', outsideColor = '#D1D2D5'}) => (
     <Wrapper>
         <CircleIcon width={'5rem'} height={'2rem'} insideColor={insideColor} outsideColor={outsideColor}/>
         <ColumnWrapper>
