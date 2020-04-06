@@ -8,15 +8,12 @@ import add_course_icon from '../assets/MenuIcons/add-course-icon.svg'
 import news_icon from '../assets/MenuIcons/news-icon.svg'
 import publications_icon from '../assets/MenuIcons/publications-icon.svg'
 
-
 // --- ACTIVE ---
 import dashboard_icon_active from '../assets/MenuIcons/dashboard-icon-active.svg'
 import courses_icon_active from '../assets/MenuIcons/courses-icon-active.svg'
 import add_course_icon_active from '../assets/MenuIcons/add-course-icon-active.svg'
 import news_icon_active from '../assets/MenuIcons/news-icon-active.svg'
 import publications_icon_active from '../assets/MenuIcons/publications-icon-active.svg'
-
-
 
 export const MENU_ITEMS = {
 

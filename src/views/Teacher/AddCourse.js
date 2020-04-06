@@ -11,6 +11,8 @@ import Button from "../../components/atoms/Button/Button";
 import {Link} from "react-router-dom";
 import {routes} from "../../routes";
 import {InputWithButtons} from "../../components/molecules/InputWithButtons/InputWithButtons";
+import {RowWrapper} from "../../components/molecules/Wrappers/RowWrapper";
+import {INPUT_TYPES} from "../../utils/Types";
 
 const HeaderPathInfoContainer = styled.div`
       display: flex;
@@ -79,7 +81,7 @@ const StyledButton = styled(Button)`
 const AddCourse = () => {
 
 
-    const [activeStep, setActiveStep] = useState(1);
+    const [activeStep, setActiveStep] = useState(0);
 
 
     const generateFormByActiveStep = (step) => {
@@ -97,11 +99,28 @@ const AddCourse = () => {
             case 1 :
                 return (
                     <ColumnWrapper>
-                        <Heading>Egzamin</Heading>
-                        <InputWithButtons/>
-                        <Heading>Ćwiczenia</Heading>
-                        <Heading>Laboratorium</Heading>
-                        <Heading>Projekt</Heading>
+                        <Heading marginTop={'3rem'}>Egzamin</Heading>
+                        <RowWrapper>
+                            <InputWithButtons inputType={INPUT_TYPES.NUMBER}/>
+                            <InputWithButtons inputType={INPUT_TYPES.WEIGHT}/>
+                        </RowWrapper>
+                        <Heading marginTop={'3rem'}>Ćwiczenia</Heading>
+                        <RowWrapper>
+                            <InputWithButtons inputType={INPUT_TYPES.NUMBER}/>
+                            <InputWithButtons inputType={INPUT_TYPES.WEIGHT}/>
+                        </RowWrapper>
+                        <Heading marginTop={'3rem'}>Laboratorium</Heading>
+                        <RowWrapper>
+                            <InputWithButtons inputType={INPUT_TYPES.NUMBER}/>
+                            <InputWithButtons inputType={INPUT_TYPES.WEIGHT}/>
+                            <InputWithButtons inputType={INPUT_TYPES.PERSON_NUMBER} width={'13rem'} paddingLeft={'10rem'}/>
+                        </RowWrapper>
+                        <Heading marginTop={'3rem'}>Projekt</Heading>
+                        <RowWrapper>
+                            <InputWithButtons inputType={INPUT_TYPES.NUMBER}/>
+                            <InputWithButtons inputType={INPUT_TYPES.WEIGHT}/>
+                            <InputWithButtons inputType={INPUT_TYPES.PERSON_NUMBER} width={'13rem'} paddingLeft={'10rem'}/>
+                        </RowWrapper>
                         <StyledButton onClick={() => setActiveStep(2)}>Następny krok {'>'}</StyledButton>
                     </ColumnWrapper>
                 );

@@ -10,7 +10,7 @@ const InputControlled = styled.input`
       background-color: ${({theme}) => theme.app_gray_light};
       border: none;
       border-radius: 10px;
-      width: ${({width}) => width || '12rem'};
+      width: ${({width}) => width || '10rem'};
       
       &::-webkit-outer-spin-button,
       &::-webkit-inner-spin-button {

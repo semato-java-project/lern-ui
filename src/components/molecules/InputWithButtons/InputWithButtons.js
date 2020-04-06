@@ -8,7 +8,7 @@ import {MinusIcon} from "../../atoms/Icons/MinusIcon";
 
 const TypeInfo = styled(Paragraph)`
       position: absolute;
-      left: 1rem;
+      left: 1.5rem;
       top: 33%;
 `;
 
@@ -19,6 +19,7 @@ const Wrapper = styled.div`
       position:relative;
       margin-top: 1rem;
       align-items: center;
+      margin-right: 3rem;
 `;
 
 const ActionButton = styled.div`
@@ -33,14 +34,14 @@ const ActionButton = styled.div`
       cursor: pointer;
 `;
 
-export const InputWithButtons = () => {
+export const InputWithButtons = ({inputType, width,paddingLeft}) => {
 
     const [value, setValue] = useState(0);
 
     return (
         <Wrapper>
-            <TypeInfo>Liczba:</TypeInfo>
-            <InputControlled onChange={(e) => setValue(e.target.value)} withShadow type='number' value={value}/>
+            <TypeInfo>{inputType}</TypeInfo>
+            <InputControlled onChange={(e) => setValue(e.target.value)} withShadow type='number' value={value} width={width} paddingLeft={paddingLeft}/>
             <ActionButton onClick={() => value && setValue(value - 1)}><MinusIcon/></ActionButton>
             <ActionButton onClick={() => setValue(value + 1)} marginLeft={'0.5rem'} backgroundColor={theme.app_yellow}><PlusIcon/></ActionButton>
         </Wrapper>
