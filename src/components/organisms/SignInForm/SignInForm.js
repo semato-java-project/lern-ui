@@ -4,7 +4,7 @@ import Input from "../../atoms/Input/Input";
 import Button from "../../atoms/Button/Button";
 import {ErrorMessage, Form, Formik} from 'formik';
 import {routes} from "../../../routes";
-import {Redirect} from "react-router-dom";
+import {Link, Redirect} from "react-router-dom";
 import {PersonIcon} from "../../atoms/Icons/PersonIcon";
 
 const InfoParagraph = styled.h1`
@@ -127,7 +127,7 @@ const SignInForm = ({isHidden}) => (
                                 value={values.password}
                             />
                             <ErrorMessage name="password" component={StyledErrorMsg}/>
-                            <StyledButton type="submit" login>Zaloguj</StyledButton>
+                            <StyledButton type="submit" login as={Link} to={routes.TEACHER_DASHBOARD}>Zaloguj</StyledButton>
                             {false && <InfoParagraph badRequest>Podano nieprawidłowy login lub hasło.</InfoParagraph>}
                         </LoginForm>
                     </FormWrapper>

@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="27" height="27" viewBox="0 0 27 27">
+  <g id="PICOL_icon_News" transform="translate(0.066 0.066)">
+    <g id="background" transform="translate(-0.066 -0.066)">
+      <rect id="rect6" width="27" height="27" fill="none"/>
+    </g>
+    <path id="path9" d="M3.356,12.713H20.138V11.034H3.356Zm9.23,10.069h5.873V21.1H12.586Zm0-3.356h7.552V17.747H12.586Zm0-3.356h7.552V14.391H12.586Zm-9.23,6.713h7.552V14.391H3.356ZM23.494,9.356V6H0V24.459a3.287,3.287,0,0,0,3.356,3.356H24.333s2.517-.052,2.517-3.356V9.356ZM3.356,26.138a1.644,1.644,0,0,1-1.678-1.678V7.678H21.816V24.459a2.428,2.428,0,0,0,.567,1.678Z" transform="translate(0.011 -0.954)" fill="#252b69"/>
+  </g>
+</svg>
