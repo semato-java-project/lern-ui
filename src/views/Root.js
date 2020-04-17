@@ -9,6 +9,7 @@ import configureStore from "../store/configureStore";
 import HomePage from "./HomePage";
 import CoursesTeacher from "./Teacher/CoursesTeacher";
 import AddCourse from "./Teacher/AddCourse";
+import TeacherCourseDetails from "./Teacher/TeacherCourseDetails";
 
 const {store,persistor} = configureStore();
 
@@ -21,6 +22,7 @@ const Root = () => (
                 <Route exact path={routes.HOME} component={HomePage}/>
                 <Route exact path={routes.TEACHER_DASHBOARD} component={DashboardTeacher}/>
                 <Route exact path={routes.TEACHER_COURSES} component={CoursesTeacher}/>
+                <Route exact path={routes.TEACHER_COURSE_DETAILS} component={TeacherCourseDetails}/>
                 <Route exact path={routes.TEACHER_ADD_COURSE} component={AddCourse}/>
             </Switch>
         </BrowserRouter>

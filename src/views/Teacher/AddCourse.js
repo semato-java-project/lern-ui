@@ -8,11 +8,10 @@ import Heading from "../../components/atoms/Headings/Heading";
 import Input from "../../components/atoms/Input/Input";
 import TextArea from "../../components/atoms/Textarea/Textarea";
 import Button from "../../components/atoms/Button/Button";
-import {Link} from "react-router-dom";
-import {routes} from "../../routes";
 import {InputWithButtons} from "../../components/molecules/InputWithButtons/InputWithButtons";
 import {RowWrapper} from "../../components/molecules/Wrappers/RowWrapper";
 import {INPUT_TYPES} from "../../utils/Types";
+import {GroupContainer} from "../../components/molecules/Containers/GroupContainer";
 
 const HeaderPathInfoContainer = styled.div`
       display: flex;
@@ -81,7 +80,7 @@ const StyledButton = styled(Button)`
 const AddCourse = () => {
 
 
-    const [activeStep, setActiveStep] = useState(0);
+    const [activeStep, setActiveStep] = useState(2);
 
 
     const generateFormByActiveStep = (step) => {
@@ -128,6 +127,16 @@ const AddCourse = () => {
                 return (
                     <ColumnWrapper>
                         <Heading>Studenci</Heading>
+                        <GroupContainer/>
+                        <GroupContainer/>
+                        <GroupContainer/>
+                        <GroupContainer/>
+                        <GroupContainer/>
+                        <GroupContainer/>
+                        <GroupContainer/>
+                        <GroupContainer/>
+                        <GroupContainer/>
+                        <GroupContainer/>
                         <StyledButton onClick={() => console.log('save!')}>Zapisz kurs {'>'}</StyledButton>
                     </ColumnWrapper>
                 )
