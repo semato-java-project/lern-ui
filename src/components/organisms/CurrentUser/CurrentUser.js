@@ -3,6 +3,8 @@ import styled from "styled-components";
 import {UserPathShape} from "../../atoms/Shapes/UserPathSHape";
 import {PersonIcon} from "../../atoms/Icons/PersonIcon";
 import LogoutButton from "../../atoms/Button/LogoutButton";
+import {logOutUser} from "../../../actions";
+import {useDispatch} from "react-redux";
 
 const CurrentUserWrapper = styled.div`
    display: flex;
@@ -44,6 +46,7 @@ const NameWrapper = styled.div`
 `;
 
 const CurrentUser = () => {
+    const dispatch = useDispatch();
 
     return (
         <CurrentUserWrapper>
@@ -54,7 +57,7 @@ const CurrentUser = () => {
                     <span>Andrzej Piaseczny</span>
                     <p>Wykładowca</p>
                 </NameWrapper>
-                <LogoutButton>Wyloguj</LogoutButton>
+                <LogoutButton onClick={() => dispatch(logOutUser())}>Wyloguj</LogoutButton>
             </CurrentUserInfo>
         </CurrentUserWrapper>
     )

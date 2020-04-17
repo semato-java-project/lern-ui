@@ -10,6 +10,7 @@ import HomePage from "./HomePage";
 import CoursesTeacher from "./Teacher/CoursesTeacher";
 import AddCourse from "./Teacher/AddCourse";
 import TeacherCourseDetails from "./Teacher/TeacherCourseDetails";
+import PrivateRoute from "../routes/PrivateRoute";
 
 const {store,persistor} = configureStore();
 
@@ -20,10 +21,10 @@ const Root = () => (
         <BrowserRouter>
             <Switch>
                 <Route exact path={routes.HOME} component={HomePage}/>
-                <Route exact path={routes.TEACHER_DASHBOARD} component={DashboardTeacher}/>
-                <Route exact path={routes.TEACHER_COURSES} component={CoursesTeacher}/>
-                <Route exact path={routes.TEACHER_COURSE_DETAILS} component={TeacherCourseDetails}/>
-                <Route exact path={routes.TEACHER_ADD_COURSE} component={AddCourse}/>
+                <PrivateRoute exact path={routes.TEACHER_DASHBOARD} component={DashboardTeacher}/>
+                <PrivateRoute exact path={routes.TEACHER_COURSES} component={CoursesTeacher}/>
+                <PrivateRoute exact path={routes.TEACHER_COURSE_DETAILS} component={TeacherCourseDetails}/>
+                <PrivateRoute exact path={routes.TEACHER_ADD_COURSE} component={AddCourse}/>
             </Switch>
         </BrowserRouter>
     </MainTemplate>

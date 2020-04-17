@@ -2,7 +2,6 @@ import React from 'react';
 import styled from 'styled-components';
 import Menu from "../components/organisms/Menu/Menu";
 import Logo from "../components/atoms/Logo/Logo";
-import {UserPathShape} from "../components/atoms/Shapes/UserPathSHape";
 import {RightBottomSoftShape} from "../components/atoms/Shapes/RightBottomSoftShape";
 import CurrentUser from "../components/organisms/CurrentUser/CurrentUser";
 

@@ -1,18 +1,22 @@
 import React from 'react';
-import { Route, Redirect } from 'react-router-dom';
+import {Route, Redirect} from 'react-router-dom';
+import {routes} from '../routes';
+import {useSelector} from "react-redux";
+import {isTokenValid} from "../actions";
 
-import { routes } from '../routes';
-// import { isUserLogged } from '../actions';
+const PrivateRoute = ({component: Component, ...restProps}) => {
 
-const PrivateRoute = ({ component: Component, ...restProps }) => {
+    let isUserLogged = useSelector(state => state.isUserLogged);
+    //TODO: validate user role
+
     return (
         <Route
             {...restProps}
             render={props => {
-                return isUserLogged() ? (
+                return isUserLogged && isTokenValid() ? (
                     <Component {...props} />
                 ) : (
-                    <Redirect to={{ pathname: routes.login, state: { from: props.location } }} />
+                    <Redirect to={{pathname: routes.HOME, state: {from: props.location}}}/>
                 );
             }}
         />

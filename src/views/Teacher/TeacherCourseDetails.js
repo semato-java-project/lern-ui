@@ -48,14 +48,6 @@ const SideContentSection = styled.div`
       padding: 2rem 3rem 0;
 `;
 
-
-const CoursesSection = styled.section`
-      display: flex;
-      width: 100%;
-      flex-wrap: wrap;
-      justify-content: space-between;
-`;
-
 const TeacherCourseDetails = () => {
 
     return (

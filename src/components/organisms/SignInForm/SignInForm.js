@@ -4,8 +4,10 @@ import Input from "../../atoms/Input/Input";
 import Button from "../../atoms/Button/Button";
 import {ErrorMessage, Form, Formik} from 'formik';
 import {routes} from "../../../routes";
-import {Link, Redirect} from "react-router-dom";
+import {Redirect} from "react-router-dom";
 import {PersonIcon} from "../../atoms/Icons/PersonIcon";
+import {useDispatch, useSelector} from "react-redux";
+import {authenticate, isTokenValid} from "../../../actions";
 
 const InfoParagraph = styled.h1`
    margin-bottom: 5rem;
@@ -73,68 +75,76 @@ const FormWrapper = styled(Form)`
      `}
 `;
 
-const SignInForm = ({isHidden}) => (
-    <>
-        <Formik
-            initialValues={{
-                username: '',
-                password: '',
-            }}
-            validate={values => {
-                const errors = {};
+const SignInForm = ({isHidden}) => {
 
-                if (!values.username) {
-                    errors.username = 'Email jest wymagany (TODO: improve styles)';
-                }
+    const dispatch = useDispatch();
+    const authError = useSelector(state => state.authError);
+    let isUserLogged = useSelector(state => state.isUserLogged);
 
-                if (!values.password) {
-                    errors.password = 'Hasło jest wymagane (TODO: improve styles)';
-                }
+    return (
+        <>
+            <Formik
+                initialValues={{
+                    username: '',
+                    password: '',
+                }}
+                validate={values => {
+                    const errors = {};
 
-                return errors;
-            }}
-            onSubmit={values => {
-                //TODO: auth action
-            }}
-        >
-            {({values, handleChange, handleBlur}) => {
-                if (false) {
-                    return <Redirect to={routes.dashboard}/>;
-                }
+                    if (!values.username) {
+                        errors.username = 'Email jest wymagany (TODO: improve styles)';
+                    }
 
-                return (
-                    <FormWrapper isHidden={isHidden}>
-                        <PersonIcon/>
-                        <LoginForm>
-                            <InfoParagraph>Logowanie do systemu</InfoParagraph>
-                            <Input
-                                width={'80%'}
-                                name="username"
-                                type="text"
-                                placeholder="Email"
-                                onChange={handleChange}
-                                onBlur={handleBlur}
-                                value={values.username}
-                            />
-                            <ErrorMessage name="username" component={StyledErrorMsg}/>
-                            <Input
-                                width={'80%'}
-                                name="password"
-                                type="password"
-                                placeholder="Hasło"
-                                onChange={handleChange}
-                                onBlur={handleBlur}
-                                value={values.password}
-                            />
-                            <ErrorMessage name="password" component={StyledErrorMsg}/>
-                            <StyledButton type="submit" login as={Link} to={routes.TEACHER_DASHBOARD}>Zaloguj</StyledButton>
-                            {false && <InfoParagraph badRequest>Podano nieprawidłowy login lub hasło.</InfoParagraph>}
-                        </LoginForm>
-                    </FormWrapper>
-                );
-            }}
-        </Formik>
-    </>
-);
+                    if (!values.password) {
+                        errors.password = 'Hasło jest wymagane (TODO: improve styles)';
+                    }
+
+                    return errors;
+                }}
+                onSubmit={values => {
+                    dispatch(authenticate(values.username, values.password));
+                }}
+            >
+                {({values, handleChange, handleBlur}) => {
+                    if (isUserLogged && isTokenValid()) {
+                        return <Redirect to={routes.TEACHER_DASHBOARD}/>;
+                    }
+
+                    return (
+                        <FormWrapper isHidden={isHidden}>
+                            <PersonIcon/>
+                            <LoginForm>
+                                <InfoParagraph>Logowanie do systemu</InfoParagraph>
+                                <Input
+                                    width={'80%'}
+                                    name="username"
+                                    type="text"
+                                    placeholder="Email"
+                                    onChange={handleChange}
+                                    onBlur={handleBlur}
+                                    value={values.username}
+                                />
+                                <ErrorMessage name="username" component={StyledErrorMsg}/>
+                                <Input
+                                    width={'80%'}
+                                    name="password"
+                                    type="password"
+                                    placeholder="Hasło"
+                                    onChange={handleChange}
+                                    onBlur={handleBlur}
+                                    value={values.password}
+                                />
+                                <ErrorMessage name="password" component={StyledErrorMsg}/>
+                                <StyledButton type="submit" login>Zaloguj</StyledButton>
+                                {false &&
+                                <InfoParagraph badRequest>Podano nieprawidłowy login lub hasło.</InfoParagraph>}
+                            </LoginForm>
+                        </FormWrapper>
+                    );
+                }}
+            </Formik>
+        </>
+    )
+};
 
 export default SignInForm;
