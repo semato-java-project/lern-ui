@@ -80,7 +80,7 @@ const StyledButton = styled(Button)`
 const AddCourse = () => {
 
 
-    const [activeStep, setActiveStep] = useState(2);
+    const [activeStep, setActiveStep] = useState(0);
 
 
     const generateFormByActiveStep = (step) => {
