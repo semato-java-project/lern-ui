@@ -24,14 +24,39 @@ export const authenticate = (email, password) => dispatch => {
     dispatch({type: ACTION_TYPES.AUTHENTICATION_REQUEST});
 
     return axios
-        .post(`${getAPIAddress()}/auth/signin`,{
+        .post(`${getAPIAddress()}/auth/signin`, {
             email,
             password
         })
-        .then(response => logInUser(response.data))
-        .then(() => dispatch({type: ACTION_TYPES.AUTHENTICATION_SUCCESS}))
+        .then(response => {
+            dispatch({type: ACTION_TYPES.AUTHENTICATION_SUCCESS, payload: jwtDecode(response.data).userJwtInfo});
+            logInUser(response.data);
+        })
         .catch(err => {
             console.log(err);
             dispatch({type: ACTION_TYPES.AUTHENTICATION_FAILURE})
         })
+};
+
+// --- FETCH ---
+export const fetchItems = (actionType, params) => dispatch => {
+
+    return axios
+        .get(`${getAPIAddress()}/${actionType.path}/`, {
+            params: params || actionType.params,
+            headers: getHeaders(),
+        })
+        .then(({data}) => {
+
+            return dispatch({
+                type: ACTION_TYPES.FETCH_SUCCESS,
+                payload: {
+                    items: data[actionType.itemType],
+                    itemType: actionType.itemType,
+                },
+            });
+        })
+        .catch(err => {
+            console.log(err);
+        });
 };

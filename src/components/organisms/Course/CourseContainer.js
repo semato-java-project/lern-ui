@@ -5,8 +5,6 @@ import Heading from "../../atoms/Headings/Heading";
 import arrow_icon from '../../../assets/arrow_icon.svg'
 import arrow_icon_active from '../../../assets/arrow_icon_active.svg'
 
-
-
 const CourseArrowIcon = styled.div`
       height: 2.5rem;
       width: 2rem;
@@ -108,7 +106,7 @@ const CourseInfoContainer = styled.div`
 `;
 
 
-const CourseContainer = () => {
+const CourseContainer = ({course}) => {
 
     return (
         <CourseWrapper>
@@ -117,16 +115,16 @@ const CourseContainer = () => {
             </LastCourseIcon>
             <CourseContent>
                 <CourseNameContainer>
-                    <Heading>Nazwa kursu</Heading>
+                    <Heading>{course.name}</Heading>
                 </CourseNameContainer>
                 <CourseDateContainer>
-                    Utworzony: <span>27.03.2020</span>
+                    Utworzony: <span>{new Date(course.createdAt).toLocaleDateString()}</span>
                 </CourseDateContainer>
                 <CourseDateContainer>
-                    Ostatnio edytowany: <span>28.03.2020</span>
+                    Ostatnio edytowany: <span>{new Date(course.updatedAt).toLocaleDateString()} - {new Date(course.updatedAt).toLocaleTimeString()}</span>
                 </CourseDateContainer>
                 <CourseInfoContainer>
-                    Ilośc uczestników: <span>32</span>
+                    Ilośc uczestników: <span>??</span>
                 </CourseInfoContainer>
             </CourseContent>
             <CourseArrowWrapper>

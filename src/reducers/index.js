@@ -21,6 +21,7 @@ const rootReducer = (state = initialState, {type, payload}) => {
                 ...state,
                 authError: false,
                 isUserLogged: true,
+                currentUser: payload,
             };
 
         case ACTION_TYPES.AUTHENTICATION_FAILURE:
@@ -32,6 +33,14 @@ const rootReducer = (state = initialState, {type, payload}) => {
 
         case ACTION_TYPES.USER_LOGOUT:
             return initialState;
+
+
+        // --- FETCH ---
+        case ACTION_TYPES.FETCH_SUCCESS:
+            return {
+                ...state,
+                [payload.itemType]: [...payload.items],
+            };
 
         default:
             return state;

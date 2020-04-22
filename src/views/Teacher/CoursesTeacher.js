@@ -1,10 +1,13 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import SidebarTemplate from "../../templates/SidebarTemplate";
 import styled from "styled-components";
 import {HorizontalSeparator} from "../../components/atoms/Shapes/HorizontalSeparator";
 import NewsSideContainer from "../../components/organisms/News/NewsSideContainer";
 import AddCourseSideContainer from "../../components/organisms/Course/AddCourseSideContainer";
 import CourseContainer from "../../components/organisms/Course/CourseContainer";
+import {fetchItems} from "../../actions";
+import {GET_COURSES} from "../../api-config/requestTypes";
+import {useDispatch, useSelector} from "react-redux";
 
 const HeaderPathInfoContainer = styled.div`
       display: flex;
@@ -57,6 +60,11 @@ const CoursesSection = styled.section`
 
 const CoursesTeacher = () => {
 
+    const dispatch = useDispatch();
+    const courses = useSelector(state => state.courseList);
+
+    useEffect(() => {dispatch(fetchItems(GET_COURSES))}, []);
+
     return (
         <SidebarTemplate>
             <HeaderPathInfoContainer>
@@ -66,11 +74,7 @@ const CoursesTeacher = () => {
             <ContentWrapper>
                 <MainContentSection>
                     <CoursesSection>
-                        <CourseContainer/>
-                        <CourseContainer/>
-                        <CourseContainer/>
-                        <CourseContainer/>
-                        <CourseContainer/>
+                        {courses.map(course => <CourseContainer key={course.courseId} course={course}/>)}
                     </CoursesSection>
                 </MainContentSection>
                 <SideContentSection>
