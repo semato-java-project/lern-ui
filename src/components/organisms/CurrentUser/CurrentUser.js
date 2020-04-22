@@ -4,7 +4,8 @@ import {UserPathShape} from "../../atoms/Shapes/UserPathSHape";
 import {PersonIcon} from "../../atoms/Icons/PersonIcon";
 import LogoutButton from "../../atoms/Button/LogoutButton";
 import {logOutUser} from "../../../actions";
-import {useDispatch} from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
+import {USER_ROLES} from "../../../utils/userRoles";
 
 const CurrentUserWrapper = styled.div`
    display: flex;
@@ -47,6 +48,7 @@ const NameWrapper = styled.div`
 
 const CurrentUser = () => {
     const dispatch = useDispatch();
+    const currentUser = useSelector(state => state.currentUser);
 
     return (
         <CurrentUserWrapper>
@@ -54,8 +56,8 @@ const CurrentUser = () => {
             <CurrentUserInfo>
                 {PersonIcon('small')}
                 <NameWrapper>
-                    <span>Andrzej Piaseczny</span>
-                    <p>Wykładowca</p>
+                    <span>{currentUser.firstName} {currentUser.lastName}</span>
+                    <p>{USER_ROLES[currentUser.role].UI_NAME}</p>
                 </NameWrapper>
                 <LogoutButton onClick={() => dispatch(logOutUser())}>Wyloguj</LogoutButton>
             </CurrentUserInfo>

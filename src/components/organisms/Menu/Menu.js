@@ -24,13 +24,13 @@ const NavWrapper = styled.div`
 
 const getRoleBasedResources = ({role}) => {
     switch (role) {
-        case USER_ROLES.STUDENT_ROLE:
+        case USER_ROLES.STUDENT_ROLE.API_NAME:
             return (
                 <>
                     student
                 </>
             );
-        case USER_ROLES.TEACHER_ROLE:
+        case USER_ROLES.ROLE_LECTURER.API_NAME:
             return (
                 <>
                     {MENU_ITEMS.TEACHER_ITEMS.map(item => <MenuButton key={item.option} option={item.option}
@@ -50,7 +50,7 @@ const Menu = () => {
     return (
         <MenuShape>
             <NavWrapper>
-            {getRoleBasedResources({role: USER_ROLES.TEACHER_ROLE})}
+            {getRoleBasedResources({role: USER_ROLES.ROLE_LECTURER.API_NAME})}
             </NavWrapper>
         </MenuShape>
     )
