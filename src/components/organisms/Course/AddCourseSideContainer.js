@@ -4,6 +4,8 @@ import Heading from "../../atoms/Headings/Heading";
 import Button from "../../atoms/Button/Button";
 import {theme} from "../../../theme/mainTheme";
 import {AddCourseImage} from "../../molecules/Images/AddCourseImage";
+import {Link} from "react-router-dom";
+import {routes} from "../../../routes";
 
 const AddCourseSideWrapper = styled.div`
       display: flex;
@@ -63,7 +65,7 @@ const AddCourseSideContainer = () => {
                 projektowych, ćwiczeniowych oraz informacje na temat projektu. Pamiętaj, aby do stworzonego kursu
                 dołączyć materiały wykładowe!
             </AddPublicationTextWrapper>
-            <StyledButton>Dodaj kurs {'>'}</StyledButton>
+            <StyledButton as={Link} to={routes.TEACHER_ADD_COURSE}>Dodaj kurs {'>'}</StyledButton>
         </AddCourseSideWrapper>
     )
 };

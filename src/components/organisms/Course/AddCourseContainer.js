@@ -4,6 +4,8 @@ import {theme} from "../../../theme/mainTheme";
 import React from "react";
 import styled from "styled-components";
 import Button from "../../atoms/Button/Button";
+import {Link} from "react-router-dom";
+import {routes} from "../../../routes";
 
 const AddCourseSection = styled.section`
       display: flex;
@@ -67,7 +69,7 @@ const AddCourseContainer = () => {
             </AddCourseImageWrapper>
             <AddCourseContent>
                 <AddCourseTitleWrapper>
-                    <StyledButton>Dodaj kurs {'>'}</StyledButton>
+                    <StyledButton as={Link} to={routes.TEACHER_ADD_COURSE}>Dodaj kurs {'>'}</StyledButton>
                     <Heading fontSize={'2rem'}>Gotowy na nowe wyzwania?
                     </Heading>
                     <Heading fontWeight={theme.fontWeight.black} color={theme.app_blue_light}>Dodaj kurs już

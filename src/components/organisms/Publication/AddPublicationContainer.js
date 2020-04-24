@@ -3,6 +3,8 @@ import styled from "styled-components";
 import Heading from "../../atoms/Headings/Heading";
 import {AddPublicationImage} from "../../molecules/Images/AddPublicationImage";
 import Button from "../../atoms/Button/Button";
+import {Link} from "react-router-dom";
+import {routes} from "../../../routes";
 
 const StyledButton = styled(Button)`
     margin: 3rem;
@@ -66,7 +68,7 @@ const AddPublicationContainer = () => {
             <AddPublicationTextWrapper>
                 Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
             </AddPublicationTextWrapper>
-            <StyledButton>Dodaj publikację{'>'}</StyledButton>
+            <StyledButton as={Link} to={routes.TEACHER_PUBLICATIONS}>Dodaj publikację{'>'}</StyledButton>
         </AddPublicationWrapper>
     )
 };
