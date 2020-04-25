@@ -61,7 +61,7 @@ const CoursesSection = styled.section`
 const CoursesTeacher = () => {
 
     const dispatch = useDispatch();
-    const courses = useSelector(state => state.courseList || []);
+    const courses = useSelector(state => state.courses || []);
 
     useEffect(() => {dispatch(fetchItems(GET_COURSES))}, []);
 

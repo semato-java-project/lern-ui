@@ -12,4 +12,8 @@ export const ACTION_TYPES = {
 
     // --- LOGOUT ---
     USER_LOGOUT: 'USER_LOGOUT',
+
+
+    // --- COURSE ---
+    SET_COURSE_TO_ADD: 'SET_COURSE_TO_ADD',
 };

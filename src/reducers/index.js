@@ -1,4 +1,4 @@
-import {ACTION_TYPES} from "../actions/actionTypes";
+import {ACTION_TYPES} from "./actionTypes";
 
 const initialState = {
     isUserLogged: false,
@@ -40,6 +40,13 @@ const rootReducer = (state = initialState, {type, payload}) => {
             return {
                 ...state,
                 [payload.itemType]: [...payload.items],
+            };
+
+        // --- ADD COURSE ---
+        case ACTION_TYPES.SET_COURSE_TO_ADD:
+            return {
+                ...state,
+                courseToAdd: payload,
             };
 
         default:

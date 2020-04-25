@@ -1,5 +1,5 @@
 import axios from 'axios';
-import {ACTION_TYPES} from "./actionTypes";
+import {ACTION_TYPES} from "../reducers/actionTypes";
 import {getAPIAddress} from "../api-config";
 import jwtDecode from 'jwt-decode';
 
@@ -10,16 +10,15 @@ export const isTokenValid = () => getToken() && jwtDecode(getToken()).sub === 's
 export const getHeaders = () => ({Authorization: `Bearer ${getToken()}`});
 
 
-// --- AUTH ---
-export const logInUser = token => {
-    localStorage.setItem(AUTH_TOKEN, token)
-};
+// --- LOGIN / LOGOUT ---
+export const logInUser = token => localStorage.setItem(AUTH_TOKEN, token);
 
 export const logOutUser = () => dispatch => {
     localStorage.removeItem(AUTH_TOKEN);
     dispatch({type: ACTION_TYPES.USER_LOGOUT});
 };
 
+// --- AUTH ---
 export const authenticate = (email, password) => dispatch => {
     dispatch({type: ACTION_TYPES.AUTHENTICATION_REQUEST});
 
@@ -46,16 +45,13 @@ export const fetchItems = (actionType, params) => dispatch => {
             params: params || actionType.params,
             headers: getHeaders(),
         })
-        .then(({data}) => {
-
-            return dispatch({
-                type: ACTION_TYPES.FETCH_SUCCESS,
-                payload: {
-                    items: data[actionType.itemType],
-                    itemType: actionType.itemType,
-                },
-            });
-        })
+        .then(({data}) => dispatch({
+            type: ACTION_TYPES.FETCH_SUCCESS,
+            payload: {
+                items: data,
+                itemType: actionType.itemType,
+            },
+        }))
         .catch(err => {
             console.log(err);
         });

@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import SidebarTemplate from "../../templates/SidebarTemplate";
 import styled from "styled-components";
 import {HorizontalSeparator} from "../../components/atoms/Shapes/HorizontalSeparator";
@@ -12,6 +12,10 @@ import {InputWithButtons} from "../../components/molecules/InputWithButtons/Inpu
 import {RowWrapper} from "../../components/molecules/Wrappers/RowWrapper";
 import {INPUT_TYPES} from "../../utils/Types";
 import {GroupContainer} from "../../components/molecules/Containers/GroupContainer";
+import {useDispatch, useSelector} from "react-redux";
+import {ACTION_TYPES} from "../../reducers/actionTypes";
+import {fetchItems} from "../../actions";
+import {GET_COURSES, GET_GROUPS} from "../../api-config/requestTypes";
 
 const HeaderPathInfoContainer = styled.div`
       display: flex;
@@ -79,92 +83,109 @@ const StyledButton = styled(Button)`
 
 const AddCourse = () => {
 
+        const dispatch = useDispatch();
+        const [activeStep, setActiveStep] = useState(0);
+        const courseToAdd = useSelector(state => state.courseToAdd || {});
+        const groups = useSelector(state => state.groups || []);
 
-    const [activeStep, setActiveStep] = useState(0);
+        const setCourseData = (type, data) => dispatch({
+            type: ACTION_TYPES.SET_COURSE_TO_ADD,
+            payload: {...courseToAdd, [type]: data}
+        });
 
-
-    const generateFormByActiveStep = (step) => {
-        switch (step) {
-            case 0 :
-                return (
-                    <ColumnWrapper>
-                        <Heading>Nazwa kursu</Heading>
-                        <Input withShadow placeholder={'Wprowadź nazwę kursu...'} marginTop={'1rem'} width={'40rem'}/>
-                        <Heading marginTop={'4rem'}>Opis kursu</Heading>
-                        <TextArea placeholder={'Wprowadź opis kursu...'} width={'100%'}/>
-                        <StyledButton onClick={() => setActiveStep(1)}>Następny krok {'>'}</StyledButton>
-                    </ColumnWrapper>
-                );
-            case 1 :
-                return (
-                    <ColumnWrapper>
-                        <Heading marginTop={'3rem'}>Egzamin</Heading>
-                        <RowWrapper>
-                            <InputWithButtons inputType={INPUT_TYPES.NUMBER}/>
-                            <InputWithButtons inputType={INPUT_TYPES.WEIGHT}/>
-                        </RowWrapper>
-                        <Heading marginTop={'3rem'}>Ćwiczenia</Heading>
-                        <RowWrapper>
-                            <InputWithButtons inputType={INPUT_TYPES.NUMBER}/>
-                            <InputWithButtons inputType={INPUT_TYPES.WEIGHT}/>
-                        </RowWrapper>
-                        <Heading marginTop={'3rem'}>Laboratorium</Heading>
-                        <RowWrapper>
-                            <InputWithButtons inputType={INPUT_TYPES.NUMBER}/>
-                            <InputWithButtons inputType={INPUT_TYPES.WEIGHT}/>
-                            <InputWithButtons inputType={INPUT_TYPES.PERSON_NUMBER} width={'13rem'} paddingLeft={'10rem'}/>
-                        </RowWrapper>
-                        <Heading marginTop={'3rem'}>Projekt</Heading>
-                        <RowWrapper>
-                            <InputWithButtons inputType={INPUT_TYPES.NUMBER}/>
-                            <InputWithButtons inputType={INPUT_TYPES.WEIGHT}/>
-                            <InputWithButtons inputType={INPUT_TYPES.PERSON_NUMBER} width={'13rem'} paddingLeft={'10rem'}/>
-                        </RowWrapper>
-                        <StyledButton onClick={() => setActiveStep(2)}>Następny krok {'>'}</StyledButton>
-                    </ColumnWrapper>
-                );
-            case 2 :
-                return (
-                    <ColumnWrapper>
-                        <Heading>Studenci</Heading>
-                        <GroupContainer/>
-                        <GroupContainer/>
-                        <GroupContainer/>
-                        <GroupContainer/>
-                        <GroupContainer/>
-                        <GroupContainer/>
-                        <GroupContainer/>
-                        <GroupContainer/>
-                        <GroupContainer/>
-                        <GroupContainer/>
-                        <StyledButton onClick={() => console.log('save!')}>Zapisz kurs {'>'}</StyledButton>
-                    </ColumnWrapper>
-                )
-        }
-    };
+        useEffect(() => {
+            if (activeStep === 2) dispatch(fetchItems(GET_GROUPS))
+        }, [activeStep]);
 
 
-    return (
-        <SidebarTemplate>
-            <HeaderPathInfoContainer>
-                Dodaj kurs
-                <StyledSeparator/>
-            </HeaderPathInfoContainer>
-            <ContentWrapper>
-                <MainContentSection>
-                    <StepsSection>
-                        <StepsContainer/>
-                    </StepsSection>
-                    <AddCourseFormSection>
-                        {generateFormByActiveStep(activeStep)}
-                    </AddCourseFormSection>
-                </MainContentSection>
-                <SideContentSection>
-                    sdfsd
-                </SideContentSection>
-            </ContentWrapper>
-        </SidebarTemplate>
-    );
-};
+        const generateFormByActiveStep = (step) => {
+            switch (step) {
+                case 0 :
+                    return (
+                        <ColumnWrapper>
+                            <Heading>Nazwa kursu</Heading>
+                            <Input
+                                withShadow
+                                placeholder={'Wprowadź nazwę kursu...'}
+                                marginTop={'1rem'}
+                                width={'40rem'}
+                                value={courseToAdd.name}
+                                onChange={(e) => setCourseData('name', e.target.value)}
+                            />
+                            <Heading marginTop={'4rem'}>Opis kursu</Heading>
+                            <TextArea
+                                placeholder={'Wprowadź opis kursu...'}
+                                width={'100%'}
+                                value={courseToAdd.description}
+                                onChange={(e) => setCourseData('description', e.target.value)}
+                            />
+                            <StyledButton onClick={() => setActiveStep(1)}>Następny krok {'>'}</StyledButton>
+                        </ColumnWrapper>
+                    );
+                case 1 :
+                    return (
+                        <ColumnWrapper>
+                            <Heading marginTop={'3rem'}>Egzamin</Heading>
+                            <RowWrapper>
+                                <InputWithButtons inputType={INPUT_TYPES.NUMBER}/>
+                                <InputWithButtons inputType={INPUT_TYPES.WEIGHT}/>
+                            </RowWrapper>
+                            <Heading marginTop={'3rem'}>Ćwiczenia</Heading>
+                            <RowWrapper>
+                                <InputWithButtons inputType={INPUT_TYPES.NUMBER}/>
+                                <InputWithButtons inputType={INPUT_TYPES.WEIGHT}/>
+                            </RowWrapper>
+                            <Heading marginTop={'3rem'}>Laboratorium</Heading>
+                            <RowWrapper>
+                                <InputWithButtons inputType={INPUT_TYPES.NUMBER}/>
+                                <InputWithButtons inputType={INPUT_TYPES.WEIGHT}/>
+                                <InputWithButtons inputType={INPUT_TYPES.PERSON_NUMBER} width={'13rem'}
+                                                  paddingLeft={'10rem'}/>
+                            </RowWrapper>
+                            <Heading marginTop={'3rem'}>Projekt</Heading>
+                            <RowWrapper>
+                                <InputWithButtons inputType={INPUT_TYPES.NUMBER}/>
+                                <InputWithButtons inputType={INPUT_TYPES.WEIGHT}/>
+                                <InputWithButtons inputType={INPUT_TYPES.PERSON_NUMBER} width={'13rem'}
+                                                  paddingLeft={'10rem'}/>
+                            </RowWrapper>
+                            <StyledButton onClick={() => setActiveStep(2)}>Następny krok {'>'}</StyledButton>
+                        </ColumnWrapper>
+                    );
+                case 2 :
+                    return (
+                        <ColumnWrapper>
+                            <Heading>Studenci</Heading>
+                            {groups.map(group => <GroupContainer key={group.id} group={group}/>)}
+                            <StyledButton onClick={() => console.log('save!')}>Zapisz kurs {'>'}</StyledButton>
+                        </ColumnWrapper>
+                    )
+            }
+        };
+
+
+        return (
+            <SidebarTemplate>
+                <HeaderPathInfoContainer>
+                    Dodaj kurs
+                    <StyledSeparator/>
+                </HeaderPathInfoContainer>
+                <ContentWrapper>
+                    <MainContentSection>
+                        <StepsSection>
+                            <StepsContainer/>
+                        </StepsSection>
+                        <AddCourseFormSection>
+                            {generateFormByActiveStep(activeStep)}
+                        </AddCourseFormSection>
+                    </MainContentSection>
+                    <SideContentSection>
+                        sdfsd
+                    </SideContentSection>
+                </ContentWrapper>
+            </SidebarTemplate>
+        );
+    }
+;
 
 export default AddCourse;

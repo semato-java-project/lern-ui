@@ -10,6 +10,11 @@ const TypeInfo = styled(Paragraph)`
       position: absolute;
       left: 1.5rem;
       top: 33%;
+      
+      user-select: none;
+      -moz-user-select: none;
+      -webkit-user-select: none;
+      -ms-user-select: none;
 `;
 
 const Wrapper = styled.div`

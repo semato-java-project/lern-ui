@@ -1,4 +1,9 @@
 export const GET_COURSES = {
     path: 'course',
-    itemType: 'courseList',
+    itemType: 'courses',
+};
+
+export const GET_GROUPS = {
+    path: 'group',
+    itemType: 'groups',
 };

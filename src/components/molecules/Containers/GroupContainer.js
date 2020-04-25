@@ -39,11 +39,11 @@ const PeopleQuantityContainer = styled.div`
 
 
 
-export const GroupContainer = () => (
+export const GroupContainer = ({group}) => (
     <GroupWrapper>
-        <DateContainer>2016/2017</DateContainer>
-        <GroupNameContainer>Nazwa grupy</GroupNameContainer>
-        <PeopleQuantityContainer> ilość studentów: 32</PeopleQuantityContainer>
-
+        <DateContainer>{group.academicYear}</DateContainer>
+        <DateContainer>{group.faculty}</DateContainer>
+        <GroupNameContainer>{group.field}</GroupNameContainer>
+        <PeopleQuantityContainer> ilość studentów: {group.studentIds.length}</PeopleQuantityContainer>
     </GroupWrapper>
 );
