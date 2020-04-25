@@ -1,5 +1,5 @@
 import React from "react";
-import styled from "styled-components";
+import styled, {css} from "styled-components";
 
 const GroupWrapper = styled.div`
       display: flex;
@@ -15,6 +15,12 @@ const GroupWrapper = styled.div`
       width: 100%;
       box-shadow: 0 1rem 1rem 0 rgba(0, 0, 0, 0.06), 0 0.5rem 1.5rem 0 rgba(0, 0, 0, 0.05);
       cursor: pointer;
+      
+    ${({groupId, selectedGroupId}) =>
+    groupId === selectedGroupId &&
+    css`
+      background-color: ${({theme}) => theme.app_yellow};
+    `}
 `;
 
 const DateContainer = styled.div`
@@ -38,9 +44,8 @@ const PeopleQuantityContainer = styled.div`
 `;
 
 
-
-export const GroupContainer = ({group}) => (
-    <GroupWrapper>
+export const GroupContainer = ({group, selectedGroupId,setCourseData}) => (
+    <GroupWrapper groupId={group.id} selectedGroupId={selectedGroupId} onClick={() => setCourseData('groupId', group.id)}>
         <DateContainer>{group.academicYear}</DateContainer>
         <DateContainer>{group.faculty}</DateContainer>
         <GroupNameContainer>{group.field}</GroupNameContainer>

@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React, {createRef, useEffect, useMemo, useRef, useState} from 'react';
 import SidebarTemplate from "../../templates/SidebarTemplate";
 import styled from "styled-components";
 import {HorizontalSeparator} from "../../components/atoms/Shapes/HorizontalSeparator";
@@ -14,8 +14,8 @@ import {INPUT_TYPES} from "../../utils/Types";
 import {GroupContainer} from "../../components/molecules/Containers/GroupContainer";
 import {useDispatch, useSelector} from "react-redux";
 import {ACTION_TYPES} from "../../reducers/actionTypes";
-import {fetchItems} from "../../actions";
-import {GET_COURSES, GET_GROUPS} from "../../api-config/requestTypes";
+import {addItem, fetchItems} from "../../actions";
+import {ADD_COURSE, GET_GROUPS} from "../../api-config/requestTypes";
 
 const HeaderPathInfoContainer = styled.div`
       display: flex;
@@ -71,22 +71,75 @@ const AddCourseFormSection = styled.section`
 `;
 
 const StyledButton = styled(Button)`
-    width: 16rem;
-    min-height: 1rem;
-    height: 4rem;
-    margin: 2rem 0 0;
-    font-weight: ${({theme}) => theme.fontWeight.regular};
-    background-color: ${({theme}) => theme.app_blue_light};
-    justify-self: flex-end;
-    align-self: flex-end;
+     width: 16rem;
+     min-height: 1rem;
+     height: 4rem;
+     margin: 2rem 0 0;
+     font-weight: ${({theme}) => theme.fontWeight.regular};
 `;
+
+
+export const ADD_PROCESS_STEPS = {
+    SET_NAME_WITH_DESCRIPTION: 'SET_NAME_WITH_DESCRIPTION',
+    SET_DETAILS: 'SET_DETAILS',
+    SET_GROUP: 'SET_GROUP',
+};
+
+
+const TASK_TYPES = {
+    LAB: 'LAB',
+    PROJECT: 'PROJECT',
+    EXAM: 'EXAM',
+    DISCUSSIONS: 'DISCUSSIONS'
+};
 
 const AddCourse = () => {
 
         const dispatch = useDispatch();
-        const [activeStep, setActiveStep] = useState(0);
+        const [activeStep, setActiveStep] = useState(ADD_PROCESS_STEPS.SET_NAME_WITH_DESCRIPTION);
+        const [addResponse, setAddResponse] = useState({status: undefined, message: ''});
         const courseToAdd = useSelector(state => state.courseToAdd || {});
         const groups = useSelector(state => state.groups || []);
+
+
+        // --- EXAM VALUES ---
+        const [examValues, setExamValues] = useState({
+            quantity: 0,
+            markWage: 0,
+            taskType: TASK_TYPES.EXAM
+        });
+
+        // --- EXERCISES VALUES ---
+        const [discussionsValues, setDiscussionsValues] = useState({
+            quantity: 0,
+            markWage: 0,
+            taskType: TASK_TYPES.DISCUSSIONS
+        });
+
+
+        // --- EXERCISES VALUES ---
+        const [labValues, setLabValues] = useState({
+            quantity: 0,
+            markWage: 0,
+            maxGroupQuantity: 0,
+            taskType: TASK_TYPES.LAB
+        });
+
+
+        // --- EXERCISES VALUES ---
+        const [projectValues, setProjectValues] = useState({
+            quantity: 0,
+            markWage: 0,
+            maxGroupQuantity: 0,
+            taskType: TASK_TYPES.PROJECT
+        });
+
+        // --- VALUES HANDLER ---
+        const setValue = (property, value, handler, prevValues) => {
+            console.log(property, value); //TODO: remove logs
+            handler({...prevValues, [property]: value})
+        };
+
 
         const setCourseData = (type, data) => dispatch({
             type: ACTION_TYPES.SET_COURSE_TO_ADD,
@@ -94,13 +147,13 @@ const AddCourse = () => {
         });
 
         useEffect(() => {
-            if (activeStep === 2) dispatch(fetchItems(GET_GROUPS))
+            if (activeStep === ADD_PROCESS_STEPS.SET_GROUP) dispatch(fetchItems(GET_GROUPS))
         }, [activeStep]);
 
 
         const generateFormByActiveStep = (step) => {
             switch (step) {
-                case 0 :
+                case ADD_PROCESS_STEPS.SET_NAME_WITH_DESCRIPTION :
                     return (
                         <ColumnWrapper>
                             <Heading>Nazwa kursu</Heading>
@@ -119,50 +172,114 @@ const AddCourse = () => {
                                 value={courseToAdd.description}
                                 onChange={(e) => setCourseData('description', e.target.value)}
                             />
-                            <StyledButton onClick={() => setActiveStep(1)}>Następny krok {'>'}</StyledButton>
+                            <RowWrapper spaceBetween>
+                                <p></p>
+                                <StyledButton onClick={() => setActiveStep(ADD_PROCESS_STEPS.SET_DETAILS)}>Następny
+                                    krok {'>'}</StyledButton>
+                            </RowWrapper>
                         </ColumnWrapper>
                     );
-                case 1 :
+                case ADD_PROCESS_STEPS.SET_DETAILS :
                     return (
                         <ColumnWrapper>
                             <Heading marginTop={'3rem'}>Egzamin</Heading>
                             <RowWrapper>
-                                <InputWithButtons inputType={INPUT_TYPES.NUMBER}/>
-                                <InputWithButtons inputType={INPUT_TYPES.WEIGHT}/>
+                                <InputWithButtons inputType={INPUT_TYPES.NUMBER}
+                                                  value={examValues.quantity}
+                                                  setValue={(value) =>
+                                                      setValue('quantity', value, setExamValues, examValues)}
+                                />
+                                <InputWithButtons inputType={INPUT_TYPES.WEIGHT}
+                                                  value={examValues.markWage}
+                                                  setValue={(value) =>
+                                                      setValue('markWage', value, setExamValues, examValues)}
+                                />
                             </RowWrapper>
                             <Heading marginTop={'3rem'}>Ćwiczenia</Heading>
                             <RowWrapper>
-                                <InputWithButtons inputType={INPUT_TYPES.NUMBER}/>
-                                <InputWithButtons inputType={INPUT_TYPES.WEIGHT}/>
+                                <InputWithButtons inputType={INPUT_TYPES.NUMBER}
+                                                  value={discussionsValues.quantity}
+                                                  setValue={(value) =>
+                                                      setValue('quantity', value, setDiscussionsValues, discussionsValues)}
+                                />
+                                <InputWithButtons inputType={INPUT_TYPES.WEIGHT}
+                                                  value={discussionsValues.markWage}
+                                                  setValue={(value) =>
+                                                      setValue('markWage', value, setDiscussionsValues, discussionsValues)}
+                                />
                             </RowWrapper>
                             <Heading marginTop={'3rem'}>Laboratorium</Heading>
                             <RowWrapper>
-                                <InputWithButtons inputType={INPUT_TYPES.NUMBER}/>
-                                <InputWithButtons inputType={INPUT_TYPES.WEIGHT}/>
-                                <InputWithButtons inputType={INPUT_TYPES.PERSON_NUMBER} width={'13rem'}
-                                                  paddingLeft={'10rem'}/>
+                                <InputWithButtons inputType={INPUT_TYPES.NUMBER}
+                                                  value={labValues.quantity}
+                                                  setValue={(value) =>
+                                                      setValue('quantity', value, setLabValues, labValues)}
+                                />
+                                <InputWithButtons inputType={INPUT_TYPES.WEIGHT}
+                                                  value={labValues.markWage}
+                                                  setValue={(value) =>
+                                                      setValue('markWage', value, setLabValues, labValues)}
+                                />
+                                <InputWithButtons inputType={INPUT_TYPES.PERSON_NUMBER}
+                                                  value={labValues.maxGroupQuantity}
+                                                  setValue={(value) =>
+                                                      setValue('maxGroupQuantity', value, setLabValues, labValues)}
+                                                  width={'13rem'}
+                                                  paddingLeft={'10rem'}
+                                />
                             </RowWrapper>
                             <Heading marginTop={'3rem'}>Projekt</Heading>
                             <RowWrapper>
-                                <InputWithButtons inputType={INPUT_TYPES.NUMBER}/>
-                                <InputWithButtons inputType={INPUT_TYPES.WEIGHT}/>
-                                <InputWithButtons inputType={INPUT_TYPES.PERSON_NUMBER} width={'13rem'}
-                                                  paddingLeft={'10rem'}/>
+                                <InputWithButtons inputType={INPUT_TYPES.NUMBER}
+                                                  value={projectValues.quantity}
+                                                  setValue={(value) =>
+                                                      setValue('quantity', value, setProjectValues, projectValues)}
+                                />
+                                <InputWithButtons inputType={INPUT_TYPES.WEIGHT}
+                                                  value={projectValues.markWage}
+                                                  setValue={(value) =>
+                                                      setValue('markWage', value, setProjectValues, projectValues)}
+                                />
+                                <InputWithButtons inputType={INPUT_TYPES.PERSON_NUMBER}
+                                                  value={projectValues.maxGroupQuantity}
+                                                  setValue={(value) =>
+                                                      setValue('maxGroupQuantity', value, setProjectValues, projectValues)}
+                                                  width={'13rem'}
+                                                  paddingLeft={'10rem'}
+                                />
                             </RowWrapper>
-                            <StyledButton onClick={() => setActiveStep(2)}>Następny krok {'>'}</StyledButton>
+                            <RowWrapper spaceBetween>
+                                <StyledButton grayColor
+                                              onClick={() => setActiveStep(ADD_PROCESS_STEPS.SET_NAME_WITH_DESCRIPTION)}>{'<'} Wstecz</StyledButton>
+                                <StyledButton onClick={() => {
+                                    setCourseData('taskList', [examValues, discussionsValues, labValues, projectValues]);
+                                    setActiveStep(ADD_PROCESS_STEPS.SET_GROUP)
+                                }}>Następny
+                                    krok {'>'}</StyledButton>
+                            </RowWrapper>
                         </ColumnWrapper>
                     );
-                case 2 :
+                case ADD_PROCESS_STEPS.SET_GROUP :
                     return (
-                        <ColumnWrapper>
+                        <ColumnWrapper spaceBetween>
                             <Heading>Studenci</Heading>
-                            {groups.map(group => <GroupContainer key={group.id} group={group}/>)}
-                            <StyledButton onClick={() => console.log('save!')}>Zapisz kurs {'>'}</StyledButton>
+                            {groups.map(group => <GroupContainer key={group.id} group={group}
+                                                                 selectedGroupId={courseToAdd.groupId || null}
+                                                                 setCourseData={setCourseData}/>)}
+                            <RowWrapper spaceBetween>
+                                <StyledButton grayColor
+                                              onClick={() => setActiveStep(ADD_PROCESS_STEPS.SET_DETAILS)}>{'<'} Wstecz</StyledButton>
+                                <StyledButton onClick={() => {
+                                    dispatch(addItem(ADD_COURSE, courseToAdd))
+                                        .then(() => setAddResponse({status: 'success', message: 'Tworzenie kursu zakończone sukcesem.'}))
+                                        .catch(() => setAddResponse({status: 'error', message: 'Wystąpił błąd. Spróbuj ponownie później.'}))
+                                }}>Zapisz
+                                    kurs {'>'}</StyledButton>
+                            </RowWrapper>
                         </ColumnWrapper>
                     )
             }
         };
-
 
         return (
             <SidebarTemplate>
@@ -171,14 +288,20 @@ const AddCourse = () => {
                     <StyledSeparator/>
                 </HeaderPathInfoContainer>
                 <ContentWrapper>
-                    <MainContentSection>
-                        <StepsSection>
-                            <StepsContainer/>
-                        </StepsSection>
-                        <AddCourseFormSection>
-                            {generateFormByActiveStep(activeStep)}
-                        </AddCourseFormSection>
-                    </MainContentSection>
+                    {addResponse.status ?
+                        <MainContentSection>
+                            <p>{addResponse.message}</p>
+                        </MainContentSection>
+                        :
+                        <MainContentSection>
+                            <StepsSection>
+                                <StepsContainer activeStep={activeStep}/>
+                            </StepsSection>
+                            <AddCourseFormSection>
+                                {generateFormByActiveStep(activeStep)}
+                            </AddCourseFormSection>
+                        </MainContentSection>
+                    }
                     <SideContentSection>
                         sdfsd
                     </SideContentSection>

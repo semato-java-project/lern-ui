@@ -4,7 +4,7 @@ const InputControlled = styled.input`
       display: flex;
       margin-top: ${({marginTop}) => marginTop || '0'};
       height: ${({height}) => height || '4rem'};
-      padding: 15px ${({paddingRight}) => paddingRight || '1rem'} 15px ${({paddingLeft}) => paddingLeft || '7rem'};
+      padding: 15px ${({paddingRight}) => paddingRight || '1rem'} 15px ${({paddingLeft}) => paddingLeft || '6rem'};
       font-size: ${({theme}) => theme.fontSize.s};
       font-weight: ${({theme}) => theme.fontWeight.regular};
       background-color: ${({theme}) => theme.app_gray_light};

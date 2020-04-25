@@ -7,3 +7,7 @@ export const GET_GROUPS = {
     path: 'group',
     itemType: 'groups',
 };
+
+export const ADD_COURSE = {
+    path: 'course',
+};

@@ -56,3 +56,16 @@ export const fetchItems = (actionType, params) => dispatch => {
             console.log(err);
         });
 };
+
+
+// --- FETCH ---
+export const addItem = (actionType, data, params) => dispatch => {
+
+    return axios
+        .post(`${getAPIAddress()}/${actionType.path}/`, {
+            ...data
+        }, {
+            params: params || actionType.params,
+            headers: getHeaders(),
+        })
+};

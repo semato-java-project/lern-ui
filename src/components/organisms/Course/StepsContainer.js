@@ -4,6 +4,7 @@ import React from "react";
 import styled from "styled-components";
 import {StepContainer} from "../../molecules/Containers/StepContainer";
 import arrow_icon from "../../../assets/arrow_icon.svg";
+import {ADD_PROCESS_STEPS} from "../../../views/Teacher/AddCourse";
 
 const AddCourseImageWrapper = styled.div`
       display: flex;
@@ -38,26 +39,28 @@ const StepsHorizontalWrapper = styled.div`
     align-items: center;
 `;
 
-const StepsContainer = () => {
 
-    return (
-        <>
-            <AddCourseImageWrapper>
-                {AddCourseImage()}
-            </AddCourseImageWrapper>
-            <AddCourseStepsSection>
-                <Heading>Tworzenie nowego kursu</Heading>
-                <StepsHorizontalWrapper>
-                    <StepContainer stepNo={1} stepName={'Nazwa i opis'} insideColor='#3c4bad'
-                                   outsideColor='url(#linear-gradient)'/>
-                    <CourseArrowIcon/>
-                    <StepContainer stepNo={2} stepName={'Rodzaj zajęć'}/>
-                    <CourseArrowIcon/>
-                    <StepContainer stepNo={3} stepName={'Studenci'}/>
-                </StepsHorizontalWrapper>
-            </AddCourseStepsSection>
-        </>
-    )
-};
+const isStepActive = (current, active) => current === active;
+
+const StepsContainer = ({activeStep}) => (
+    <>
+        <AddCourseImageWrapper>
+            {AddCourseImage()}
+        </AddCourseImageWrapper>
+        <AddCourseStepsSection>
+            <Heading>Tworzenie nowego kursu</Heading>
+            <StepsHorizontalWrapper>
+                <StepContainer stepNo={1} stepName={'Nazwa i opis'}
+                               isStepActive={isStepActive(ADD_PROCESS_STEPS.SET_NAME_WITH_DESCRIPTION, activeStep)}/>
+                <CourseArrowIcon/>
+                <StepContainer stepNo={2} stepName={'Rodzaj zajęć'}
+                               isStepActive={isStepActive(ADD_PROCESS_STEPS.SET_DETAILS, activeStep)}/>
+                <CourseArrowIcon/>
+                <StepContainer stepNo={3} stepName={'Studenci'}
+                               isStepActive={isStepActive(ADD_PROCESS_STEPS.SET_GROUP, activeStep)}/>
+            </StepsHorizontalWrapper>
+        </AddCourseStepsSection>
+    </>
+);
 
 export default StepsContainer;

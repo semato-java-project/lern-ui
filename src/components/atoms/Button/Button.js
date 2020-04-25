@@ -1,4 +1,4 @@
-import styled from 'styled-components';
+import styled, {css} from 'styled-components';
 
 const Button = styled.button`
   padding: 0;
@@ -34,6 +34,13 @@ const Button = styled.button`
   &:focus{
       outline: none;
   }
+  
+  ${({grayColor}) =>
+    grayColor &&
+    css`
+      background-color: ${({theme}) => theme.app_gray};
+      color: ${({theme}) => theme.app_blue_dark};
+    `}
 `;
 
 export default Button;

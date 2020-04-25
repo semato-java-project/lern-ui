@@ -13,9 +13,9 @@ const Wrapper = styled.div`
     margin-top: 1.5rem;
 `;
 
-export const StepContainer = ({stepNo, stepName, insideColor = '#B2B2B2', outsideColor = '#D1D2D5'}) => (
+export const StepContainer = ({stepNo, stepName, isStepActive}) => (
     <Wrapper>
-        <CircleIcon width={'5rem'} height={'2rem'} insideColor={insideColor} outsideColor={outsideColor}/>
+        <CircleIcon width={'5rem'} height={'2rem'} insideColor={isStepActive?'#3c4bad' : '#B2B2B2'} outsideColor={isStepActive? 'url(#linear-gradient)' : '#D1D2D5'}/>
         <ColumnWrapper>
             <Paragraph>Krok {stepNo}</Paragraph>
             <Heading>{stepName}</Heading>
