@@ -11,3 +11,8 @@ export const GET_GROUPS = {
 export const ADD_COURSE = {
     path: 'course',
 };
+
+export const GET_COURSE_DETAILS = {
+    path: 'course',
+    itemType: 'courseDetails',
+};

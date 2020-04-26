@@ -78,7 +78,6 @@ const FormWrapper = styled(Form)`
 const SignInForm = ({isHidden}) => {
 
     const dispatch = useDispatch();
-    const authError = useSelector(state => state.authError);
     let isUserLogged = useSelector(state => state.isUserLogged);
 
     return (

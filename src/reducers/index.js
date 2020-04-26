@@ -42,6 +42,13 @@ const rootReducer = (state = initialState, {type, payload}) => {
                 [payload.itemType]: [...payload.items],
             };
 
+        // --- FETCH ITEM DETAILS ---
+        case ACTION_TYPES.FETCH_DETAILS_SUCCESS:
+            return {
+                ...state,
+                [payload.itemType]: payload.item,
+            };
+
         // --- ADD COURSE ---
         case ACTION_TYPES.SET_COURSE_TO_ADD:
             return {

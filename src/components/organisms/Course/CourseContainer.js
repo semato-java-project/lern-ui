@@ -4,6 +4,8 @@ import styled from "styled-components";
 import Heading from "../../atoms/Headings/Heading";
 import arrow_icon from '../../../assets/arrow_icon.svg'
 import arrow_icon_active from '../../../assets/arrow_icon_active.svg'
+import {Link} from "react-router-dom";
+import {routes} from "../../../routes";
 
 const CourseArrowIcon = styled.div`
       height: 2.5rem;
@@ -27,6 +29,7 @@ export const CourseWrapper = styled.div`
       cursor: pointer;
       margin-bottom: 4rem;
       transition: background-image .2s ease-in-out;
+      text-decoration: none;
       
       &:hover ${CourseArrowIcon}{
               background-image: url(${arrow_icon_active});
@@ -109,7 +112,7 @@ const CourseInfoContainer = styled.div`
 const CourseContainer = ({course}) => {
 
     return (
-        <CourseWrapper>
+        <CourseWrapper as={Link} to={`${routes.TEACHER_COURSES}/${course.courseId}`}>
             <LastCourseIcon>
                 {CourseIcon()}
             </LastCourseIcon>

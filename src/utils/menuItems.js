@@ -1,13 +1,11 @@
 import {routes} from "../routes";
-import React from "react";
 
-// --- NORMAL ---
+// --- DEFAULT ---
 import dashboard_icon from '../assets/MenuIcons/dashboard-icon.svg'
 import courses_icon from '../assets/MenuIcons/courses-icon.svg'
 import add_course_icon from '../assets/MenuIcons/add-course-icon.svg'
 import news_icon from '../assets/MenuIcons/news-icon.svg'
 import publications_icon from '../assets/MenuIcons/publications-icon.svg'
-
 // --- ACTIVE ---
 import dashboard_icon_active from '../assets/MenuIcons/dashboard-icon-active.svg'
 import courses_icon_active from '../assets/MenuIcons/courses-icon-active.svg'

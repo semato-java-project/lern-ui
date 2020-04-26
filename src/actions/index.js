@@ -59,6 +59,26 @@ export const fetchItems = (actionType, params) => dispatch => {
 
 
 // --- FETCH ---
+export const fetchItemDetails = (actionType, id) => dispatch => {
+
+    return axios
+        .get(`${getAPIAddress()}/${actionType.path}/${id}`, {
+            headers: getHeaders(),
+        })
+        .then(({data}) => dispatch({
+            type: ACTION_TYPES.FETCH_DETAILS_SUCCESS,
+            payload: {
+                item: data,
+                itemType: actionType.itemType,
+            },
+        }))
+        .catch(err => {
+            console.log(err);
+        });
+};
+
+
+// --- FETCH ---
 export const addItem = (actionType, data, params) => dispatch => {
 
     return axios

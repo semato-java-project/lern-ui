@@ -26,7 +26,7 @@ const AddPublicationTextWrapper = styled.div`
       width: 73%;
       align-content: center;
 `;
-const AddPublicationTitle = styled(Heading)`
+const AddPublicationTitle = styled.div`
       display:flex;
       flex-direction: column;
       position:absolute;
