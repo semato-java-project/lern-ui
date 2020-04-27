@@ -5,6 +5,9 @@ const Column = styled.div`
       display:flex;
       flex-direction: row;
       width: 100%;
+      align-items: center;
+      justify-content: ${({justifyContent}) => justifyContent || 'flex-start'};
+
   
     ${({spaceBetween}) =>
     spaceBetween &&
@@ -13,8 +16,8 @@ const Column = styled.div`
     `}
 `;
 
-export const RowWrapper = ({children,spaceBetween}) => (
-    <Column spaceBetween={spaceBetween}>
+export const RowWrapper = ({children,spaceBetween, justifyContent}) => (
+    <Column spaceBetween={spaceBetween} justifyContent={justifyContent}>
         {children}
     </Column>
 );

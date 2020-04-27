@@ -89,3 +89,15 @@ export const addItem = (actionType, data, params) => dispatch => {
             headers: getHeaders(),
         })
 };
+
+// --- EDIT ---
+export const editItem = (actionType, id, data, params ) => dispatch => {
+
+    return axios
+        .put(`${getAPIAddress()}/${actionType.path}/${id}`, {
+            ...data
+        }, {
+            params: params || actionType.params,
+            headers: getHeaders(),
+        })
+};

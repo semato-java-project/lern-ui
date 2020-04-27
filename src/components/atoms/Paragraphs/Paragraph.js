@@ -5,6 +5,7 @@ const Paragraph = styled.p`
   font-weight: ${({theme}) => theme.fontWeight.regular};
   color: ${({theme}) => theme.app_blue_dark};
   margin: ${({marginTop}) => marginTop || 0} 0 0;
+  margin-left: ${({marginLeft}) => marginLeft || 0};
 `;
 
 export default Paragraph;

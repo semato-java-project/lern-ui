@@ -5,6 +5,7 @@ const Heading = styled.h1`
       font-weight: ${({theme, fontWeight}) => fontWeight ? fontWeight : theme.fontWeight.semiBold};
       color: ${({theme, color}) => color ? color : theme.app_blue_dark};
       margin: ${({marginTop}) => marginTop || 0} 0 0;
+      margin-left: ${({marginLeft}) => marginLeft || 0};
   
       user-select: none;
       -moz-user-select: none;

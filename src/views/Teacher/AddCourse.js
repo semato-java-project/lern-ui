@@ -105,14 +105,14 @@ const AddCourse = () => {
         // --- EXAM VALUES ---
         const [examValues, setExamValues] = useState({
             quantity: 0,
-            markWage: 0,
+            markWeight: 0,
             taskType: TASK_TYPES.EXAM
         });
 
         // --- EXERCISES VALUES ---
         const [discussionsValues, setDiscussionsValues] = useState({
             quantity: 0,
-            markWage: 0,
+            markWeight: 0,
             taskType: TASK_TYPES.DISCUSSIONS
         });
 
@@ -120,7 +120,7 @@ const AddCourse = () => {
         // --- EXERCISES VALUES ---
         const [labValues, setLabValues] = useState({
             quantity: 0,
-            markWage: 0,
+            markWeight: 0,
             maxGroupQuantity: 0,
             taskType: TASK_TYPES.LAB
         });
@@ -129,7 +129,7 @@ const AddCourse = () => {
         // --- EXERCISES VALUES ---
         const [projectValues, setProjectValues] = useState({
             quantity: 0,
-            markWage: 0,
+            markWeight: 0,
             maxGroupQuantity: 0,
             taskType: TASK_TYPES.PROJECT
         });
@@ -190,9 +190,9 @@ const AddCourse = () => {
                                                       setValue('quantity', value, setExamValues, examValues)}
                                 />
                                 <InputWithButtons inputType={INPUT_TYPES.WEIGHT}
-                                                  value={examValues.markWage}
+                                                  value={examValues.markWeight}
                                                   setValue={(value) =>
-                                                      setValue('markWage', value, setExamValues, examValues)}
+                                                      setValue('markWeight', value, setExamValues, examValues)}
                                 />
                             </RowWrapper>
                             <Heading marginTop={'3rem'}>Ćwiczenia</Heading>
@@ -203,9 +203,9 @@ const AddCourse = () => {
                                                       setValue('quantity', value, setDiscussionsValues, discussionsValues)}
                                 />
                                 <InputWithButtons inputType={INPUT_TYPES.WEIGHT}
-                                                  value={discussionsValues.markWage}
+                                                  value={discussionsValues.markWeight}
                                                   setValue={(value) =>
-                                                      setValue('markWage', value, setDiscussionsValues, discussionsValues)}
+                                                      setValue('markWeight', value, setDiscussionsValues, discussionsValues)}
                                 />
                             </RowWrapper>
                             <Heading marginTop={'3rem'}>Laboratorium</Heading>
@@ -216,9 +216,9 @@ const AddCourse = () => {
                                                       setValue('quantity', value, setLabValues, labValues)}
                                 />
                                 <InputWithButtons inputType={INPUT_TYPES.WEIGHT}
-                                                  value={labValues.markWage}
+                                                  value={labValues.markWeight}
                                                   setValue={(value) =>
-                                                      setValue('markWage', value, setLabValues, labValues)}
+                                                      setValue('markWeight', value, setLabValues, labValues)}
                                 />
                                 <InputWithButtons inputType={INPUT_TYPES.PERSON_NUMBER}
                                                   value={labValues.maxGroupQuantity}
@@ -236,9 +236,9 @@ const AddCourse = () => {
                                                       setValue('quantity', value, setProjectValues, projectValues)}
                                 />
                                 <InputWithButtons inputType={INPUT_TYPES.WEIGHT}
-                                                  value={projectValues.markWage}
+                                                  value={projectValues.markWeight}
                                                   setValue={(value) =>
-                                                      setValue('markWage', value, setProjectValues, projectValues)}
+                                                      setValue('markWeight', value, setProjectValues, projectValues)}
                                 />
                                 <InputWithButtons inputType={INPUT_TYPES.PERSON_NUMBER}
                                                   value={projectValues.maxGroupQuantity}

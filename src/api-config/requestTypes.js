@@ -16,3 +16,7 @@ export const GET_COURSE_DETAILS = {
     path: 'course',
     itemType: 'courseDetails',
 };
+
+export const EDIT_GRADE = {
+    path: 'grade',
+};

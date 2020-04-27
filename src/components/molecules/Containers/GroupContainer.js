@@ -13,13 +13,20 @@ const GroupWrapper = styled.div`
       border: none;
       border-radius: 1rem;
       width: 100%;
-      box-shadow: 0 1rem 1rem 0 rgba(0, 0, 0, 0.06), 0 0.5rem 1.5rem 0 rgba(0, 0, 0, 0.05);
+      box-shadow: 0 1rem 1rem 0 rgba(0, 0, 0, 0.04), 0 0.5rem 1.5rem 0 rgba(0, 0, 0, 0.03);
       cursor: pointer;
       
     ${({groupId, selectedGroupId}) =>
     groupId === selectedGroupId &&
     css`
       background-color: ${({theme}) => theme.app_yellow};
+    `}
+    
+    ${({showOnly}) =>
+    showOnly === true &&
+    css`
+      cursor: default;
+      margin: 2rem 0;     
     `}
 `;
 
@@ -44,11 +51,11 @@ const PeopleQuantityContainer = styled.div`
 `;
 
 
-export const GroupContainer = ({group, selectedGroupId,setCourseData}) => (
-    <GroupWrapper groupId={group.id} selectedGroupId={selectedGroupId} onClick={() => setCourseData('groupId', group.id)}>
+export const GroupContainer = ({group, selectedGroupId,setCourseData, showOnly = false}) => (
+    <GroupWrapper showOnly={showOnly} groupId={group.id} selectedGroupId={selectedGroupId} onClick={() => !showOnly && setCourseData('groupId', group.id)}>
         <DateContainer>{group.academicYear}</DateContainer>
         <DateContainer>{group.faculty}</DateContainer>
         <GroupNameContainer>{group.field}</GroupNameContainer>
-        <PeopleQuantityContainer> ilość studentów: {group.studentIds.length}</PeopleQuantityContainer>
+        <PeopleQuantityContainer> ilość studentów: {group.studentQuantity}</PeopleQuantityContainer>
     </GroupWrapper>
 );
