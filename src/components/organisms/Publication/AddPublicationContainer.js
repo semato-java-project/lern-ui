@@ -68,7 +68,7 @@ const AddPublicationContainer = () => {
             <AddPublicationTextWrapper>
                 Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
             </AddPublicationTextWrapper>
-            <StyledButton as={Link} to={routes.TEACHER_PUBLICATIONS}>Dodaj publikację{'>'}</StyledButton>
+            <StyledButton as={Link} to={routes.PUBLICATIONS}>Dodaj publikację{'>'}</StyledButton>
         </AddPublicationWrapper>
     )
 };

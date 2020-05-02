@@ -30,6 +30,7 @@ export const authenticate = (email, password) => dispatch => {
         .then(response => {
             dispatch({type: ACTION_TYPES.AUTHENTICATION_SUCCESS, payload: jwtDecode(response.data).userJwtInfo});
             logInUser(response.data);
+            return jwtDecode(response.data).userJwtInfo.role
         })
         .catch(err => {
             console.log(err);

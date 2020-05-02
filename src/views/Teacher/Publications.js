@@ -65,7 +65,7 @@ const AddNewsContainer = styled.div`
       font-size: ${({theme}) => theme.fontSize.l};
 `;
 
-const News = () => {
+const Publications = () => {
 
     const dispatch = useDispatch();
     const publications = useSelector(state => state.publications || []);
@@ -87,7 +87,7 @@ const News = () => {
     return (
         <SidebarTemplate>
             <HeaderPathInfoContainer>
-                Aktualności
+                Publikacje
                 <StyledSeparator/>
             </HeaderPathInfoContainer>
             <ContentWrapper>
@@ -140,4 +140,4 @@ const News = () => {
     );
 };
 
-export default News;
+export default Publications;

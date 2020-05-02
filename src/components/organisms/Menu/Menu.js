@@ -3,6 +3,7 @@ import styled from "styled-components";
 import {USER_ROLES} from "../../../utils/userRoles";
 import {MENU_ITEMS} from "../../../utils/menuItems";
 import MenuButton from "../../atoms/Button/MenuButton";
+import {useSelector} from "react-redux";
 
 const MenuShape = styled.div`
    display: flex;
@@ -22,12 +23,15 @@ const NavWrapper = styled.div`
    margin-top: 24rem;
 `;
 
-const getRoleBasedResources = ({role}) => {
+const getRoleBasedResources = (role) => {
     switch (role) {
-        case USER_ROLES.STUDENT_ROLE.API_NAME:
+        case USER_ROLES.ROLE_STUDENT.API_NAME:
             return (
                 <>
-                    student
+                    {MENU_ITEMS.STUDENT_ITEMS.map(item => <MenuButton key={item.option} option={item.option}
+                                                                      route={item.route}
+                                                                      path={item.icon}
+                                                                      icon_active={item.icon_active}/>)}
                 </>
             );
         case USER_ROLES.ROLE_LECTURER.API_NAME:
@@ -44,13 +48,14 @@ const getRoleBasedResources = ({role}) => {
     }
 };
 
-//TODO: add currentUser to get resources
 const Menu = () => {
+
+    const role = useSelector(state => state.currentUser.role);
 
     return (
         <MenuShape>
             <NavWrapper>
-            {getRoleBasedResources({role: USER_ROLES.ROLE_LECTURER.API_NAME})}
+                {getRoleBasedResources(role)}
             </NavWrapper>
         </MenuShape>
     )

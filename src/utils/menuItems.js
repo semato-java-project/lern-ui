@@ -18,31 +18,51 @@ export const MENU_ITEMS = {
     TEACHER_ITEMS: [
         {
             option: 'Dashboard',
-            route: routes.TEACHER_DASHBOARD,
+            route: routes.ROLE_LECTURER.DASHBOARD,
             icon: dashboard_icon,
             icon_active: dashboard_icon_active
         },
         {
             option: 'Twoje kursy',
-            route: routes.TEACHER_COURSES,
+            route: routes.ROLE_LECTURER.COURSES,
             icon: courses_icon,
             icon_active: courses_icon_active
         },
         {
             option: 'Dodaj kurs',
-            route: routes.TEACHER_ADD_COURSE,
+            route: routes.ROLE_LECTURER.ADD_COURSE,
             icon: add_course_icon,
             icon_active: add_course_icon_active
         },
         {
             option: 'Aktualności',
-            route: routes.TEACHER_NEWS,
+            route: routes.ROLE_LECTURER.NEWS,
             icon: news_icon,
             icon_active: news_icon_active
         },
         {
             option: 'Publikacje',
-            route: routes.TEACHER_PUBLICATIONS,
+            route: routes.ROLE_LECTURER.PUBLICATIONS,
+            icon: publications_icon,
+            icon_active: publications_icon_active,
+        }
+    ],
+    STUDENT_ITEMS: [
+        {
+            option: 'Twoje kursy',
+            route: routes.ROLE_STUDENT.COURSES,
+            icon: courses_icon,
+            icon_active: courses_icon_active
+        },
+        {
+            option: 'Aktualności',
+            route: routes.ROLE_STUDENT.NEWS,
+            icon: news_icon,
+            icon_active: news_icon_active
+        },
+        {
+            option: 'Publikacje',
+            route: routes.ROLE_STUDENT.PUBLICATIONS,
             icon: publications_icon,
             icon_active: publications_icon_active,
         }

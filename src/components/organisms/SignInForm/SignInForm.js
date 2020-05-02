@@ -4,10 +4,11 @@ import Input from "../../atoms/Input/Input";
 import Button from "../../atoms/Button/Button";
 import {ErrorMessage, Form, Formik} from 'formik';
 import {routes} from "../../../routes";
-import {Redirect} from "react-router-dom";
+import {Redirect, useHistory} from "react-router-dom";
 import {PersonIcon} from "../../atoms/Icons/PersonIcon";
 import {useDispatch, useSelector} from "react-redux";
 import {authenticate, isTokenValid} from "../../../actions";
+import {USER_ROLES} from "../../../utils/userRoles";
 
 const InfoParagraph = styled.h1`
    margin-bottom: 5rem;
@@ -78,7 +79,16 @@ const FormWrapper = styled(Form)`
 const SignInForm = ({isHidden}) => {
 
     const dispatch = useDispatch();
-    let isUserLogged = useSelector(state => state.isUserLogged);
+    const history = useHistory();
+
+    const getRedirectPath = (role) => {
+        switch (role) {
+            case USER_ROLES.ROLE_LECTURER.API_NAME:
+                return routes.ROLE_LECTURER.DASHBOARD;
+            case USER_ROLES.ROLE_STUDENT.API_NAME:
+                return routes.ROLE_STUDENT.COURSES;
+        }
+    };
 
     return (
         <>
@@ -101,14 +111,11 @@ const SignInForm = ({isHidden}) => {
                     return errors;
                 }}
                 onSubmit={values => {
-                    dispatch(authenticate(values.username, values.password));
+                    dispatch(authenticate(values.username, values.password))
+                        .then(role => history.replace(`${getRedirectPath(role)}`));
                 }}
             >
                 {({values, handleChange, handleBlur}) => {
-                    if (isUserLogged && isTokenValid()) {
-                        return <Redirect to={routes.TEACHER_DASHBOARD}/>;
-                    }
-
                     return (
                         <FormWrapper isHidden={isHidden}>
                             <PersonIcon/>

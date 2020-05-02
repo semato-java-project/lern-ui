@@ -4,7 +4,7 @@ import styled from "styled-components";
 import Heading from "../../atoms/Headings/Heading";
 import arrow_icon from '../../../assets/arrow_icon.svg'
 import arrow_icon_active from '../../../assets/arrow_icon_active.svg'
-import {Link} from "react-router-dom";
+import {Link, useRouteMatch} from "react-router-dom";
 import {routes} from "../../../routes";
 
 const CourseArrowIcon = styled.div`
@@ -111,8 +111,10 @@ const CourseInfoContainer = styled.div`
 
 const CourseContainer = ({course}) => {
 
+    let match = useRouteMatch();
+
     return (
-        <CourseWrapper as={Link} to={`${routes.TEACHER_COURSES}/${course.courseId}`}>
+        <CourseWrapper as={Link} to={`${match.url}/${course.courseId}`}>
             <LastCourseIcon>
                 {CourseIcon()}
             </LastCourseIcon>

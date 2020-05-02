@@ -58,7 +58,7 @@ const CoursesSection = styled.section`
       justify-content: space-between;
 `;
 
-const CoursesTeacher = () => {
+const Courses = () => {
 
     const dispatch = useDispatch();
     const courses = useSelector(state => state.courses || []);
@@ -86,4 +86,4 @@ const CoursesTeacher = () => {
     );
 };
 
-export default CoursesTeacher;
+export default Courses;

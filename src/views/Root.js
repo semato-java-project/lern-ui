@@ -7,12 +7,13 @@ import {Provider} from 'react-redux';
 import {PersistGate} from 'redux-persist/integration/react'
 import configureStore from "../store/configureStore";
 import HomePage from "./HomePage";
-import CoursesTeacher from "./Teacher/CoursesTeacher";
+import Courses from "./Teacher/Courses";
 import AddCourse from "./Teacher/AddCourse";
 import TeacherCourseDetails from "./Teacher/TeacherCourseDetails";
 import PrivateRoute from "../routes/PrivateRoute";
 import News from "./Teacher/News";
 import Publications from "./Teacher/Publications";
+import {USER_ROLES} from "../utils/userRoles";
 
 const {store,persistor} = configureStore();
 
@@ -22,13 +23,14 @@ const Root = () => (
     <MainTemplate>
         <BrowserRouter>
             <Switch>
-                <Route exact path={routes.HOME} component={HomePage}/>
-                <PrivateRoute exact path={routes.TEACHER_DASHBOARD} component={DashboardTeacher}/>
-                <PrivateRoute exact path={routes.TEACHER_COURSES} component={CoursesTeacher}/>
-                <PrivateRoute exact path={routes.TEACHER_COURSE_DETAILS} component={TeacherCourseDetails}/>
-                <PrivateRoute exact path={routes.TEACHER_ADD_COURSE} component={AddCourse}/>
-                <PrivateRoute exact path={routes.TEACHER_NEWS} component={News}/>
-                <PrivateRoute exact path={routes.TEACHER_PUBLICATIONS} component={Publications}/>
+                <Route exact path={routes.PUBLIC.HOME} component={HomePage}/>
+                <PrivateRoute exact acceptedRoles={[USER_ROLES.ROLE_LECTURER.API_NAME]} path={routes.ROLE_LECTURER.DASHBOARD} component={DashboardTeacher}/>
+                <PrivateRoute exact acceptedRoles={[USER_ROLES.ROLE_LECTURER.API_NAME]} path={routes.ROLE_LECTURER.COURSES} component={Courses}/>
+                <PrivateRoute exact acceptedRoles={[USER_ROLES.ROLE_LECTURER.API_NAME, USER_ROLES.ROLE_STUDENT.API_NAME]} path={routes.ROLE_STUDENT.COURSES} component={Courses}/>
+                <PrivateRoute exact acceptedRoles={[USER_ROLES.ROLE_LECTURER.API_NAME]} path={routes.ROLE_LECTURER.COURSE_DETAILS} component={TeacherCourseDetails}/>
+                <PrivateRoute exact acceptedRoles={[USER_ROLES.ROLE_LECTURER.API_NAME]} path={routes.ROLE_LECTURER.ADD_COURSE} component={AddCourse}/>
+                <PrivateRoute exact acceptedRoles={[USER_ROLES.ROLE_LECTURER.API_NAME, USER_ROLES.ROLE_STUDENT.API_NAME]} path={routes.ROLE_STUDENT.NEWS} component={News}/>
+                <PrivateRoute exact acceptedRoles={[USER_ROLES.ROLE_LECTURER.API_NAME, USER_ROLES.ROLE_STUDENT.API_NAME]} path={routes.ROLE_STUDENT.PUBLICATIONS} component={Publications}/>
             </Switch>
         </BrowserRouter>
     </MainTemplate>

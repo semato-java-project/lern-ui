@@ -1,6 +1,6 @@
 export const USER_ROLES = {
-    STUDENT_ROLE: {
-        API_NAME: 'STUDENT_ROLE',
+    ROLE_STUDENT: {
+        API_NAME: 'ROLE_STUDENT',
         UI_NAME: 'Uczeń'
     },
     ROLE_LECTURER: {
