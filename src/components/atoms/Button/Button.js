@@ -5,7 +5,8 @@ const Button = styled.button`
   margin-top: 4rem;
   background-color: ${({theme}) => theme.app_blue_dark};
   width: ${({width}) => width || '220px'};
-  min-height: 47px;
+  height: 4rem;
+  min-height: 4rem;
   border: none;
   border-radius: 3rem;
   font-weight: ${({theme}) => theme.fontWeight.bold};

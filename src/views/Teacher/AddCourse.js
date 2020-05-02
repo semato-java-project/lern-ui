@@ -172,7 +172,7 @@ const AddCourse = () => {
                                 value={courseToAdd.description}
                                 onChange={(e) => setCourseData('description', e.target.value)}
                             />
-                            <RowWrapper spaceBetween>
+                            <RowWrapper justifyContent={'space-between'}>
                                 <p></p>
                                 <StyledButton onClick={() => setActiveStep(ADD_PROCESS_STEPS.SET_DETAILS)}>Następny
                                     krok {'>'}</StyledButton>
@@ -248,7 +248,7 @@ const AddCourse = () => {
                                                   paddingLeft={'10rem'}
                                 />
                             </RowWrapper>
-                            <RowWrapper spaceBetween>
+                            <RowWrapper justifyContent={'space-between'}>
                                 <StyledButton grayColor
                                               onClick={() => setActiveStep(ADD_PROCESS_STEPS.SET_NAME_WITH_DESCRIPTION)}>{'<'} Wstecz</StyledButton>
                                 <StyledButton onClick={() => {
@@ -266,15 +266,14 @@ const AddCourse = () => {
                             {groups.map(group => <GroupContainer key={group.id} group={group}
                                                                  selectedGroupId={courseToAdd.groupId || null}
                                                                  setCourseData={setCourseData}/>)}
-                            <RowWrapper spaceBetween>
+                            <RowWrapper justifyContent={'space-between'}>
                                 <StyledButton grayColor
                                               onClick={() => setActiveStep(ADD_PROCESS_STEPS.SET_DETAILS)}>{'<'} Wstecz</StyledButton>
                                 <StyledButton onClick={() => {
                                     dispatch(addItem(ADD_COURSE, courseToAdd))
                                         .then(() => setAddResponse({status: 'success', message: 'Tworzenie kursu zakończone sukcesem.'}))
                                         .catch(() => setAddResponse({status: 'error', message: 'Wystąpił błąd. Spróbuj ponownie później.'}))
-                                }}>Zapisz
-                                    kurs {'>'}</StyledButton>
+                                }}>Zapisz kurs {'>'}</StyledButton>
                             </RowWrapper>
                         </ColumnWrapper>
                     )

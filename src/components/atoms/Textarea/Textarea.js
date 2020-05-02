@@ -5,7 +5,7 @@ const TextArea = styled.textarea`
   margin-top: ${({marginTop}) => marginTop || '1.5rem'};
   height: ${({height}) => height || '30rem'};
   padding: 15px 30px;
-  font-size: ${({theme}) => theme.fontSize.s};
+  font-size: ${({theme}) => theme.fontSize.l};
   font-weight: ${({theme}) => theme.fontWeight.regular};
   background-color: ${({theme}) => theme.app_background};
   border: none;

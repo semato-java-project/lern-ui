@@ -78,7 +78,7 @@ export const fetchItemDetails = (actionType, id) => dispatch => {
 };
 
 
-// --- FETCH ---
+// --- FETCH DATA---
 export const addItem = (actionType, data, params) => dispatch => {
 
     return axios
@@ -90,7 +90,7 @@ export const addItem = (actionType, data, params) => dispatch => {
         })
 };
 
-// --- EDIT ---
+// --- EDIT DATA---
 export const editItem = (actionType, id, data, params ) => dispatch => {
 
     return axios

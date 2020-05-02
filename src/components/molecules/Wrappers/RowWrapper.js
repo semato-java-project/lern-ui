@@ -7,13 +7,6 @@ const Column = styled.div`
       width: 100%;
       align-items: center;
       justify-content: ${({justifyContent}) => justifyContent || 'flex-start'};
-
-  
-    ${({spaceBetween}) =>
-    spaceBetween &&
-    css`
-      justify-content: space-between;
-    `}
 `;
 
 export const RowWrapper = ({children,spaceBetween, justifyContent}) => (
