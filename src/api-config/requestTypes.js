@@ -33,6 +33,10 @@ export const ADD_NEWS = {
     path: 'news',
 };
 
+export const ADD_PUBLICATION = {
+    path: 'publication',
+};
+
 
 // --- PUT ---
 export const EDIT_GRADE = {

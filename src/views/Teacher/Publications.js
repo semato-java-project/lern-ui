@@ -5,8 +5,8 @@ import {HorizontalSeparator} from "../../components/atoms/Shapes/HorizontalSepar
 import NewsSideContainer from "../../components/organisms/News/NewsSideContainer";
 import AddCourseSideContainer from "../../components/organisms/Course/AddCourseSideContainer";
 import {useDispatch, useSelector} from "react-redux";
-import {fetchItems} from "../../actions";
-import {GET_PUBLICATIONS} from "../../api-config/requestTypes";
+import {addItem, fetchItems} from "../../actions";
+import {ADD_NEWS, ADD_PUBLICATION, GET_NEWS, GET_PUBLICATIONS} from "../../api-config/requestTypes";
 import {USER_ROLES} from "../../utils/userRoles";
 import {RowWrapper} from "../../components/molecules/Wrappers/RowWrapper";
 import Button from "../../components/atoms/Button/Button";
@@ -79,10 +79,11 @@ const Publications = () => {
 
     const isUserLecturer = () => currentUser.role === USER_ROLES.ROLE_LECTURER.API_NAME;
 
-    // const saveNewsTrigger= () => {
-    //     //TODO: change action type to addItem after API improvements
-    //     dispatch(editItem(ADD_NEWS, newsToAdd))
-    // };
+    const savePublicationsTrigger= () => {
+        dispatch(addItem(ADD_PUBLICATION, publicationToAdd))
+            .then(() => dispatch(fetchItems(GET_PUBLICATIONS)))
+            .then(() => setShowAddForm(false))
+    };
 
     return (
         <SidebarTemplate>
@@ -114,8 +115,7 @@ const Publications = () => {
                             <RowWrapper justifyContent={'space-between'}>
                                 <Button width={'16rem'} grayColor onClick={() => setShowAddForm(false)}>{'<'} Anuluj</Button>
                                 <Button width={'16rem'} onClick={() => {
-                                    // saveNewsTrigger();
-                                    setShowAddForm(false);
+                                    savePublicationsTrigger();
                                 }}>Zapisz {'>'}</Button>
                             </RowWrapper>
                         </ColumnWrapper>

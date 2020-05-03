@@ -37,18 +37,30 @@ const ContentContainer = styled.div`
       margin: 0 0 3rem 8rem;
 `;
 
+const DateContainer = styled.div`
+      display: flex;
+      margin-left: 5rem;
+      span{
+        font-weight: ${({theme}) => theme.fontWeight.bold};
+              color: ${({theme}) => theme.app_blue_light_text};
+        margin-right: 0.5rem;
+      }
+`;
 
-const NewsContainer = ({news})=> (
+
+const NewsContainer = ({news}) => (
     <NewsWrapper>
         <RowWrapper>
             <InfoIcon/>
             <TitleContainer>{news.title}</TitleContainer>
         </RowWrapper>
-            <ContentContainer>{news.description}</ContentContainer>
-            <RowWrapper justifyContent={'space-between'}>
-                <span>{new Date(news.createdAt).toLocaleDateString()}</span>
-                <span>{news.lecturerId}</span>
-            </RowWrapper>
+        <ContentContainer>{news.description}</ContentContainer>
+        <RowWrapper justifyContent={'space-between'}>
+            <DateContainer>
+                <span>{new Date(news.createdAt).toLocaleDateString()}</span>{new Date(news.createdAt).toLocaleTimeString()}
+            </DateContainer>
+            <span>{news.lecturerFirstName} {news.lecturerLastName}</span>
+        </RowWrapper>
     </NewsWrapper>
 );
 
