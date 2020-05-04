@@ -14,6 +14,7 @@ import PrivateRoute from "../routes/PrivateRoute";
 import News from "./Teacher/News";
 import Publications from "./Teacher/Publications";
 import {USER_ROLES} from "../utils/userRoles";
+import StudentCourseDetails from "./Student/StudentCourseDetails";
 
 const {store,persistor} = configureStore();
 
@@ -28,6 +29,7 @@ const Root = () => (
                 <PrivateRoute exact acceptedRoles={[USER_ROLES.ROLE_LECTURER.API_NAME]} path={routes.ROLE_LECTURER.COURSES} component={Courses}/>
                 <PrivateRoute exact acceptedRoles={[USER_ROLES.ROLE_LECTURER.API_NAME, USER_ROLES.ROLE_STUDENT.API_NAME]} path={routes.ROLE_STUDENT.COURSES} component={Courses}/>
                 <PrivateRoute exact acceptedRoles={[USER_ROLES.ROLE_LECTURER.API_NAME]} path={routes.ROLE_LECTURER.COURSE_DETAILS} component={TeacherCourseDetails}/>
+                <PrivateRoute exact acceptedRoles={[USER_ROLES.ROLE_STUDENT.API_NAME]} path={routes.ROLE_STUDENT.COURSE_DETAILS} component={StudentCourseDetails}/>
                 <PrivateRoute exact acceptedRoles={[USER_ROLES.ROLE_LECTURER.API_NAME]} path={routes.ROLE_LECTURER.ADD_COURSE} component={AddCourse}/>
                 <PrivateRoute exact acceptedRoles={[USER_ROLES.ROLE_LECTURER.API_NAME, USER_ROLES.ROLE_STUDENT.API_NAME]} path={routes.ROLE_STUDENT.NEWS} component={News}/>
                 <PrivateRoute exact acceptedRoles={[USER_ROLES.ROLE_LECTURER.API_NAME, USER_ROLES.ROLE_STUDENT.API_NAME]} path={routes.ROLE_STUDENT.PUBLICATIONS} component={Publications}/>

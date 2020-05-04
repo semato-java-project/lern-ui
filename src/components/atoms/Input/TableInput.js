@@ -1,8 +1,8 @@
 import styled, {css} from 'styled-components';
 import React, {useRef, useState} from "react";
 import {useDispatch} from "react-redux";
-import {editItem, fetchItemDetails} from "../../../actions";
-import {EDIT_GRADE, GET_COURSE_DETAILS} from "../../../api-config/requestTypes";
+import {editItem} from "../../../actions";
+import {EDIT_GRADE} from "../../../api-config/requestTypes";
 
 const Input = styled.input`
       display: flex;

@@ -6,6 +6,8 @@ import {theme} from "../../../theme/mainTheme";
 import {AddCourseImage} from "../../molecules/Images/AddCourseImage";
 import {Link} from "react-router-dom";
 import {routes} from "../../../routes";
+import {useSelector} from "react-redux";
+import {USER_ROLES} from "../../../utils/userRoles";
 
 const AddCourseSideWrapper = styled.div`
       display: flex;
@@ -49,23 +51,31 @@ const StyledButton = styled(Button)`
 
 const AddCourseSideContainer = () => {
 
+    const role = useSelector(state => state.currentUser.role);
+
     return (
         <AddCourseSideWrapper>
-            <AddCourseSideImageWrapper>
-                {AddCourseImage()}
-            </AddCourseSideImageWrapper>
-            <AddPublicationTitle>
-                <Heading fontSize={'2rem'}>Gotowy na nowe wyzwania?
-                </Heading>
-                <Heading fontWeight={theme.fontWeight.black} color={theme.app_blue_light}>Dodaj kurs już
-                    teraz!</Heading>
-            </AddPublicationTitle>
-            <AddPublicationTextWrapper>
-                W celu dodania nowego kursu, należy nadać mu nazwę, a także uzupełnić liczbę zajęć laboratoryjnych,
-                projektowych, ćwiczeniowych oraz informacje na temat projektu. Pamiętaj, aby do stworzonego kursu
-                dołączyć materiały wykładowe!
-            </AddPublicationTextWrapper>
-            <StyledButton as={Link} to={routes.TEACHER_ADD_COURSE}>Dodaj kurs {'>'}</StyledButton>
+            {role === USER_ROLES.ROLE_LECTURER ?
+                <>
+                    <AddCourseSideImageWrapper>
+                        {AddCourseImage()}
+                    </AddCourseSideImageWrapper>
+                    <AddPublicationTitle>
+                        <Heading fontSize={'2rem'}>Gotowy na nowe wyzwania?
+                        </Heading>
+                        <Heading fontWeight={theme.fontWeight.black} color={theme.app_blue_light}>Dodaj kurs już
+                            teraz!</Heading>
+                    </AddPublicationTitle>
+                    <AddPublicationTextWrapper>
+                        W celu dodania nowego kursu, należy nadać mu nazwę, a także uzupełnić liczbę zajęć
+                        laboratoryjnych,
+                        projektowych, ćwiczeniowych oraz informacje na temat projektu. Pamiętaj, aby do stworzonego
+                        kursu
+                        dołączyć materiały wykładowe!
+                    </AddPublicationTextWrapper>
+                    <StyledButton as={Link} to={routes.TEACHER_ADD_COURSE}>Dodaj kurs {'>'}</StyledButton>
+                </> : null
+            }
         </AddCourseSideWrapper>
     )
 };
