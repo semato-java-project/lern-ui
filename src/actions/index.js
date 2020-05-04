@@ -32,10 +32,7 @@ export const authenticate = (email, password) => dispatch => {
             logInUser(response.data);
             return jwtDecode(response.data).userJwtInfo.role
         })
-        .catch(err => {
-            console.log(err);
-            dispatch({type: ACTION_TYPES.AUTHENTICATION_FAILURE})
-        })
+    // --- CATCH IMPLEMENTED INSIDE SIGNINFORM ---
 };
 
 // --- FETCH ---
@@ -92,7 +89,7 @@ export const addItem = (actionType, data, params) => dispatch => {
 };
 
 // --- EDIT DATA---
-export const editItem = (actionType, id, data, params ) => dispatch => {
+export const editItem = (actionType, id, data, params) => dispatch => {
 
     return axios
         .put(`${getAPIAddress()}/${actionType.path}/${id}`, {

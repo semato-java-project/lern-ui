@@ -9,6 +9,7 @@ import {PersonIcon} from "../../atoms/Icons/PersonIcon";
 import {useDispatch, useSelector} from "react-redux";
 import {authenticate, isTokenValid} from "../../../actions";
 import {USER_ROLES} from "../../../utils/userRoles";
+import {ACTION_TYPES} from "../../../reducers/actionTypes";
 
 const InfoParagraph = styled.h1`
    margin-bottom: 5rem;
@@ -24,6 +25,7 @@ const InfoParagraph = styled.h1`
     css`
        margin-bottom: 0;
        margin-top: 2rem;
+       color: #DE242B;
     `}
 `;
 
@@ -35,8 +37,6 @@ const LoginForm = styled.div`
    background-color: white; 
    border-radius: 20px;
    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 30px 0 rgba(0, 0, 0, 0.19);
-   //justify-content: center;
-   //justify-items:center; 
    align-items: center;
    z-index: 1;
 `;
@@ -45,19 +45,15 @@ const StyledErrorMsg = styled.div`
   margin: 10px 0 0;
   font-weight: ${({theme}) => theme.fontWeight.regular};
   font-size: ${({theme}) => theme.fontSize.s};
-  color: red;
+  color: #DE242B;
   text-align: center;
 `;
 
 
 const StyledButton = styled(Button)`
-    //opacity: 0;
-    //transition: top 0.4s  ease-in-out;
     position: absolute;
     top: 100%;
-    //z-index: 0 !important;
     // TODO: HANDLE SLIDE ANIMAITON
-  
 `;
 
 
@@ -80,6 +76,7 @@ const SignInForm = ({isHidden}) => {
 
     const dispatch = useDispatch();
     const history = useHistory();
+    const authError = useSelector(state => state.authError);
 
     const getRedirectPath = (role) => {
         switch (role) {
@@ -101,18 +98,24 @@ const SignInForm = ({isHidden}) => {
                     const errors = {};
 
                     if (!values.username) {
-                        errors.username = 'Email jest wymagany (TODO: improve styles)';
+                        errors.username = 'Email jest wymagany)';
                     }
 
                     if (!values.password) {
-                        errors.password = 'Hasło jest wymagane (TODO: improve styles)';
+                        errors.password = 'Hasło jest wymagane';
                     }
 
                     return errors;
                 }}
                 onSubmit={values => {
                     dispatch(authenticate(values.username, values.password))
-                        .then(role => history.replace(`${getRedirectPath(role)}`));
+                        .then(role => {
+                            history.replace(`${getRedirectPath(role)}`)
+                        })
+                        .catch(err => {
+                            console.log(err);
+                            dispatch({type: ACTION_TYPES.AUTHENTICATION_FAILURE})
+                        })
                 }}
             >
                 {({values, handleChange, handleBlur}) => {
@@ -128,6 +131,7 @@ const SignInForm = ({isHidden}) => {
                                     placeholder="Email"
                                     onChange={handleChange}
                                     onBlur={handleBlur}
+                                    onFocus={() => dispatch({type: ACTION_TYPES.AUTHENTICATION_RESET})}
                                     value={values.username}
                                 />
                                 <ErrorMessage name="username" component={StyledErrorMsg}/>
@@ -138,11 +142,12 @@ const SignInForm = ({isHidden}) => {
                                     placeholder="Hasło"
                                     onChange={handleChange}
                                     onBlur={handleBlur}
+                                    onFocus={() => dispatch({type: ACTION_TYPES.AUTHENTICATION_RESET})}
                                     value={values.password}
                                 />
                                 <ErrorMessage name="password" component={StyledErrorMsg}/>
                                 <StyledButton type="submit" login>Zaloguj</StyledButton>
-                                {false &&
+                                {authError &&
                                 <InfoParagraph badRequest>Podano nieprawidłowy login lub hasło.</InfoParagraph>}
                             </LoginForm>
                         </FormWrapper>

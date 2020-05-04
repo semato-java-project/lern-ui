@@ -16,6 +16,12 @@ const rootReducer = (state = initialState, {type, payload}) => {
                 authError: false
             };
 
+        case ACTION_TYPES.AUTHENTICATION_RESET:
+            return {
+                ...state,
+                authError: false
+            };
+
         case ACTION_TYPES.AUTHENTICATION_SUCCESS:
             return {
                 ...state,
