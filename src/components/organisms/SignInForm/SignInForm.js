@@ -4,12 +4,13 @@ import Input from "../../atoms/Input/Input";
 import Button from "../../atoms/Button/Button";
 import {ErrorMessage, Form, Formik} from 'formik';
 import {routes} from "../../../routes";
-import {Redirect, useHistory} from "react-router-dom";
+import {useHistory} from "react-router-dom";
 import {PersonIcon} from "../../atoms/Icons/PersonIcon";
 import {useDispatch, useSelector} from "react-redux";
-import {authenticate, isTokenValid} from "../../../actions";
+import {authenticate, getList} from "../../../actions";
 import {USER_ROLES} from "../../../utils/userRoles";
 import {ACTION_TYPES} from "../../../reducers/actionTypes";
+import {GET_NEWS} from "../../../api-config/requestTypes";
 
 const InfoParagraph = styled.h1`
    margin-bottom: 5rem;
@@ -110,6 +111,7 @@ const SignInForm = ({isHidden}) => {
                 onSubmit={values => {
                     dispatch(authenticate(values.username, values.password))
                         .then(role => {
+                            dispatch(getList(GET_NEWS))
                             history.replace(`${getRedirectPath(role)}`)
                         })
                         .catch(err => {

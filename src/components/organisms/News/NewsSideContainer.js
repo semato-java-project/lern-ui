@@ -56,7 +56,7 @@ const NewsActionContainer = styled(Paragraph)`
 `;
 
 const NewsSideContainer = () => {
-    const news = useSelector(state => state.news || []);
+    const news = useSelector(state => state.news || [{title: '', description:''}]);
     let latestNews = news[0];
 
     const getLatestNews = () => {
@@ -71,15 +71,6 @@ const NewsSideContainer = () => {
         getLatestNews();
         console.log('getLatest!')
     }, [news]);
-
-    // createdAt: "2020-05-05T11:52:53Z"
-    // deletedAt: null
-    // description: "Nowość treść"
-    // id: 5
-    // lecturerFirstName: "Profesor"
-    // lecturerLastName: "Doktor"
-    // title: "Nowość"
-    // updatedAt: "2020-05-05T11:52:5
 
     return (
         <NewsSideWrapper>
