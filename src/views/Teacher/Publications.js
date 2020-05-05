@@ -71,7 +71,7 @@ const Publications = () => {
     const publications = useSelector(state => state.publications || []);
     const currentUser = useSelector(state => state.currentUser);
     const [showAddForm, setShowAddForm] = useState(false);
-    const [publicationToAdd,setPublicationToAdd ]= useState({title: '', description: ''});
+    const [publicationToAdd, setPublicationToAdd] = useState({title: '', description: ''});
 
     useEffect(() => {
         dispatch(getList(GET_PUBLICATIONS))
@@ -79,7 +79,7 @@ const Publications = () => {
 
     const isUserLecturer = () => currentUser.role === USER_ROLES.ROLE_LECTURER.API_NAME;
 
-    const savePublicationsTrigger= () => {
+    const savePublicationsTrigger = () => {
         dispatch(createItem(ADD_PUBLICATION, publicationToAdd))
             .then(() => dispatch(getList(GET_PUBLICATIONS)))
             .then(() => setShowAddForm(false))
@@ -109,11 +109,15 @@ const Publications = () => {
                                 placeholder={'Wprowadź opis ...'}
                                 width={'100%'}
                                 value={publicationToAdd.description}
-                                onChange={(e) => setPublicationToAdd({...publicationToAdd, description: e.target.value})}
+                                onChange={(e) => setPublicationToAdd({
+                                    ...publicationToAdd,
+                                    description: e.target.value
+                                })}
 
                             />
                             <RowWrapper justifyContent={'space-between'}>
-                                <Button width={'16rem'} grayColor onClick={() => setShowAddForm(false)}>{'<'} Anuluj</Button>
+                                <Button width={'16rem'} grayColor
+                                        onClick={() => setShowAddForm(false)}>{'<'} Anuluj</Button>
                                 <Button width={'16rem'} onClick={() => {
                                     savePublicationsTrigger();
                                 }}>Zapisz {'>'}</Button>
@@ -121,7 +125,10 @@ const Publications = () => {
                         </ColumnWrapper>
                         :
                         <>
-                            {publications.map(publication => <PublicationContainer key={publication.id} publication={publication}/>)}
+                            {publications
+                                .sort((publication1, publication2) => new Date(publication2.createdAt) - new Date(publication1.createdAt))
+                                .map(publication =>
+                                    <PublicationContainer key={publication.id} publication={publication}/>)}
                             {isUserLecturer() && <AddNewsContainer>
                                 <RowWrapper justifyContent={'flex-end'}>
                                     <Button width={'16rem'} onClick={() => setShowAddForm(true)}>Dodaj {'>'}</Button>

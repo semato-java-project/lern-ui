@@ -65,7 +65,7 @@ const TableInput = ({grade, disableEdit}) => {
     return (
         <Data>
             <Input ref={inputRef} disabled={disableEdit} onBlur={editGradeRequest} type="number"
-                   value={editableGrade || ''} step="0.5" min="2.0" max='5.0'
+                   value={editableGrade? parseFloat(editableGrade).toFixed(1) : ''} step="0.5" min="2.0" max='5.0'
                    onChange={changeValue} onKeyDown={handleKeyDown}/>
         </Data>
     )

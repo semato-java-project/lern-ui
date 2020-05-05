@@ -16,6 +16,8 @@ import {useDispatch, useSelector} from "react-redux";
 import {ACTION_TYPES} from "../../reducers/actionTypes";
 import {createItem, getList} from "../../actions";
 import {ADD_COURSE, GET_GROUPS} from "../../api-config/requestTypes";
+import AddPublicationContainer from "../../components/organisms/Publication/AddPublicationContainer";
+import NewsSideContainer from "../../components/organisms/News/NewsSideContainer";
 
 const HeaderPathInfoContainer = styled.div`
       display: flex;
@@ -136,7 +138,6 @@ const AddCourse = () => {
 
         // --- VALUES HANDLER ---
         const setValue = (property, value, handler, prevValues) => {
-            console.log(property, value); //TODO: remove logs
             handler({...prevValues, [property]: value})
         };
 
@@ -302,7 +303,8 @@ const AddCourse = () => {
                         </MainContentSection>
                     }
                     <SideContentSection>
-                        sdfsd
+                        <AddPublicationContainer/>
+                        <NewsSideContainer/>
                     </SideContentSection>
                 </ContentWrapper>
             </SidebarTemplate>

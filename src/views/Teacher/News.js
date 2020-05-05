@@ -71,7 +71,7 @@ const News = () => {
     const news = useSelector(state => state.news || []);
     const currentUser = useSelector(state => state.currentUser);
     const [showAddForm, setShowAddForm] = useState(false);
-    const [newsToAdd,setNewsToAdd ]= useState({title: '', description: ''});
+    const [newsToAdd, setNewsToAdd] = useState({title: '', description: ''});
 
     useEffect(() => {
         dispatch(getList(GET_NEWS))
@@ -79,7 +79,7 @@ const News = () => {
 
     const isUserLecturer = () => currentUser.role === USER_ROLES.ROLE_LECTURER.API_NAME;
 
-    const saveNewsTrigger= () => {
+    const saveNewsTrigger = () => {
         dispatch(createItem(ADD_NEWS, newsToAdd))
             .then(() => dispatch(getList(GET_NEWS)))
             .then(() => setShowAddForm(false))
@@ -113,7 +113,8 @@ const News = () => {
 
                             />
                             <RowWrapper justifyContent={'space-between'}>
-                                <Button width={'16rem'} grayColor onClick={() => setShowAddForm(false)}>{'<'} Anuluj</Button>
+                                <Button width={'16rem'} grayColor
+                                        onClick={() => setShowAddForm(false)}>{'<'} Anuluj</Button>
                                 <Button width={'16rem'} onClick={() => {
                                     saveNewsTrigger();
                                 }}>Zapisz {'>'}</Button>
@@ -121,7 +122,8 @@ const News = () => {
                         </ColumnWrapper>
                         :
                         <>
-                            {news.map(news => <NewsContainer key={news.id} news={news}/>)}
+                            {news.sort((news1, news2) => new Date(news2.updatedAt) - new Date(news1.updatedAt))
+                                .map(news => <NewsContainer key={news.id} news={news}/>)}
                             {isUserLecturer() && <AddNewsContainer>
                                 <RowWrapper justifyContent={'flex-end'}>
                                     <Button width={'16rem'} onClick={() => setShowAddForm(true)}>Dodaj {'>'}</Button>

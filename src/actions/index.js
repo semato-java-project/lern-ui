@@ -21,7 +21,6 @@ export const logOutUser = () => dispatch => {
 // --- AUTH ---
 export const authenticate = (email, password) => dispatch => {
     dispatch({type: ACTION_TYPES.AUTHENTICATION_REQUEST});
-
     return axios
         .post(`${getAPIAddress()}/auth/signin`, {
             email,

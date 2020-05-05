@@ -3,8 +3,8 @@ import SidebarTemplate from "../../templates/SidebarTemplate";
 import styled, {css} from "styled-components";
 import {HorizontalSeparator} from "../../components/atoms/Shapes/HorizontalSeparator";
 import Heading from "../../components/atoms/Headings/Heading";
-import {getDetails} from "../../actions";
-import {GET_COURSE_DETAILS} from "../../api-config/requestTypes";
+import {getDetails, getList} from "../../actions";
+import {GET_COURSE_DETAILS, GET_PROJECT_GROUPS} from "../../api-config/requestTypes";
 import {useDispatch, useSelector} from "react-redux";
 import {useParams} from "react-router-dom";
 import {GroupContainer} from "../../components/molecules/Containers/GroupContainer";
@@ -13,6 +13,7 @@ import {RowWrapper} from "../../components/molecules/Wrappers/RowWrapper";
 import Paragraph from "../../components/atoms/Paragraphs/Paragraph";
 import TableInput from "../../components/atoms/Input/TableInput";
 import Button from "../../components/atoms/Button/Button";
+import ProjectGroupInput from "../../components/atoms/Input/ProjectGroupInput";
 
 const HeaderPathInfoContainer = styled.div`
       display: flex;
@@ -197,11 +198,16 @@ const TeacherCourseDetails = () => {
     const dispatch = useDispatch();
     const urlParams = useParams();
     const courseDetails = useSelector(state => state.courseDetails);
+    const projectGroups = useSelector(state => state.projectGroups);
     const [disableEdit, setDisableEdit] = useState(true);
 
     useEffect(() => {
         dispatch(getDetails(GET_COURSE_DETAILS(urlParams.id)))
     }, [dispatch, urlParams]);
+
+    useEffect(() => {
+        dispatch(getList(GET_PROJECT_GROUPS(urlParams.id)))
+    }, [dispatch]);
 
     return (
         <SidebarTemplate>
@@ -241,6 +247,21 @@ const TeacherCourseDetails = () => {
                             <StyledButton disableEdit={disableEdit} onClick={() => setDisableEdit(!disableEdit)}>Wyłącz tryb edycji</StyledButton>
                         }
                     </RowWrapper>
+                    <Heading marginTop={'4rem'} marginBottom={'2rem'}>Grupy projektowe</Heading>
+                    <Table>
+                        <tbody>
+                        <Row>
+                            <Header groupNo disableEdit={true}>NUMER GRUPY</Header>
+                            <Header groupNo disableEdit={true}>SKŁAD GRUPY</Header>
+                        </Row>
+                        {projectGroups && projectGroups.map(group =>
+                            <Row>
+                                <Data groupNo>{group.projectGroupId}</Data>
+                                <ProjectGroupInput teacher={true} group={group} isProjectDisabled={true}/>
+                            </Row>)
+                        }
+                        </tbody>
+                    </Table>
                 </MainContentSection> : <Spinner/>}
             </ContentWrapper>
         </SidebarTemplate>

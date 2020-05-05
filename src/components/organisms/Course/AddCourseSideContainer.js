@@ -55,7 +55,7 @@ const AddCourseSideContainer = () => {
 
     return (
         <AddCourseSideWrapper>
-            {role === USER_ROLES.ROLE_LECTURER ?
+            {role === USER_ROLES.ROLE_LECTURER.API_NAME ?
                 <>
                     <AddCourseSideImageWrapper>
                         {AddCourseImage()}

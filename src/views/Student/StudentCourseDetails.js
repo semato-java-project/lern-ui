@@ -222,7 +222,6 @@ const StudentCourseDetails = () => {
 
     return (
         <SidebarTemplate>
-            {console.log(isProjectDisabled)}
             <HeaderPathInfoContainer>
                 Szczegóły kursu
                 <StyledSeparator/>

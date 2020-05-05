@@ -1,8 +1,11 @@
-import React from "react";
+import React, {useEffect} from "react";
 import styled from "styled-components";
 import Heading from "../../atoms/Headings/Heading";
 import Paragraph from "../../atoms/Paragraphs/Paragraph";
 import {InfoIcon} from "../../atoms/Icons/InfoIcon";
+import {useSelector} from "react-redux";
+import {Link} from "react-router-dom";
+import {routes} from "../../../routes";
 
 const NewsSideWrapper = styled.div`
       width: 100%;
@@ -45,6 +48,7 @@ const NewsActionContainer = styled(Paragraph)`
       width: 100%;
       justify-content: space-between;
       color: ${({theme}) => theme.app_background};
+      text-decoration: none;
 
       span{
          color: ${({theme}) => theme.app_blue_light_text};
@@ -52,16 +56,42 @@ const NewsActionContainer = styled(Paragraph)`
 `;
 
 const NewsSideContainer = () => {
+    const news = useSelector(state => state.news || []);
+    let latestNews = news[0];
+
+    const getLatestNews = () => {
+        if (news.length) {
+            news.forEach(news => {
+                if (new Date(news.createdAt) > new Date(latestNews.createdAt)) latestNews = news;
+            })
+        }
+    };
+
+    useEffect(() => {
+        getLatestNews();
+        console.log('getLatest!')
+    }, [news]);
+
+    // createdAt: "2020-05-05T11:52:53Z"
+    // deletedAt: null
+    // description: "Nowość treść"
+    // id: 5
+    // lecturerFirstName: "Profesor"
+    // lecturerLastName: "Doktor"
+    // title: "Nowość"
+    // updatedAt: "2020-05-05T11:52:5
 
     return (
         <NewsSideWrapper>
             Najnowsze aktualności
             <NewsContent>
                 <InfoIcon/>
-                <StyledHeading>Informacja systemowa</StyledHeading>
-                <StyledParagraph>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor
-                    incididunt ut labore et dolore magna aliqua.</StyledParagraph>
-                <NewsActionContainer><span>Dodano: 28.03.2020</span> Czytaj dalej {'>'}</NewsActionContainer>
+                <StyledHeading>{latestNews.title}</StyledHeading>
+                <StyledParagraph>{latestNews.description}</StyledParagraph>
+                <NewsActionContainer as={Link} to={routes.ROLE_STUDENT.NEWS}>
+                    <span>Dodano: {new Date(latestNews.createdAt).toLocaleDateString()}</span>
+                    Czytaj dalej {'>'}
+                </NewsActionContainer>
             </NewsContent>
         </NewsSideWrapper>
     )

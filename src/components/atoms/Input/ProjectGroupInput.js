@@ -35,7 +35,6 @@ const Input = styled.div`
             &::after{
             display:flex;
             }
-            
       }
       
       ${({addGroup}) =>
@@ -46,7 +45,6 @@ const Input = styled.div`
             }
          }
       `}
-
 
     ${({isProjectDisabled}) =>
     isProjectDisabled === true && css`
@@ -74,12 +72,11 @@ const Data = styled.td`
       `} 
 `;
 
-const ProjectGroup = ({group, isProjectDisabled, setIsProjectDisabled}) => {
+const ProjectGroup = ({group, isProjectDisabled, setIsProjectDisabled, lecturer = false}) => {
 
     const dispatch = useDispatch();
     const urlParams = useParams();
     const currentUser = useSelector(state => state.currentUser);
-
 
     const addProjectGroupTrigger = () => {
         dispatch(createItem(ADD_PROJECT_GROUP(urlParams.id)))
@@ -91,16 +88,14 @@ const ProjectGroup = ({group, isProjectDisabled, setIsProjectDisabled}) => {
             .then(() => dispatch(getList(GET_PROJECT_GROUPS(urlParams.id))))
     };
 
-
     const getStudentList = (students) => {
         const array = [];
         students.forEach(student => {
-            if (student.id.toString() === currentUser.id) setIsProjectDisabled(true);
+            if (student.id.toString() === currentUser.id && !lecturer) setIsProjectDisabled(true);
             array.push(` ${student.firstName} ${student.lastName}`);
         });
         return array;
     };
-
 
     return (
         <Data>
@@ -117,6 +112,5 @@ const ProjectGroup = ({group, isProjectDisabled, setIsProjectDisabled}) => {
         </Data>
     )
 };
-
 
 export default ProjectGroup;
