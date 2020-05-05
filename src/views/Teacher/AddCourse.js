@@ -80,6 +80,12 @@ const StyledButton = styled(Button)`
      font-weight: ${({theme}) => theme.fontWeight.regular};
 `;
 
+const ErrorParagraph = styled.p`
+        font-weight: ${({theme}) => theme.fontWeight.regular};
+  font-size: ${({theme}) => theme.fontSize.s};
+  color: #DE242B;
+`;
+
 
 export const ADD_PROCESS_STEPS = {
     SET_NAME_WITH_DESCRIPTION: 'SET_NAME_WITH_DESCRIPTION',
@@ -100,6 +106,8 @@ const AddCourse = () => {
         const dispatch = useDispatch();
         const [activeStep, setActiveStep] = useState(ADD_PROCESS_STEPS.SET_NAME_WITH_DESCRIPTION);
         const [addResponse, setAddResponse] = useState({status: undefined, message: ''});
+        const [validationError, setValidationError] = useState(false);
+        const [groupValidationError, setGroupValidationError] = useState(false);
         const courseToAdd = useSelector(state => state.courseToAdd || {});
         const groups = useSelector(state => state.groups || []);
 
@@ -151,6 +159,25 @@ const AddCourse = () => {
             if (activeStep === ADD_PROCESS_STEPS.SET_GROUP) dispatch(getList(GET_GROUPS))
         }, [activeStep]);
 
+        const isFirstStepValid = () => {
+            if (courseToAdd.name && courseToAdd.name.trim() !== ''
+                && courseToAdd.description && courseToAdd.description.trim() !== '') {
+                return true;
+            } else {
+                setValidationError(true);
+                return false;
+            }
+        };
+
+        const isGroupStepValid = () => {
+            if (courseToAdd.groupId) {
+                return true;
+            } else {
+                setGroupValidationError(true);
+                return false;
+            }
+        };
+
 
         const generateFormByActiveStep = (step) => {
             switch (step) {
@@ -164,6 +191,7 @@ const AddCourse = () => {
                                 marginTop={'1rem'}
                                 width={'40rem'}
                                 value={courseToAdd.name}
+                                onFocus={() => validationError && setValidationError(false)}
                                 onChange={(e) => setCourseData('name', e.target.value)}
                             />
                             <Heading marginTop={'4rem'}>Opis kursu</Heading>
@@ -171,12 +199,16 @@ const AddCourse = () => {
                                 placeholder={'Wprowadź opis kursu...'}
                                 width={'100%'}
                                 value={courseToAdd.description}
+                                onFocus={() => validationError && setValidationError(false)}
                                 onChange={(e) => setCourseData('description', e.target.value)}
                             />
                             <RowWrapper justifyContent={'space-between'}>
-                                <p></p>
-                                <StyledButton onClick={() => setActiveStep(ADD_PROCESS_STEPS.SET_DETAILS)}>Następny
-                                    krok {'>'}</StyledButton>
+                                {validationError ?
+                                    <ErrorParagraph>Nie wszystkie pola zostały uzupełnione/</ErrorParagraph> : <p></p>}
+                                <StyledButton
+                                    onClick={() => isFirstStepValid() && setActiveStep(ADD_PROCESS_STEPS.SET_DETAILS)}>
+                                    Następny krok {'>'}
+                                </StyledButton>
                             </RowWrapper>
                         </ColumnWrapper>
                     );
@@ -270,10 +302,17 @@ const AddCourse = () => {
                             <RowWrapper justifyContent={'space-between'}>
                                 <StyledButton grayColor
                                               onClick={() => setActiveStep(ADD_PROCESS_STEPS.SET_DETAILS)}>{'<'} Wstecz</StyledButton>
+                                {groupValidationError? <ErrorParagraph>Nie wybrano grupy.</ErrorParagraph> : null}
                                 <StyledButton onClick={() => {
-                                    dispatch(createItem(ADD_COURSE, courseToAdd))
-                                        .then(() => setAddResponse({status: 'success', message: 'Tworzenie kursu zakończone sukcesem.'}))
-                                        .catch(() => setAddResponse({status: 'error', message: 'Wystąpił błąd. Spróbuj ponownie później.'}))
+                                    isGroupStepValid() && dispatch(createItem(ADD_COURSE, courseToAdd))
+                                        .then(() => setAddResponse({
+                                            status: 'success',
+                                            message: 'Tworzenie kursu zakończone sukcesem.'
+                                        }))
+                                        .catch(() => setAddResponse({
+                                            status: 'error',
+                                            message: 'Wystąpił błąd. Spróbuj ponownie później.'
+                                        }))
                                 }}>Zapisz kurs {'>'}</StyledButton>
                             </RowWrapper>
                         </ColumnWrapper>

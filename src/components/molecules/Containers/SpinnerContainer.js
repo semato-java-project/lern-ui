@@ -20,15 +20,15 @@ const Spinner = styled.div`
 const DoubleBounce1 = styled.div`
       width: 100%;
       height: 100%;
+      background-color: ${({theme}) => theme.app_gray};
       border-radius: 50%;
-      background-color: ${({theme}) => theme.app_text_gray};
-      opacity: 0.6;
+      opacity: 0.4;
       position: absolute;
       top: 0;
       left: 0;
 
-      -webkit-animation: sk-bounce 2.0s infinite ease-in-out;
-      animation: sk-bounce 2.0s infinite ease-in-out;
+      -webkit-animation: sk-bounce 1.5s infinite ease-in-out;
+      animation: sk-bounce 1.5s infinite ease-in-out;
      
       @-webkit-keyframes sk-bounce {
         0%, 100% { -webkit-transform: scale(0.0) }
@@ -47,9 +47,8 @@ const DoubleBounce1 = styled.div`
 `;
 
 const DoubleBounce2 = styled(DoubleBounce1)`
-      -webkit-animation-delay: -1.0s;
-      animation-delay: -1.0s;
-      background-color: ${({theme}) => theme.app_gray_light};
+      -webkit-animation-delay: -0.75s;
+      animation-delay: -0.75s;
 `;
 
 export const SpinnerContainer = () => (
