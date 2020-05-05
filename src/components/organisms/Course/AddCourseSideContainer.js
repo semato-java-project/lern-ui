@@ -73,7 +73,7 @@ const AddCourseSideContainer = () => {
                         kursu
                         dołączyć materiały wykładowe!
                     </AddPublicationTextWrapper>
-                    <StyledButton as={Link} to={routes.TEACHER_ADD_COURSE}>Dodaj kurs {'>'}</StyledButton>
+                    <StyledButton as={Link} to={routes.ROLE_LECTURER.ADD_COURSE}>Dodaj kurs {'>'}</StyledButton>
                 </> : null
             }
         </AddCourseSideWrapper>

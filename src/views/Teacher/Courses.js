@@ -5,7 +5,7 @@ import {HorizontalSeparator} from "../../components/atoms/Shapes/HorizontalSepar
 import NewsSideContainer from "../../components/organisms/News/NewsSideContainer";
 import AddCourseSideContainer from "../../components/organisms/Course/AddCourseSideContainer";
 import CourseContainer from "../../components/organisms/Course/CourseContainer";
-import {fetchItems} from "../../actions";
+import {getList} from "../../actions";
 import {GET_COURSES} from "../../api-config/requestTypes";
 import {useDispatch, useSelector} from "react-redux";
 
@@ -63,7 +63,7 @@ const Courses = () => {
     const dispatch = useDispatch();
     const courses = useSelector(state => state.courses || []);
 
-    useEffect(() => {dispatch(fetchItems(GET_COURSES))}, []);
+    useEffect(() => {dispatch(getList(GET_COURSES))}, []);
 
     return (
         <SidebarTemplate>

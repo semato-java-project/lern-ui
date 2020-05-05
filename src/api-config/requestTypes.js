@@ -9,10 +9,10 @@ export const GET_GROUPS = {
     itemType: 'groups',
 };
 
-export const GET_COURSE_DETAILS = {
-    path: 'course',
+export const GET_COURSE_DETAILS = course_id => ({
+    path: `course/${course_id}`,
     itemType: 'courseDetails',
-};
+});
 
 export const GET_NEWS = {
     path: 'news',
@@ -23,6 +23,11 @@ export const GET_PUBLICATIONS = {
     path: 'publication',
     itemType: 'publications',
 };
+
+export const GET_PROJECT_GROUPS = course_id => ({
+    path: `course/${course_id}/project-group`,
+    itemType: 'projectGroups',
+});
 
 // --- POST ---
 export const ADD_COURSE = {
@@ -37,9 +42,17 @@ export const ADD_PUBLICATION = {
     path: 'publication',
 };
 
+export const ADD_PROJECT_GROUP = course_id => ({
+    path: `course/${course_id}/project-group`,
+});
+
 
 // --- PUT ---
-export const EDIT_GRADE = {
-    path: 'grade',
-};
+export const EDIT_GRADE = grade_id => ({
+    path: `grade/${grade_id}`,
+});
+
+export const EDIT_PROJECT_GROUP = group_id => ({
+    path: `project-group/${group_id}`,
+});
 

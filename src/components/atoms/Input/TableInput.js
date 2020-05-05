@@ -1,7 +1,7 @@
 import styled, {css} from 'styled-components';
 import React, {useRef, useState} from "react";
 import {useDispatch} from "react-redux";
-import {editItem} from "../../../actions";
+import {updateItem} from "../../../actions";
 import {EDIT_GRADE} from "../../../api-config/requestTypes";
 
 const Input = styled.input`
@@ -49,8 +49,7 @@ const TableInput = ({grade, disableEdit}) => {
     const dispatch = useDispatch();
 
     const editGradeRequest = () => {
-        console.log('grade to save: ' + editableGrade);
-        dispatch(editItem(EDIT_GRADE, grade.id, {grade: editableGrade, id: grade.id}))
+        dispatch(updateItem(EDIT_GRADE(grade.id), {grade: editableGrade, id: grade.id}))
     };
 
     const changeValue = e => {

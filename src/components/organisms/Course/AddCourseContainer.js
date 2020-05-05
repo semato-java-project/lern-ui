@@ -69,7 +69,7 @@ const AddCourseContainer = () => {
             </AddCourseImageWrapper>
             <AddCourseContent>
                 <AddCourseTitleWrapper>
-                    <StyledButton as={Link} to={routes.TEACHER_ADD_COURSE}>Dodaj kurs {'>'}</StyledButton>
+                    <StyledButton as={Link} to={routes.ROLE_LECTURER.ADD_COURSE}>Dodaj kurs {'>'}</StyledButton>
                     <Heading fontSize={'2rem'}>Gotowy na nowe wyzwania?
                     </Heading>
                     <Heading fontWeight={theme.fontWeight.black} color={theme.app_blue_light}>Dodaj kurs już

@@ -14,7 +14,7 @@ import {INPUT_TYPES} from "../../utils/Types";
 import {GroupContainer} from "../../components/molecules/Containers/GroupContainer";
 import {useDispatch, useSelector} from "react-redux";
 import {ACTION_TYPES} from "../../reducers/actionTypes";
-import {addItem, fetchItems} from "../../actions";
+import {createItem, getList} from "../../actions";
 import {ADD_COURSE, GET_GROUPS} from "../../api-config/requestTypes";
 
 const HeaderPathInfoContainer = styled.div`
@@ -147,7 +147,7 @@ const AddCourse = () => {
         });
 
         useEffect(() => {
-            if (activeStep === ADD_PROCESS_STEPS.SET_GROUP) dispatch(fetchItems(GET_GROUPS))
+            if (activeStep === ADD_PROCESS_STEPS.SET_GROUP) dispatch(getList(GET_GROUPS))
         }, [activeStep]);
 
 
@@ -270,7 +270,7 @@ const AddCourse = () => {
                                 <StyledButton grayColor
                                               onClick={() => setActiveStep(ADD_PROCESS_STEPS.SET_DETAILS)}>{'<'} Wstecz</StyledButton>
                                 <StyledButton onClick={() => {
-                                    dispatch(addItem(ADD_COURSE, courseToAdd))
+                                    dispatch(createItem(ADD_COURSE, courseToAdd))
                                         .then(() => setAddResponse({status: 'success', message: 'Tworzenie kursu zakończone sukcesem.'}))
                                         .catch(() => setAddResponse({status: 'error', message: 'Wystąpił błąd. Spróbuj ponownie później.'}))
                                 }}>Zapisz kurs {'>'}</StyledButton>

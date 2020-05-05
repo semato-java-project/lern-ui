@@ -3,7 +3,7 @@ import SidebarTemplate from "../../templates/SidebarTemplate";
 import styled, {css} from "styled-components";
 import {HorizontalSeparator} from "../../components/atoms/Shapes/HorizontalSeparator";
 import Heading from "../../components/atoms/Headings/Heading";
-import {fetchItemDetails} from "../../actions";
+import {getDetails} from "../../actions";
 import {GET_COURSE_DETAILS} from "../../api-config/requestTypes";
 import {useDispatch, useSelector} from "react-redux";
 import {useParams} from "react-router-dom";
@@ -200,7 +200,7 @@ const TeacherCourseDetails = () => {
     const [disableEdit, setDisableEdit] = useState(true);
 
     useEffect(() => {
-        dispatch(fetchItemDetails(GET_COURSE_DETAILS, urlParams.id))
+        dispatch(getDetails(GET_COURSE_DETAILS(urlParams.id)))
     }, [dispatch, urlParams]);
 
     return (

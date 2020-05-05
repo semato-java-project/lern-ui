@@ -3,8 +3,8 @@ import SidebarTemplate from "../../templates/SidebarTemplate";
 import styled, {css} from "styled-components";
 import {HorizontalSeparator} from "../../components/atoms/Shapes/HorizontalSeparator";
 import Heading from "../../components/atoms/Headings/Heading";
-import {fetchItemDetails} from "../../actions";
-import {GET_COURSE_DETAILS} from "../../api-config/requestTypes";
+import {getDetails, getList} from "../../actions";
+import {GET_COURSE_DETAILS, GET_PROJECT_GROUPS} from "../../api-config/requestTypes";
 import {useDispatch, useSelector} from "react-redux";
 import {useParams} from "react-router-dom";
 import {GroupContainer} from "../../components/molecules/Containers/GroupContainer";
@@ -13,6 +13,7 @@ import {RowWrapper} from "../../components/molecules/Wrappers/RowWrapper";
 import Paragraph from "../../components/atoms/Paragraphs/Paragraph";
 import TableInput from "../../components/atoms/Input/TableInput";
 import Button from "../../components/atoms/Button/Button";
+import ProjectGroupInput from "../../components/atoms/Input/ProjectGroupInput";
 
 const HeaderPathInfoContainer = styled.div`
       display: flex;
@@ -69,15 +70,21 @@ const Header = styled.th`
       font-size: ${({theme}) => theme.fontSize.s};
       
       ${({StudentName}) =>
-        StudentName &&
-        css`
+    StudentName &&
+    css`
         min-width: 25rem;
       `} 
 
       ${({disableEdit}) =>
-        disableEdit === false &&
-        css`
+    disableEdit === false &&
+    css`
         background-color: ${({theme}) => theme.app_yellow};
+      `}
+      
+      ${({groupNo}) =>
+    groupNo &&
+    css`
+      width:8rem;
       `}
 `;
 
@@ -91,6 +98,12 @@ const Data = styled.td`
     StudentName &&
     css`
         min-width: 25rem;
+      `}  
+
+    ${({groupNo}) =>
+    groupNo &&
+    css`
+              width: 8rem;
       `} 
 `;
 
@@ -146,7 +159,6 @@ const StyledButton = styled(Button)`
 `;
 
 
-
 //TODO: make spinner round
 const Spinner = styled.div`
 display:flex;
@@ -197,19 +209,26 @@ const StudentCourseDetails = () => {
     const dispatch = useDispatch();
     const urlParams = useParams();
     const courseDetails = useSelector(state => state.courseDetails);
+    const projectGroups = useSelector(state => state.projectGroups);
+    const [isProjectDisabled, setIsProjectDisabled] = useState(false);
 
     useEffect(() => {
-        dispatch(fetchItemDetails(GET_COURSE_DETAILS, urlParams.id))
+        dispatch(getDetails(GET_COURSE_DETAILS(urlParams.id)))
     }, [dispatch, urlParams]);
+
+    useEffect(() => {
+        dispatch(getList(GET_PROJECT_GROUPS(urlParams.id)))
+    }, [dispatch]);
 
     return (
         <SidebarTemplate>
+            {console.log(isProjectDisabled)}
             <HeaderPathInfoContainer>
                 Szczegóły kursu
                 <StyledSeparator/>
             </HeaderPathInfoContainer>
             <ContentWrapper>
-                {courseDetails? <MainContentSection>
+                {courseDetails ? <MainContentSection>
                     <RowWrapper>
                         {CourseIcon()}
                         <Heading marginLeft={'2rem'} fontSize={'2.2rem'}>{courseDetails.name}</Heading>
@@ -222,15 +241,41 @@ const StudentCourseDetails = () => {
                         <tbody>
                         <Row>
                             <Header StudentName disableEdit={true}>STUDENT</Header>
-                            {courseDetails.taskList && generateTaskArray(courseDetails.taskList).map(task => <Header
-                                disableEdit={true} key={task.index}>{task.type} {task.number}</Header>)}
+                            {courseDetails.taskList &&
+                            generateTaskArray(courseDetails.taskList)
+                                .map(task =>
+                                    <Header disableEdit={true} key={task.index}>{task.type} {task.number}</Header>)}
                         </Row>
-                        {courseDetails.participantList && courseDetails.participantList.map(student =>
-                            <Row>
+                        {courseDetails.participantList &&
+                        courseDetails.participantList.map(student =>
+                            <Row key={student.studentId}>
                                 <Data StudentName>{student.firstName} {student.lastName}</Data>
-                                {student.gradeList.map(grade => <TableInput grade={grade} disableEdit={true}/>)}
+                                {student.gradeList
+                                    .map(grade =>
+                                        <TableInput key={grade.id} grade={grade} disableEdit={true}/>)}
                             </Row>
                         )}
+                        </tbody>
+                    </Table>
+                    <Heading marginTop={'4rem'} marginBottom={'2rem'}>Grupy projektowe</Heading>
+                    <Table>
+                        <tbody>
+                        <Row>
+                            <Header groupNo disableEdit={true}>NUMER GRUPY</Header>
+                            <Header groupNo disableEdit={true}>SKŁAD GRUPY</Header>
+                        </Row>
+                        {projectGroups && projectGroups.map(group =>
+                            <Row>
+                                <Data groupNo>{group.projectGroupId}</Data>
+                                <ProjectGroupInput group={group} isProjectDisabled={isProjectDisabled}
+                                                   setIsProjectDisabled={setIsProjectDisabled}/>
+                            </Row>)
+                        }
+                        {!isProjectDisabled && <Row>
+                            <Data>-</Data>
+                            <ProjectGroupInput isProjectDisabled={isProjectDisabled}
+                                               setIsProjectDisabled={setIsProjectDisabled}/>
+                        </Row>}
                         </tbody>
                     </Table>
                 </MainContentSection> : <Spinner/>}

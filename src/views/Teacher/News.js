@@ -5,7 +5,7 @@ import {HorizontalSeparator} from "../../components/atoms/Shapes/HorizontalSepar
 import NewsSideContainer from "../../components/organisms/News/NewsSideContainer";
 import AddCourseSideContainer from "../../components/organisms/Course/AddCourseSideContainer";
 import {useDispatch, useSelector} from "react-redux";
-import {addItem, fetchItems} from "../../actions";
+import {createItem, getList} from "../../actions";
 import {ADD_NEWS, GET_NEWS} from "../../api-config/requestTypes";
 import NewsContainer from "../../components/molecules/Containers/NewsContainer";
 import {USER_ROLES} from "../../utils/userRoles";
@@ -74,14 +74,14 @@ const News = () => {
     const [newsToAdd,setNewsToAdd ]= useState({title: '', description: ''});
 
     useEffect(() => {
-        dispatch(fetchItems(GET_NEWS))
+        dispatch(getList(GET_NEWS))
     }, []);
 
     const isUserLecturer = () => currentUser.role === USER_ROLES.ROLE_LECTURER.API_NAME;
 
     const saveNewsTrigger= () => {
-        dispatch(addItem(ADD_NEWS, newsToAdd))
-            .then(() => dispatch(fetchItems(GET_NEWS)))
+        dispatch(createItem(ADD_NEWS, newsToAdd))
+            .then(() => dispatch(getList(GET_NEWS)))
             .then(() => setShowAddForm(false))
     };
 

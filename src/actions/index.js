@@ -35,9 +35,8 @@ export const authenticate = (email, password) => dispatch => {
     // --- CATCH IMPLEMENTED INSIDE SIGNINFORM ---
 };
 
-// --- FETCH ---
-export const fetchItems = (actionType, params) => dispatch => {
-
+// --- FETCH LIST ---
+export const getList = (actionType, params) => dispatch => {
     return axios
         .get(`${getAPIAddress()}/${actionType.path}/`, {
             params: params || actionType.params,
@@ -57,10 +56,9 @@ export const fetchItems = (actionType, params) => dispatch => {
 
 
 // --- FETCH ---
-export const fetchItemDetails = (actionType, id) => dispatch => {
-
+export const getDetails = (actionType) => dispatch => {
     return axios
-        .get(`${getAPIAddress()}/${actionType.path}/${id}`, {
+        .get(`${getAPIAddress()}/${actionType.path}/`, {
             headers: getHeaders(),
         })
         .then(({data}) => dispatch({
@@ -75,10 +73,8 @@ export const fetchItemDetails = (actionType, id) => dispatch => {
         });
 };
 
-
-// --- FETCH DATA---
-export const addItem = (actionType, data, params) => dispatch => {
-
+// --- CREATE DATA---
+export const createItem = (actionType, data, params) => dispatch => {
     return axios
         .post(`${getAPIAddress()}/${actionType.path}/`, {
             ...data
@@ -88,11 +84,10 @@ export const addItem = (actionType, data, params) => dispatch => {
         })
 };
 
-// --- EDIT DATA---
-export const editItem = (actionType, id, data, params) => dispatch => {
-
+// --- UPDATE DATA---
+export const updateItem = (actionType, data, params) => dispatch => {
     return axios
-        .put(`${getAPIAddress()}/${actionType.path}/${id}`, {
+        .put(`${getAPIAddress()}/${actionType.path}/`, {
             ...data
         }, {
             params: params || actionType.params,

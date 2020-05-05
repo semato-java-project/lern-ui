@@ -5,7 +5,7 @@ import {HorizontalSeparator} from "../../components/atoms/Shapes/HorizontalSepar
 import NewsSideContainer from "../../components/organisms/News/NewsSideContainer";
 import AddCourseSideContainer from "../../components/organisms/Course/AddCourseSideContainer";
 import {useDispatch, useSelector} from "react-redux";
-import {addItem, fetchItems} from "../../actions";
+import {createItem, getList} from "../../actions";
 import {ADD_NEWS, ADD_PUBLICATION, GET_NEWS, GET_PUBLICATIONS} from "../../api-config/requestTypes";
 import {USER_ROLES} from "../../utils/userRoles";
 import {RowWrapper} from "../../components/molecules/Wrappers/RowWrapper";
@@ -74,14 +74,14 @@ const Publications = () => {
     const [publicationToAdd,setPublicationToAdd ]= useState({title: '', description: ''});
 
     useEffect(() => {
-        dispatch(fetchItems(GET_PUBLICATIONS))
+        dispatch(getList(GET_PUBLICATIONS))
     }, []);
 
     const isUserLecturer = () => currentUser.role === USER_ROLES.ROLE_LECTURER.API_NAME;
 
     const savePublicationsTrigger= () => {
-        dispatch(addItem(ADD_PUBLICATION, publicationToAdd))
-            .then(() => dispatch(fetchItems(GET_PUBLICATIONS)))
+        dispatch(createItem(ADD_PUBLICATION, publicationToAdd))
+            .then(() => dispatch(getList(GET_PUBLICATIONS)))
             .then(() => setShowAddForm(false))
     };
 
