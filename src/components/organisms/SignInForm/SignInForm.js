@@ -111,7 +111,7 @@ const SignInForm = ({isHidden}) => {
                 onSubmit={values => {
                     dispatch(authenticate(values.username, values.password))
                         .then(role => {
-                            dispatch(getList(GET_NEWS))
+                            dispatch(getList(GET_NEWS));
                             history.replace(`${getRedirectPath(role)}`)
                         })
                         .catch(err => {
