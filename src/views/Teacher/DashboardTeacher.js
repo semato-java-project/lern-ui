@@ -95,8 +95,8 @@ const DashboardTeacher = () => {
                     </LastCoursesSection>
                     <AddCourseContainer/>
                     <StatsSection>
-                        <CourseStats/>
-                        <CourseStats/>
+                        <CourseStats type={'students'}/>
+                        <CourseStats type={'grades'}/>
                     </StatsSection>
                 </MainContentSection>
                 <SideContentSection>
