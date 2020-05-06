@@ -59,19 +59,6 @@ const NewsSideContainer = () => {
     const news = useSelector(state => state.news || [{title: '', description:''}]);
     let latestNews = news[0];
 
-    const getLatestNews = () => {
-        if (news.length) {
-            news.forEach(news => {
-                if (new Date(news.createdAt) > new Date(latestNews.createdAt)) latestNews = news;
-            })
-        }
-    };
-
-    useEffect(() => {
-        getLatestNews();
-        console.log('getLatest!')
-    }, [news]);
-
     return (
         <NewsSideWrapper>
             Najnowsze aktualności
@@ -81,7 +68,7 @@ const NewsSideContainer = () => {
                 <StyledParagraph>{latestNews.description}</StyledParagraph>
                 <NewsActionContainer as={Link} to={routes.ROLE_STUDENT.NEWS}>
                     <span>Dodano: {new Date(latestNews.createdAt).toLocaleDateString()}</span>
-                    Czytaj dalej {'>'}
+                    Więcej {'>'}
                 </NewsActionContainer>
             </NewsContent>
         </NewsSideWrapper>

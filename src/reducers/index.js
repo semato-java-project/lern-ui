@@ -62,6 +62,15 @@ const rootReducer = (state = initialState, {type, payload}) => {
                 courseToAdd: payload,
             };
 
+        // --- CLEANUP ---
+        case ACTION_TYPES.DATA_CLEANUP:
+
+            console.log(payload);
+            return {
+                ...state,
+                [payload]: undefined,
+            };
+
         default:
             return state;
     }

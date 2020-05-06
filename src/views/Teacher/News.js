@@ -122,8 +122,7 @@ const News = () => {
                         </ColumnWrapper>
                         :
                         <>
-                            {news.sort((news1, news2) => new Date(news2.updatedAt) - new Date(news1.updatedAt))
-                                .map(news => <NewsContainer key={news.id} news={news}/>)}
+                            {news.map(news => <NewsContainer key={news.id} news={news}/>)}
                             {isUserLecturer() && <AddNewsContainer>
                                 <RowWrapper justifyContent={'flex-end'}>
                                     <Button width={'16rem'} onClick={() => setShowAddForm(true)}>Dodaj {'>'}</Button>

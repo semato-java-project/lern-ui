@@ -15,6 +15,10 @@ export const ACTION_TYPES = {
     // --- LOGOUT ---
     USER_LOGOUT: 'USER_LOGOUT',
 
+    // --- CLEAR ---
+    DATA_CLEANUP: 'DATA_CLEANUP',
+
+
 
     // --- COURSE ---
     SET_COURSE_TO_ADD: 'SET_COURSE_TO_ADD',

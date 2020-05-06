@@ -15,6 +15,7 @@ import TableInput from "../../components/atoms/Input/TableInput";
 import Button from "../../components/atoms/Button/Button";
 import ProjectGroupInput from "../../components/atoms/Input/ProjectGroupInput";
 import {SpinnerContainer} from "../../components/molecules/Containers/SpinnerContainer";
+import {ACTION_TYPES} from "../../reducers/actionTypes";
 
 const HeaderPathInfoContainer = styled.div`
       display: flex;
@@ -71,14 +72,14 @@ const Header = styled.th`
       font-size: ${({theme}) => theme.fontSize.s};
       
       ${({StudentName}) =>
-        StudentName &&
-        css`
+    StudentName &&
+    css`
         min-width: 25rem;
       `} 
 
       ${({disableEdit}) =>
-        disableEdit === false &&
-        css`
+    disableEdit === false &&
+    css`
         background-color: ${({theme}) => theme.app_yellow};
       `}
 `;
@@ -156,11 +157,17 @@ const TeacherCourseDetails = () => {
     const [disableEdit, setDisableEdit] = useState(true);
 
     useEffect(() => {
-        dispatch(getDetails(GET_COURSE_DETAILS(urlParams.id)))
+        dispatch(getDetails(GET_COURSE_DETAILS(urlParams.id)));
+
+        // --- CLEANUP ---
+        return () => dispatch({type: ACTION_TYPES.DATA_CLEANUP, payload: GET_COURSE_DETAILS().itemType})
     }, [dispatch, urlParams]);
 
     useEffect(() => {
-        dispatch(getList(GET_PROJECT_GROUPS(urlParams.id)))
+        dispatch(getList(GET_PROJECT_GROUPS(urlParams.id)));
+
+        // --- CLEANUP ---
+        return () => dispatch({type: ACTION_TYPES.DATA_CLEANUP, payload: GET_PROJECT_GROUPS().itemType})
     }, [dispatch]);
 
     return (
@@ -170,7 +177,7 @@ const TeacherCourseDetails = () => {
                 <StyledSeparator/>
             </HeaderPathInfoContainer>
             <ContentWrapper>
-                {courseDetails? <MainContentSection>
+                {courseDetails ? <MainContentSection>
                     <RowWrapper>
                         {CourseIcon()}
                         <Heading marginLeft={'2rem'} fontSize={'2.2rem'}>{courseDetails.name}</Heading>
@@ -182,14 +189,16 @@ const TeacherCourseDetails = () => {
                     <Table>
                         <tbody>
                         <Row>
-                            <Header StudentName disableEdit={disableEdit}>STUDENT</Header>
+                            <Header StudentName disableEdit={true}>STUDENT</Header>
                             {courseDetails.taskList && generateTaskArray(courseDetails.taskList).map(task => <Header
                                 disableEdit={disableEdit} key={task.index}>{task.type} {task.number}</Header>)}
+                            <Header disableEdit={true}>OCENA KONCOWA</Header>
                         </Row>
                         {courseDetails.participantList && courseDetails.participantList.map(student =>
                             <Row>
                                 <Data StudentName>{student.firstName} {student.lastName}</Data>
                                 {student.gradeList.map(grade => <TableInput grade={grade} disableEdit={disableEdit}/>)}
+                                <TableInput grade={{gradeValue: student.finalGrade, id: null}} disableEdit={true}/>
                             </Row>
                         )}
                         </tbody>
@@ -198,7 +207,8 @@ const TeacherCourseDetails = () => {
                         {disableEdit ?
                             <StyledButton onClick={() => setDisableEdit(!disableEdit)}>Włącz tryb edycji</StyledButton>
                             :
-                            <StyledButton disableEdit={disableEdit} onClick={() => setDisableEdit(!disableEdit)}>Wyłącz tryb edycji</StyledButton>
+                            <StyledButton disableEdit={disableEdit} onClick={() => setDisableEdit(!disableEdit)}>Wyłącz
+                                tryb edycji</StyledButton>
                         }
                     </RowWrapper>
                     <Heading marginTop={'4rem'} marginBottom={'2rem'}>Grupy projektowe</Heading>

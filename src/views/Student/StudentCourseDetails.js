@@ -15,6 +15,7 @@ import TableInput from "../../components/atoms/Input/TableInput";
 import Button from "../../components/atoms/Button/Button";
 import ProjectGroupInput from "../../components/atoms/Input/ProjectGroupInput";
 import {SpinnerContainer} from "../../components/molecules/Containers/SpinnerContainer";
+import {ACTION_TYPES} from "../../reducers/actionTypes";
 
 const HeaderPathInfoContainer = styled.div`
       display: flex;
@@ -168,11 +169,16 @@ const StudentCourseDetails = () => {
     const [isProjectDisabled, setIsProjectDisabled] = useState(false);
 
     useEffect(() => {
-        dispatch(getDetails(GET_COURSE_DETAILS(urlParams.id)))
+        dispatch(getDetails(GET_COURSE_DETAILS(urlParams.id)));
+        // --- CLEANUP ---
+        return () => dispatch({type: ACTION_TYPES.DATA_CLEANUP, payload: GET_COURSE_DETAILS().itemType})
     }, [dispatch, urlParams]);
 
     useEffect(() => {
-        dispatch(getList(GET_PROJECT_GROUPS(urlParams.id)))
+        dispatch(getList(GET_PROJECT_GROUPS(urlParams.id)));
+
+        // --- CLEANUP ---
+        return () => dispatch({type: ACTION_TYPES.DATA_CLEANUP, payload: GET_PROJECT_GROUPS().itemType})
     }, [dispatch]);
 
     return (

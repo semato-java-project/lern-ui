@@ -53,8 +53,10 @@ const TableInput = ({grade, disableEdit}) => {
     };
 
     const changeValue = e => {
-
-        let value = e.target.value.replace(/,/g, '.');
+        let value = e.target.value;
+        if(value > 5) value = '5.0';
+        if(value < 2) value = '2.0';
+        value = value.replace(/,/g, '.');
         setEditableGrade(value);
     };
 

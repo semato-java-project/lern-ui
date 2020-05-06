@@ -125,9 +125,7 @@ const Publications = () => {
                         </ColumnWrapper>
                         :
                         <>
-                            {publications
-                                .sort((publication1, publication2) => new Date(publication2.createdAt) - new Date(publication1.createdAt))
-                                .map(publication =>
+                            {publications.map(publication =>
                                     <PublicationContainer key={publication.id} publication={publication}/>)}
                             {isUserLecturer() && <AddNewsContainer>
                                 <RowWrapper justifyContent={'flex-end'}>
