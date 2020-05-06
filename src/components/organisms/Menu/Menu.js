@@ -9,7 +9,7 @@ const MenuShape = styled.div`
    display: flex;
    height: 100vh;
    width: 15%;
-   min-width: 22rem;
+   min-width: 18rem;
    position: fixed;
    justify-content: center;
    background-color: ${({theme}) => theme.app_blue_dark};
@@ -17,10 +17,14 @@ const MenuShape = styled.div`
 `;
 
 const NavWrapper = styled.div`
-   display: flex;
-   flex-direction: column;
-   width: 60%;
-   margin-top: 24rem;
+      display: flex;
+      flex-direction: column;
+      width: 70%;
+      margin-top: 24rem;
+   
+      @media only screen and (min-width: 1281px) {
+       width: 60%;
+      }
 `;
 
 const getRoleBasedResources = (role) => {

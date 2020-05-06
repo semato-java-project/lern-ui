@@ -27,16 +27,28 @@ const AddPublicationTextWrapper = styled.div`
       display: flex;
       width: 73%;
       align-content: center;
+      margin-top: 5rem;
+      
+      @media only screen and (min-width: 1441px) {
+         margin-top: 0;
+      }
 `;
 const AddPublicationTitle = styled.div`
       display:flex;
       flex-direction: column;
       position:absolute;
-      top: 11rem;
-      font-size: 2.2rem;
+      top: 8rem;
+      font-size: 1.8rem;
+      left: 10%;
       color: ${({theme}) => theme.app_blue_light};
+      
       span{
         font-weight: ${({theme}) => theme.fontWeight.bold};
+      }
+      
+      @media only screen and (min-width: 1441px) {
+         top: 11rem;
+         font-size: 2.2rem;
       }
 `;
 

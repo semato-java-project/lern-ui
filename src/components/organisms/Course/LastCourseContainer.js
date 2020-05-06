@@ -2,6 +2,7 @@ import React from "react";
 import {CourseIcon} from "../../atoms/Icons/CourseIcon";
 import styled from "styled-components";
 import Heading from "../../atoms/Headings/Heading";
+
 export const LastCourseWrapper = styled.div`
       height: auto;
       width: 33.3%;
@@ -57,7 +58,11 @@ const CourseDateContainer = styled.div`
       width: 100%;
       display: flex;
       color: ${({theme}) => theme.app_text_gray};
-      font-size: ${({theme}) => theme.fontSize.s};
+      font-size: 1rem;
+
+      @media only screen and (min-width: 1281px) {
+            font-size: ${({theme}) => theme.fontSize.s};
+      }
     
     span{
         font-weight: ${({theme}) => theme.fontWeight.semiBold};

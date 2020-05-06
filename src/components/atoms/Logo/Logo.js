@@ -8,9 +8,9 @@ const Logo = styled.div`
    background-repeat: no-repeat;
    background-position: center;
    height: 7rem;
-   width: 18rem;
+   width: 10%;
    position: fixed;
-   left: 5rem;
+   left: 2.5%;
    top: 5rem;
    z-index: 99;
 `;

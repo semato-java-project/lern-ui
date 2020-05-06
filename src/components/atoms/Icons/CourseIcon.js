@@ -3,7 +3,7 @@ import styled from "styled-components";
 
 export const CourseSvgIcon = styled.svg`
   display: flex;
-  width: auto;
+  width: 100%;
   height: 100%;
 `;
 

@@ -45,12 +45,18 @@ const AddPublicationTitle = styled(Heading)`
       display:flex;
       flex-direction: column;
       position:absolute;
-      top: 7.5rem;
-      left: 40%;
-      font-size: 2.2rem;
+      top: 5.5rem;
+      left: 33%;
+      font-size: 1.5rem;
       color: ${({theme}) => theme.app_blue_light};
       span{
         font-weight: ${({theme}) => theme.fontWeight.bold};
+      }
+      
+      @media only screen and (min-width: 1441px) {
+             top: 7.5rem;
+             font-size: 2.2rem;
+             left: 40%;
       }
 `;
 
