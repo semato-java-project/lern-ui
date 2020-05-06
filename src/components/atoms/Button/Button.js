@@ -21,6 +21,7 @@ const Button = styled.button`
   :disabled{
     display: none;
   }
+  z-index: 10;
  
   transition: background-position .3s;
   background-position: 0;

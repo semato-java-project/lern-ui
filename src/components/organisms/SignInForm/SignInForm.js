@@ -66,14 +66,14 @@ const FormWrapper = styled(Form)`
     left: calc(50% - 17.5rem);
 
    
-   ${({isHidden}) =>
-    isHidden === true &&
+   ${({hidden}) =>
+    hidden === true &&
     css`
-    left: 100%;
+    left: 110%;
      `}
 `;
 
-const SignInForm = ({isHidden}) => {
+const SignInForm = ({hidden}) => {
 
     const dispatch = useDispatch();
     const history = useHistory();
@@ -122,7 +122,7 @@ const SignInForm = ({isHidden}) => {
             >
                 {({values, handleChange, handleBlur}) => {
                     return (
-                        <FormWrapper isHidden={isHidden}>
+                        <FormWrapper hidden={hidden}>
                             <PersonIcon/>
                             <LoginForm>
                                 <InfoParagraph>Logowanie do systemu</InfoParagraph>

@@ -17,9 +17,11 @@ const ContentWrapper = styled.div`
       display: flex;
       margin-top: 10rem;
       width: 100%;
-      height: 10vh;
       align-items: center;
       flex-direction: column;
+      position: absolute;
+      top: 60vh;
+      height: auto;
 `;
 
 const Student = styled.div`
@@ -35,8 +37,8 @@ const Student = styled.div`
       background-repeat: no-repeat;
       transition: all 0.7s 0.4s ease-in-out;
       
-      ${({isHidden}) =>
-    isHidden &&
+      ${({hidden}) =>
+    hidden &&
     css`
         opacity: 1;
         left: 60%;
@@ -46,17 +48,17 @@ const Student = styled.div`
 const Laptop = styled.div`
       display: flex;
       position: absolute;
-      width: 55rem;
-      height: 45rem;
-      left: calc(50% - 27.5rem);
-      top: 23%;
+      width: 60vh;
+      height: 60vh;
+      left: calc(50% - 30vh);
+      top: 22vh;
       background-image: url(${laptop});
       background-size: contain;
       background-repeat: no-repeat;
       transition: left .4s;
       
-      ${({isHidden}) =>
-    isHidden &&
+      ${({hidden}) =>
+    hidden &&
     css`
             left: -55rem;
       `}
@@ -70,9 +72,9 @@ const HomePage = () => {
             <Logo/>
             <HomeBackgroundShape/>
             <MainHomeImage>
-                <Laptop isHidden={showAuthForm}/>
-                <SignInForm isHidden={!showAuthForm}/>
-                <Student isHidden={showAuthForm}/>
+                <Laptop hidden={showAuthForm}/>
+                <SignInForm hidden={!showAuthForm}/>
+                <Student hidden={showAuthForm}/>
             </MainHomeImage>
             <RightTopSoftShape/>
             <RightTopYellowShape/>

@@ -3,7 +3,7 @@ import styled from "styled-components";
 
 const StyledShape = styled.svg`
   z-index: 0;
-  position: absolute;
+  position: fixed;
   bottom: 0;
   right: 0;
 `;
