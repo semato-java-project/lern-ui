@@ -16,6 +16,7 @@ import Button from "../../components/atoms/Button/Button";
 import ProjectGroupInput from "../../components/atoms/Input/ProjectGroupInput";
 import {SpinnerContainer} from "../../components/molecules/Containers/SpinnerContainer";
 import {ACTION_TYPES} from "../../reducers/actionTypes";
+import {IconWrapper} from "../Teacher/TeacherCourseDetails";
 
 const HeaderPathInfoContainer = styled.div`
       display: flex;
@@ -190,7 +191,9 @@ const StudentCourseDetails = () => {
             <ContentWrapper>
                 {courseDetails ? <MainContentSection>
                     <RowWrapper>
-                        {CourseIcon()}
+                        <IconWrapper>
+                            {CourseIcon()}
+                        </IconWrapper>
                         <Heading marginLeft={'2rem'} fontSize={'2.2rem'}>{courseDetails.name}</Heading>
                     </RowWrapper>
                     <Paragraph marginTop={'1rem'} marginLeft={'5rem'}>

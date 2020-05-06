@@ -29,7 +29,7 @@ const HeaderPathInfoContainer = styled.div`
 `;
 
 
-const IconWrapper = styled.div`
+export const IconWrapper = styled.div`
       display: flex;
       width: 4rem;
       height: 6rem;
