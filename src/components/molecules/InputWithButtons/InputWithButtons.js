@@ -44,7 +44,7 @@ export const InputWithButtons = ({inputType, width, paddingLeft, value, setValue
     return (
         <Wrapper>
             <TypeInfo>{inputType}</TypeInfo>
-            <InputControlled onChange={(e) => setValue(e.target.value)}
+            <InputControlled onChange={(e) => setValue(Math.abs(parseInt(e.target.value)))}
                              onBlur={() => {if(value==='') setValue(0)}}
                              withShadow type='number' value={value}
                              width={width} paddingLeft={paddingLeft}/>

@@ -28,6 +28,13 @@ const HeaderPathInfoContainer = styled.div`
       font-weight: ${({theme}) => theme.fontWeight.semiBold};
 `;
 
+
+const IconWrapper = styled.div`
+      display: flex;
+      width: 4rem;
+      height: 6rem;
+`;
+
 const StyledSeparator = styled(HorizontalSeparator)`
       width: 80%;
       margin-top: 1.5rem;
@@ -179,7 +186,9 @@ const TeacherCourseDetails = () => {
             <ContentWrapper>
                 {courseDetails ? <MainContentSection>
                     <RowWrapper>
-                        {CourseIcon()}
+                        <IconWrapper>
+                            {CourseIcon()}
+                        </IconWrapper>
                         <Heading marginLeft={'2rem'} fontSize={'2.2rem'}>{courseDetails.name}</Heading>
                     </RowWrapper>
                     <Paragraph marginTop={'1rem'} marginLeft={'5rem'}>
