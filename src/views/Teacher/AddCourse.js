@@ -15,9 +15,13 @@ import {GroupContainer} from "../../components/molecules/Containers/GroupContain
 import {useDispatch, useSelector} from "react-redux";
 import {ACTION_TYPES} from "../../reducers/actionTypes";
 import {createItem, getList} from "../../actions";
-import {ADD_COURSE, GET_GROUPS} from "../../api-config/requestTypes";
+import {ADD_COURSE, GET_COURSE_DETAILS, GET_GROUPS} from "../../api-config/requestTypes";
 import AddPublicationContainer from "../../components/organisms/Publication/AddPublicationContainer";
 import NewsSideContainer from "../../components/organisms/News/NewsSideContainer";
+import {CheckIcon} from "../../components/atoms/Icons/CheckIcon";
+import {WarnIcon} from "../../components/atoms/Icons/WarnIcon";
+import {routes} from "../../routes";
+import {Link} from "react-router-dom";
 
 const HeaderPathInfoContainer = styled.div`
       display: flex;
@@ -48,6 +52,16 @@ const MainContentSection = styled.div`
       flex-direction: column;
       width: 70%;
       height: 100%;
+`;
+
+const StatusInfoContainer = styled.div`
+      display: flex;
+      flex-direction: column;
+      padding-top: 20rem;
+      width: 100%;
+      height: 100%;
+      align-items: center;
+      justify-content: center;
 `;
 
 const SideContentSection = styled.div`
@@ -302,12 +316,16 @@ const AddCourse = () => {
                             <RowWrapper justifyContent={'space-between'}>
                                 <StyledButton grayColor
                                               onClick={() => setActiveStep(ADD_PROCESS_STEPS.SET_DETAILS)}>{'<'} Wstecz</StyledButton>
-                                {groupValidationError? <ErrorParagraph>Nie wybrano grupy.</ErrorParagraph> : null}
+                                {groupValidationError ? <ErrorParagraph>Nie wybrano grupy.</ErrorParagraph> : null}
                                 <StyledButton onClick={() => {
                                     isGroupStepValid() && dispatch(createItem(ADD_COURSE, courseToAdd))
                                         .then(() => setAddResponse({
                                             status: 'success',
                                             message: 'Tworzenie kursu zakończone sukcesem.'
+                                        }))
+                                        .then(() => dispatch({
+                                            type: ACTION_TYPES.DATA_CLEANUP,
+                                            payload: 'courseToAdd'
                                         }))
                                         .catch(() => setAddResponse({
                                             status: 'error',
@@ -329,7 +347,24 @@ const AddCourse = () => {
                 <ContentWrapper>
                     {addResponse.status ?
                         <MainContentSection>
-                            <p>{addResponse.message}</p>
+                            <StatusInfoContainer>
+                                {addResponse.status === 'success' ?
+                                    <>
+                                        {CheckIcon()}
+                                        <Heading marginTop={'3rem'} margin-left={'4rem'}>{addResponse.message}</Heading>
+                                        <Button as={Link} to={routes.ROLE_LECTURER.COURSES}>Pokaż listę kursów{'>'}</Button>
+                                    </>
+                                    :
+                                    <>
+                                        {WarnIcon()}
+                                        <Heading marginTop={'3rem'} margin-left={'4rem'}>{addResponse.message}</Heading>
+                                        <Button onClick={() => {
+                                            setActiveStep(ADD_PROCESS_STEPS.SET_NAME_WITH_DESCRIPTION);
+                                            setAddResponse({status: undefined, message: ''});
+                                        }}>Spróbuj ponownie{'>'}</Button>
+                                    </>
+                                }
+                            </StatusInfoContainer>
                         </MainContentSection>
                         :
                         <MainContentSection>
