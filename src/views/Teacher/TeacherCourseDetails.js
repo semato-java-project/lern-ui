@@ -55,16 +55,6 @@ const MainContentSection = styled.div`
       height: 100%;
 `;
 
-const SideContentSection = styled.div`
-      display: flex;
-      flex-direction: column;
-      width: 30%;
-      height: 100%;
-      color: ${({theme}) => theme.app_blue_dark};
-      font-size: ${({theme}) => theme.fontSize.l};
-      padding: 2rem 3rem 0;
-`;
-
 const Table = styled.table`
 `;
 

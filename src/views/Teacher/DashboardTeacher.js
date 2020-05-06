@@ -100,7 +100,7 @@ const DashboardTeacher = () => {
                     </StatsSection>
                 </MainContentSection>
                 <SideContentSection>
-                    <AddPublicationContainer/>
+                    <AddPublicationContainer animate={true}/>
                     <NewsSideContainer/>
                 </SideContentSection>
             </ContentWrapper>

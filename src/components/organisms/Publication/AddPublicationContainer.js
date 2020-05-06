@@ -1,5 +1,5 @@
 import React from "react";
-import styled from "styled-components";
+import styled, {css} from "styled-components";
 import Heading from "../../atoms/Headings/Heading";
 import {AddPublicationImage} from "../../molecules/Images/AddPublicationImage";
 import Button from "../../atoms/Button/Button";
@@ -27,6 +27,16 @@ const AddPublicationWrapper = styled.div`
       height: 30%;
       position:relative;
       align-items: center;
+      
+      ${({animate}) =>
+    animate === true &&
+    css`
+      @keyframes slide-right-to-left {
+        0%   {left: 50%;opacity: 0;}
+        100% {left: 0; opacity: 100%;}
+      }
+      animation: slide-right-to-left 1s ease-in-out;   
+    `}
 `;
 
 const AddPublicationImageWrapper = styled.div`
@@ -52,19 +62,21 @@ const AddPublicationTitle = styled(Heading)`
       span{
         font-weight: ${({theme}) => theme.fontWeight.bold};
       }
+     
       
       @media only screen and (min-width: 1441px) {
              top: 7.5rem;
              font-size: 2.2rem;
              left: 40%;
       }
+
 `;
 
 
-const AddPublicationContainer = () => {
+const AddPublicationContainer = ({animate}) => {
 
     return (
-        <AddPublicationWrapper>
+        <AddPublicationWrapper animate={animate}>
             <AddPublicationImageWrapper>
                 <AddPublicationImage/>
             </AddPublicationImageWrapper>
@@ -72,7 +84,8 @@ const AddPublicationContainer = () => {
                 Nie zapomnij<span>dodać publikacji!</span>
             </AddPublicationTitle>
             <AddPublicationTextWrapper>
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et
+                dolore magna aliqua.
             </AddPublicationTextWrapper>
             <StyledButton as={Link} to={routes.ROLE_LECTURER.PUBLICATIONS}>Dodaj publikację{'>'}</StyledButton>
         </AddPublicationWrapper>
