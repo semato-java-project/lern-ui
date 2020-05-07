@@ -30,11 +30,12 @@ const TitleContainer = styled.div`
 
 const ContentContainer = styled.div`
       display: flex;
+      text-align: justify;
       width: 100%;
-      padding-left: 1rem;
-      font-size: ${({theme}) => theme.fontSize.l};
+      padding-left: 5rem;
+      font-size: ${({theme}) => theme.fontSize.s};
       color: ${({theme}) => theme.app_blue_dark};
-      margin: 0 0 3rem 8rem;
+      margin-bottom: 3rem;
 `;
 
 const DateContainer = styled.div`

@@ -131,7 +131,7 @@ const Publications = () => {
                             {publications.map(publication =>
                                     <PublicationContainer key={publication.id} publication={publication}/>)}
                             {isUserLecturer() && <AddNewsContainer>
-                                <RowWrapper justifyContent={'flex-end'}>
+                                <RowWrapper justifyContent={'flex-end'} marginBottom={'5rem'}>
                                     <Button width={'16rem'} onClick={() => setShowAddForm(true)}>Dodaj {'>'}</Button>
                                 </RowWrapper>
                             </AddNewsContainer>

@@ -36,10 +36,11 @@ const StyledHeading = styled(Heading)`
 
 const StyledParagraph = styled(Paragraph)`
       color: ${({theme}) => theme.app_background};
-      text-align: center;
-      align-items: center;
       display: flex;
       height: 50%;
+      overflow: hidden;
+      text-align: justify;
+      margin: 1rem 0;
 `;
 
 const NewsActionContainer = styled(Paragraph)`

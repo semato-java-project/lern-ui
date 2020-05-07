@@ -25,14 +25,24 @@ const TitleContainer = styled.div`
       font-size: ${({theme}) => theme.fontSize.xl};
       font-weight: ${({theme}) => theme.fontWeight.bold};
       color: ${({theme}) => theme.app_blue_light};
+      
+      span{
+            color: ${({theme}) => theme.app_blue_dark};
+                  font-weight: ${({theme}) => theme.fontWeight.medium};
+                  margin-left: 0.8rem;
+
+      }
 `;
 
 const ContentContainer = styled.div`
       display: flex;
       width: 100%;
-      font-size: ${({theme}) => theme.fontSize.l};
+      padding-left: 5rem;
+      font-size: ${({theme}) => theme.fontSize.s};
       color: ${({theme}) => theme.app_blue_dark};
-      padding: 0 0 3rem 5rem;
+      margin-bottom: 3rem;
+      margin-top: 1rem;
+      text-align: justify;
 `;
 
 const Image = styled.div`
@@ -45,17 +55,17 @@ const Image = styled.div`
 `;
 
 
-const Publications = ({publication})=> (
+const Publications = ({publication}) => (
     <PublicationWrapper>
         <RowWrapper>
             <Image/>
-            <TitleContainer>{publication.title}</TitleContainer>
+            <TitleContainer>{publication.lecturerFirstName} {publication.lecturerLastName} - <span>{publication.title}</span></TitleContainer>
         </RowWrapper>
-            <ContentContainer>{publication.description}</ContentContainer>
-            <RowWrapper justifyContent={'space-between'}>
-                <span>{new Date(publication.createdAt).toLocaleDateString()}</span>
-                <span>{publication.lecturerId}</span>
-            </RowWrapper>
+        <ContentContainer>{publication.description}</ContentContainer>
+        <RowWrapper justifyContent={'space-between'}>
+            <span>{new Date(publication.createdAt).toLocaleDateString()}</span>
+            <span>{publication.lecturerId}</span>
+        </RowWrapper>
     </PublicationWrapper>
 );
 
