@@ -54,7 +54,6 @@ const StyledButton = styled(Button)`
     position: absolute;
     right: 0;
     width: 16rem;
-    min-height: 1rem;
     height: 4rem;
     font-weight: ${({theme}) => theme.fontWeight.regular};
     background-color: ${({theme}) => theme.app_blue_light};

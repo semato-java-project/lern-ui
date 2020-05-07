@@ -9,7 +9,6 @@ import {routes} from "../../../routes";
 const StyledButton = styled(Button)`
     margin: 3rem;
     width: 18rem;
-    min-height: 1rem;
     height: 4rem;
     font-weight: ${({theme}) => theme.fontWeight.regular};
     background-color: ${({theme}) => theme.app_yellow};
@@ -24,7 +23,6 @@ const AddPublicationWrapper = styled.div`
       display: flex;
       flex-direction: column;
       width: 100%;
-      height: 30%;
       position:relative;
       align-items: center;
       

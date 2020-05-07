@@ -38,6 +38,7 @@ const StyledParagraph = styled(Paragraph)`
       color: ${({theme}) => theme.app_background};
       display: flex;
       height: 50%;
+      width: 100%;
       overflow: hidden;
       text-align: justify;
       margin: 1rem 0;

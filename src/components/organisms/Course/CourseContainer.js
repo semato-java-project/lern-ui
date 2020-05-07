@@ -55,7 +55,11 @@ export const CourseWrapper = styled.div`
           0%   {width: 0;opacity: 0;}
           100% {width: 86%;opacity: 100%;}
          }
-         animation: slide-course-bar 0.3s ease-in-out;   
+         animation: slide-course-bar 0.3s ease-in-out;  
+         
+         @media screen and (-ms-high-contrast: active), (-ms-high-contrast: none) {
+           height: 0;
+         }  
       }
 `;
 
@@ -79,7 +83,7 @@ const CourseArrowWrapper = styled.div`
 
 const LastCourseIcon = styled.div`
       height: 6rem;
-      width: auto;
+      width: 6rem;
       margin-left: 7%;
 `;
 

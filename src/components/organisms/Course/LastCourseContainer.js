@@ -31,6 +31,10 @@ export const LastCourseWrapper = styled.div`
          margin-top: -0.9rem;
          margin-left: 7%;
          z-index: -1;
+         
+         @media screen and (-ms-high-contrast: active), (-ms-high-contrast: none) {
+           height: 0;
+         }   
       }
 `;
 
@@ -45,7 +49,7 @@ const LastCourseContent = styled.div`
 
 const LastCourseIcon = styled.div`
       height: 6rem;
-      width: auto;
+      width: 6rem;
       margin-left: 7%;
 `;
 

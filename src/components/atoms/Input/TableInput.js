@@ -26,6 +26,13 @@ const Input = styled.input`
       &:focus{
          outline: none;
       }
+      
+      ${({valueError}) =>
+    valueError === true &&
+    css`
+        color: #DE242B;
+        
+      `} 
 `;
 
 
@@ -34,6 +41,7 @@ const Data = styled.td`
       height: 3rem;
       margin-top: 1rem;
       background-color: white;
+      
       
       ${({StudentName}) =>
     StudentName &&
@@ -46,17 +54,22 @@ const TableInput = ({grade, disableEdit}) => {
 
     const inputRef = useRef();
     const [editableGrade, setEditableGrade] = useState(grade.gradeValue);
+    const [valueError, setValueError] = useState(false);
     const dispatch = useDispatch();
 
     const editGradeRequest = () => {
-        dispatch(updateItem(EDIT_GRADE(grade.id), {grade: editableGrade, id: grade.id}))
+        if(editableGrade % 0.5 === 0){
+            if(valueError) setValueError(false);
+            dispatch(updateItem(EDIT_GRADE(grade.id), {grade: editableGrade, id: grade.id}))
+        }
+        else setValueError(true);
     };
 
     const changeValue = e => {
-        let value = e.target.value;
-        if(value > 5) value = '5.0';
-        if(value < 2) value = '2.0';
-        value = value.replace(/,/g, '.');
+        let value = parseFloat(e.target.value).toFixed(1);
+        console.log(value);
+        if(value > 5) value = 5.0;
+        if(value < 2) value = 2.0;
         setEditableGrade(value);
     };
 
@@ -66,8 +79,8 @@ const TableInput = ({grade, disableEdit}) => {
 
     return (
         <Data>
-            <Input ref={inputRef} disabled={disableEdit} onBlur={editGradeRequest} type="number"
-                   value={editableGrade? parseFloat(editableGrade).toFixed(1) : ''} step="0.5" min="2.0" max='5.0'
+            <Input valueError={valueError} ref={inputRef} disabled={disableEdit} onBlur={editGradeRequest} type="number"
+                   value={editableGrade? parseFloat(editableGrade).toFixed(1) : null} step="0.5" min="2.0" max='5.0'
                    onChange={changeValue} onKeyDown={handleKeyDown}/>
         </Data>
     )

@@ -208,6 +208,7 @@ const StudentCourseDetails = () => {
                             generateTaskArray(courseDetails.taskList)
                                 .map(task =>
                                     <Header disableEdit={true} key={task.index}>{task.type} {task.number}</Header>)}
+                            <Header disableEdit={true}>OCENA KONCOWA</Header>
                         </Row>
                         {courseDetails.participantList &&
                         courseDetails.participantList.map(student =>
@@ -216,31 +217,36 @@ const StudentCourseDetails = () => {
                                 {student.gradeList
                                     .map(grade =>
                                         <TableInput key={grade.id} grade={grade} disableEdit={true}/>)}
+                                <TableInput grade={{gradeValue: student.finalGrade, id: null}} disableEdit={true}/>
                             </Row>
                         )}
                         </tbody>
                     </Table>
-                    <Heading marginTop={'4rem'} marginBottom={'2rem'}>Grupy projektowe</Heading>
-                    <Table>
-                        <tbody>
-                        <Row>
-                            <Header groupNo disableEdit={true}>NUMER GRUPY</Header>
-                            <Header groupNo disableEdit={true}>SKŁAD GRUPY</Header>
-                        </Row>
-                        {projectGroups && projectGroups.map(group =>
+                    {projectGroups &&
+                    <>
+                        <Heading marginTop={'4rem'} marginBottom={'2rem'}>Grupy projektowe</Heading>
+                        <Table>
+                            <tbody>
                             <Row>
-                                <Data groupNo>{group.projectGroupId}</Data>
-                                <ProjectGroupInput group={group} isProjectDisabled={isProjectDisabled}
+                                <Header groupNo disableEdit={true}>NUMER GRUPY</Header>
+                                <Header groupNo disableEdit={true}>SKŁAD GRUPY</Header>
+                            </Row>
+                            {projectGroups.map(group =>
+                                <Row>
+                                    <Data groupNo>{group.projectGroupId}</Data>
+                                    <ProjectGroupInput group={group} isProjectDisabled={isProjectDisabled}
+                                                       setIsProjectDisabled={setIsProjectDisabled}/>
+                                </Row>)
+                            }
+                            {!isProjectDisabled && <Row>
+                                <Data>-</Data>
+                                <ProjectGroupInput isProjectDisabled={isProjectDisabled}
                                                    setIsProjectDisabled={setIsProjectDisabled}/>
-                            </Row>)
-                        }
-                        {!isProjectDisabled && <Row>
-                            <Data>-</Data>
-                            <ProjectGroupInput isProjectDisabled={isProjectDisabled}
-                                               setIsProjectDisabled={setIsProjectDisabled}/>
-                        </Row>}
-                        </tbody>
-                    </Table>
+                            </Row>}
+                            </tbody>
+                        </Table>
+                    </>
+                    }
                 </MainContentSection> : <SpinnerContainer/>}
             </ContentWrapper>
         </SidebarTemplate>

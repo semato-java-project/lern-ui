@@ -2,7 +2,7 @@ import React from "react";
 import styled from "styled-components";
 
 const StyledShape = styled.svg`
-  z-index: 0;
+  z-index: -1;
   position: fixed;
   bottom: 0;
   right: 0;

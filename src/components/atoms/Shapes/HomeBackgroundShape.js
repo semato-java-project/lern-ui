@@ -2,13 +2,16 @@ import React from "react";
 import styled from "styled-components";
 
 const StyledBackground = styled.svg`
-  display: flex;
-  z-index: -2;
-  top: 0;
-  left: 0;
-  position:relative;
-  width: 100%;
-  height: auto;
+      display: flex;
+      z-index: -2;
+      top: 0;
+      left: 0;
+      position:relative;
+      width: 100%;
+  
+      @media not (-ms-high-contrast: active), (-ms-high-contrast: none)) {
+        height: auto;
+      }  
 `;
 
 export const HomeBackgroundShape = () => (

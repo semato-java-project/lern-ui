@@ -13,7 +13,6 @@ const AddCourseSideWrapper = styled.div`
       display: flex;
       flex-direction: column;
       width: 100%;
-      height: 30%;
       position:relative;
       align-items: center;
 `;
@@ -28,6 +27,7 @@ const AddPublicationTextWrapper = styled.div`
       width: 73%;
       align-content: center;
       margin-top: 5rem;
+      height: auto;
       
       @media only screen and (min-width: 1441px) {
          margin-top: 0;
@@ -54,7 +54,6 @@ const AddPublicationTitle = styled.div`
 
 const StyledButton = styled(Button)`
     width: 16rem;
-    min-height: 1rem;
     height: 4rem;
     margin: 2rem 0 0;
     font-weight: ${({theme}) => theme.fontWeight.regular};

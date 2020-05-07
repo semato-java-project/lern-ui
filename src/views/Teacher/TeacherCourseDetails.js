@@ -132,7 +132,6 @@ const generateTaskArray = taskList => {
 
 const StyledButton = styled(Button)`
      width: 16rem;
-     min-height: 1rem;
      height: 3.5rem;
      margin: 3rem 0 0;
      font-weight: ${({theme}) => theme.fontWeight.regular};
@@ -144,6 +143,14 @@ const StyledButton = styled(Button)`
         color: ${({theme}) => theme.app_blue_dark};
       `}
 `;
+
+
+const showProjectContainer = (taskList) => {
+
+    console.log(taskList.includes(search => search.taskType === 'PROJECT'));
+
+};
+
 
 const TeacherCourseDetails = () => {
 
@@ -210,21 +217,24 @@ const TeacherCourseDetails = () => {
                                 tryb edycji</StyledButton>
                         }
                     </RowWrapper>
-                    <Heading marginTop={'4rem'} marginBottom={'2rem'}>Grupy projektowe</Heading>
-                    <Table>
-                        <tbody>
-                        <Row>
-                            <Header groupNo disableEdit={true}>NUMER GRUPY</Header>
-                            <Header groupNo disableEdit={true}>SKŁAD GRUPY</Header>
-                        </Row>
-                        {projectGroups && projectGroups.map(group =>
+                    {projectGroups &&
+                    <>
+                        <Heading marginTop={'4rem'} marginBottom={'2rem'}>Grupy projektowe</Heading>
+                        <Table>
+                            <tbody>
                             <Row>
-                                <Data groupNo>{group.projectGroupId}</Data>
-                                <ProjectGroupInput teacher={true} group={group} isProjectDisabled={true}/>
-                            </Row>)
-                        }
-                        </tbody>
-                    </Table>
+                                <Header groupNo disableEdit={true}>NUMER GRUPY</Header>
+                                <Header groupNo disableEdit={true}>SKŁAD GRUPY</Header>
+                            </Row>
+                            {projectGroups.map(group =>
+                                <Row>
+                                    <Data groupNo>{group.projectGroupId}</Data>
+                                    <ProjectGroupInput teacher={true} group={group} isProjectDisabled={true}/>
+                                </Row>)
+                            }
+                            </tbody>
+                        </Table>
+                    </>}
                 </MainContentSection> : <SpinnerContainer/>}
             </ContentWrapper>
         </SidebarTemplate>
