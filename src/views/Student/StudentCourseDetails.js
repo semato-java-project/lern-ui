@@ -231,9 +231,9 @@ const StudentCourseDetails = () => {
                                 <Header groupNo disableEdit={true}>NUMER GRUPY</Header>
                                 <Header groupNo disableEdit={true}>SKŁAD GRUPY</Header>
                             </Row>
-                            {projectGroups.map(group =>
+                            {projectGroups.map((group,index) =>
                                 <Row>
-                                    <Data groupNo>{group.projectGroupId}</Data>
+                                    <Data groupNo>{index+1}</Data>
                                     <ProjectGroupInput group={group} isProjectDisabled={isProjectDisabled}
                                                        setIsProjectDisabled={setIsProjectDisabled}/>
                                 </Row>)
