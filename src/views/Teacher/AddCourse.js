@@ -52,6 +52,12 @@ const MainContentSection = styled.div`
       flex-direction: column;
       width: 70%;
       height: 100%;
+      
+      @keyframes show-section {
+          0%   {opacity: 0;}
+          100% {opacity: 100%;}
+         }
+      animation: show-section 0.3s ease-in-out; 
 `;
 
 const StatusInfoContainer = styled.div`

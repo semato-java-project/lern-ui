@@ -50,7 +50,12 @@ export const CourseWrapper = styled.div`
          position: absolute;
          margin-top: -0.9rem;
          margin-left: 7%;
-         z-index: -1;
+         z-index: -10;
+         @keyframes slide-course-bar {
+          0%   {width: 0;opacity: 0;}
+          100% {width: 86%;opacity: 100%;}
+         }
+         animation: slide-course-bar 0.3s ease-in-out;   
       }
 `;
 

@@ -16,6 +16,12 @@ const PublicationWrapper = styled.div`
       border-radius: 1rem;
       width: 100%;
       box-shadow: 0 1rem 1rem 0 rgba(0, 0, 0, 0.04), 0 0.5rem 1.5rem 0 rgba(0, 0, 0, 0.03);
+      
+      @keyframes show {
+          0%   {opacity: 0;}
+          100% {opacity: 100%;}
+         }
+      animation: show 0.3s ease-in-out; 
 `;
 
 const TitleContainer = styled.div`

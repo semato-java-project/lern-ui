@@ -32,7 +32,7 @@ const AddPublicationWrapper = styled.div`
     animate === true &&
     css`
       @keyframes slide-right-to-left {
-        0%   {left: 50%;opacity: 0;}
+        0%   {left: 30%;opacity: 0;}
         100% {left: 0; opacity: 100%;}
       }
       animation: slide-right-to-left 1s ease-in-out;   
