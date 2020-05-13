@@ -27,8 +27,8 @@ const Input = styled.input`
          outline: none;
       }
       
-      ${({valueError}) =>
-    valueError === true &&
+      ${({valueError, disabled}) =>
+    valueError === true && disabled === false &&
     css`
         color: #DE242B;
         
