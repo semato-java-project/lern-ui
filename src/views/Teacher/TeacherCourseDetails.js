@@ -145,13 +145,6 @@ const StyledButton = styled(Button)`
 `;
 
 
-const showProjectContainer = (taskList) => {
-
-    console.log(taskList.includes(search => search.taskType === 'PROJECT'));
-
-};
-
-
 const TeacherCourseDetails = () => {
 
     const dispatch = useDispatch();
@@ -160,19 +153,28 @@ const TeacherCourseDetails = () => {
     const projectGroups = useSelector(state => state.projectGroups);
     const [disableEdit, setDisableEdit] = useState(true);
 
+    const isProjectIncluded = (taskList = courseDetails.taskList) => taskList.filter(task => task.taskType === 'PROJECT').length;
+
+    const getCourseDetails = async () => {
+        let {payload} = await dispatch(getDetails(GET_COURSE_DETAILS(urlParams.id)));
+
+        const isProjectIncludedValue = isProjectIncluded(payload.item.taskList);
+        if (isProjectIncludedValue) dispatch(getList(GET_PROJECT_GROUPS(urlParams.id)));
+
+        return isProjectIncludedValue;
+    };
+
     useEffect(() => {
-        dispatch(getDetails(GET_COURSE_DETAILS(urlParams.id)));
+
+        let isProjectIncludedValue = getCourseDetails();
 
         // --- CLEANUP ---
-        return () => dispatch({type: ACTION_TYPES.DATA_CLEANUP, payload: GET_COURSE_DETAILS().itemType})
+        return () => {
+            dispatch({type: ACTION_TYPES.DATA_CLEANUP, payload: GET_COURSE_DETAILS().itemType});
+            if (isProjectIncludedValue) dispatch({type: ACTION_TYPES.DATA_CLEANUP, payload: GET_PROJECT_GROUPS().itemType})
+        }
     }, [dispatch, urlParams]);
 
-    useEffect(() => {
-        dispatch(getList(GET_PROJECT_GROUPS(urlParams.id)));
-
-        // --- CLEANUP ---
-        return () => dispatch({type: ACTION_TYPES.DATA_CLEANUP, payload: GET_PROJECT_GROUPS().itemType})
-    }, [dispatch]);
 
     return (
         <SidebarTemplate>
@@ -201,9 +203,10 @@ const TeacherCourseDetails = () => {
                             <Header disableEdit={true}>OCENA KONCOWA</Header>
                         </Row>
                         {courseDetails.participantList && courseDetails.participantList.map(student =>
-                            <Row>
+                            <Row key={student.studentId}>
                                 <Data StudentName>{student.firstName} {student.lastName}</Data>
-                                {student.gradeList.map(grade => <TableInput grade={grade} disableEdit={disableEdit}/>)}
+                                {student.gradeList.map((grade, index) => <TableInput key={index} grade={grade}
+                                                                                     disableEdit={disableEdit}/>)}
                                 <TableInput grade={{gradeValue: student.finalGrade, id: null}} disableEdit={true}/>
                             </Row>
                         )}
@@ -213,11 +216,14 @@ const TeacherCourseDetails = () => {
                         {disableEdit ?
                             <StyledButton onClick={() => setDisableEdit(!disableEdit)}>Włącz tryb edycji</StyledButton>
                             :
-                            <StyledButton disableEdit={disableEdit} onClick={() => setDisableEdit(!disableEdit)}>Wyłącz
+                            <StyledButton disableEdit={disableEdit} onClick={async () => {
+                                await dispatch(getDetails(GET_COURSE_DETAILS(urlParams.id)));
+                                setDisableEdit(!disableEdit)
+                            }}>Wyłącz
                                 tryb edycji</StyledButton>
                         }
                     </RowWrapper>
-                    {projectGroups && (courseDetails.taskList[2].quantity !== 0) &&
+                    {projectGroups && isProjectIncluded() &&
                     <>
                         <Heading marginTop={'4rem'} marginBottom={'2rem'}>Grupy projektowe</Heading>
                         <Table>
@@ -226,9 +232,9 @@ const TeacherCourseDetails = () => {
                                 <Header groupNo disableEdit={true}>NUMER GRUPY</Header>
                                 <Header groupNo disableEdit={true}>SKŁAD GRUPY</Header>
                             </Row>
-                            {projectGroups.map((group,index) =>
+                            {projectGroups.map((group, index) =>
                                 <Row>
-                                    <Data groupNo>{index+1}</Data>
+                                    <Data groupNo>{index + 1}</Data>
                                     <ProjectGroupInput teacher={true} group={group} isProjectDisabled={true}/>
                                 </Row>)
                             }

@@ -52,39 +52,48 @@ const Data = styled.td`
 
 const TableInput = ({grade, disableEdit}) => {
 
-    const inputRef = useRef();
-    const [editableGrade, setEditableGrade] = useState(grade.gradeValue);
-    const [valueError, setValueError] = useState(false);
-    const dispatch = useDispatch();
+        const inputRef = useRef();
+        const [editableGrade, setEditableGrade] = useState(grade.gradeValue);
+        const [valueError, setValueError] = useState(false);
+        const dispatch = useDispatch();
 
-    const editGradeRequest = () => {
-        if(editableGrade % 0.5 === 0){
-            if(valueError) setValueError(false);
-            dispatch(updateItem(EDIT_GRADE(grade.id), {grade: editableGrade, id: grade.id}))
-        }
-        else setValueError(true);
-    };
+        const editGradeRequest = () => {
+            if (editableGrade % 0.5 === 0) {
+                if (valueError) setValueError(false);
+                dispatch(updateItem(EDIT_GRADE(grade.id), {grade: editableGrade, id: grade.id}))
+            } else setValueError(true);
+        };
 
-    const changeValue = e => {
-        let value = parseFloat(e.target.value).toFixed(1);
-        console.log(value);
-        if(value > 5) value = 5.0;
-        if(value < 2) value = 2.0;
-        setEditableGrade(value);
-    };
+        const changeValue = e => {
+            let value = parseFloat(e.target.value).toFixed(1);
+            if (value > 5) value = 5.0;
+            if (value < 2) value = 2.0;
+            setEditableGrade(value);
+        };
 
-    const handleKeyDown = (e) => {
-        if (e.key === 'Enter') inputRef.current.blur();
-    };
+        const handleKeyDown = (e) => {
+            if (e.key === 'Enter') inputRef.current.blur();
+        };
 
-    return (
-        <Data>
-            <Input valueError={valueError} ref={inputRef} disabled={disableEdit} onBlur={editGradeRequest} type="number"
-                   value={editableGrade? parseFloat(editableGrade).toFixed(1) : null} step="0.5" min="2.0" max='5.0'
-                   onChange={changeValue} onKeyDown={handleKeyDown}/>
-        </Data>
-    )
-};
+
+        const showGrade = () => {
+            if (disableEdit) {
+                if (grade.gradeValue) return parseFloat(grade.gradeValue).toFixed(1);
+                else return '';
+            } else if (editableGrade) {
+                return parseFloat(editableGrade).toFixed(1);
+            } else return '';
+        };
+
+        return (
+            <Data>
+                <Input valueError={valueError} ref={inputRef} disabled={disableEdit} onBlur={editGradeRequest} type="number"
+                       value={showGrade()} step="0.5" min="2.0" max='5.0'
+                       onChange={changeValue} onKeyDown={handleKeyDown}/>
+            </Data>
+        )
+    }
+;
 
 
 export default TableInput;

@@ -1,4 +1,4 @@
-import React, {useEffect} from "react";
+import React from "react";
 import styled from "styled-components";
 import Heading from "../../atoms/Headings/Heading";
 import Paragraph from "../../atoms/Paragraphs/Paragraph";

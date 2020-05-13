@@ -15,7 +15,7 @@ import {GroupContainer} from "../../components/molecules/Containers/GroupContain
 import {useDispatch, useSelector} from "react-redux";
 import {ACTION_TYPES} from "../../reducers/actionTypes";
 import {createItem, getList} from "../../actions";
-import {ADD_COURSE, GET_COURSE_DETAILS, GET_GROUPS} from "../../api-config/requestTypes";
+import {ADD_COURSE, GET_GROUPS} from "../../api-config/requestTypes";
 import AddPublicationContainer from "../../components/organisms/Publication/AddPublicationContainer";
 import NewsSideContainer from "../../components/organisms/News/NewsSideContainer";
 import {CheckIcon} from "../../components/atoms/Icons/CheckIcon";

@@ -3,7 +3,6 @@ import SidebarTemplate from "../../templates/SidebarTemplate";
 import styled, {css} from "styled-components";
 import {HorizontalSeparator} from "../../components/atoms/Shapes/HorizontalSeparator";
 import Heading from "../../components/atoms/Headings/Heading";
-import {getDetails, getList} from "../../actions";
 import {GET_COURSE_DETAILS, GET_PROJECT_GROUPS} from "../../api-config/requestTypes";
 import {useDispatch, useSelector} from "react-redux";
 import {useParams} from "react-router-dom";
@@ -16,6 +15,7 @@ import ProjectGroupInput from "../../components/atoms/Input/ProjectGroupInput";
 import {SpinnerContainer} from "../../components/molecules/Containers/SpinnerContainer";
 import {ACTION_TYPES} from "../../reducers/actionTypes";
 import {IconWrapper} from "../Teacher/TeacherCourseDetails";
+import {getDetails, getList} from "../../actions";
 
 const HeaderPathInfoContainer = styled.div`
       display: flex;
@@ -46,16 +46,6 @@ const MainContentSection = styled.div`
       flex-direction: column;
       width: 98%;
       height: 100%;
-`;
-
-const SideContentSection = styled.div`
-      display: flex;
-      flex-direction: column;
-      width: 30%;
-      height: 100%;
-      color: ${({theme}) => theme.app_blue_dark};
-      font-size: ${({theme}) => theme.fontSize.l};
-      padding: 2rem 3rem 0;
 `;
 
 const Table = styled.table`
@@ -123,6 +113,8 @@ const translateTaskType = (type, taskQuantity) => {
         }
         case 'LAB':
             return 'LAB';
+        default:
+            return 'NULL'
     }
 };
 
@@ -153,18 +145,32 @@ const StudentCourseDetails = () => {
     const projectGroups = useSelector(state => state.projectGroups);
     const [isProjectDisabled, setIsProjectDisabled] = useState(false);
 
+    const isProjectIncluded = (taskList = courseDetails.taskList) => taskList.filter(task => task.taskType === 'PROJECT').length;
+
+    const getCourseDetails = async () => {
+        let {payload} = await dispatch(getDetails(GET_COURSE_DETAILS(urlParams.id)));
+
+        const isProjectIncludedValue = isProjectIncluded(payload.item.taskList);
+        if (isProjectIncludedValue) dispatch(getList(GET_PROJECT_GROUPS(urlParams.id)));
+
+        return isProjectIncludedValue;
+    };
+
+
     useEffect(() => {
-        dispatch(getDetails(GET_COURSE_DETAILS(urlParams.id)));
-        // --- CLEANUP ---
-        return () => dispatch({type: ACTION_TYPES.DATA_CLEANUP, payload: GET_COURSE_DETAILS().itemType})
+
+        let isProjectIncludedValue = getCourseDetails();
+
+        // --- CLEANUP ---W
+        return () => {
+            dispatch({type: ACTION_TYPES.DATA_CLEANUP, payload: GET_COURSE_DETAILS().itemType});
+            if (isProjectIncludedValue) dispatch({
+                type: ACTION_TYPES.DATA_CLEANUP,
+                payload: GET_PROJECT_GROUPS().itemType
+            })
+        }
     }, [dispatch, urlParams]);
 
-    useEffect(() => {
-        dispatch(getList(GET_PROJECT_GROUPS(urlParams.id)));
-
-        // --- CLEANUP ---
-        return () => dispatch({type: ACTION_TYPES.DATA_CLEANUP, payload: GET_PROJECT_GROUPS().itemType})
-    }, [dispatch]);
 
     return (
         <SidebarTemplate>
@@ -206,7 +212,7 @@ const StudentCourseDetails = () => {
                         )}
                         </tbody>
                     </Table>
-                    {projectGroups && (courseDetails.taskList[2].quantity !== 0) &&
+                    {projectGroups && isProjectIncluded() &&
                     <>
                         <Heading marginTop={'4rem'} marginBottom={'2rem'}>Grupy projektowe</Heading>
                         <Table>
@@ -215,14 +221,15 @@ const StudentCourseDetails = () => {
                                 <Header groupNo disableEdit={true}>NUMER GRUPY</Header>
                                 <Header groupNo disableEdit={true}>SKŁAD GRUPY</Header>
                             </Row>
-                            {projectGroups.map((group,index) =>
+                            {projectGroups.map((group, index) =>
                                 <Row>
-                                    <Data groupNo>{index+1}</Data>
-                                    <ProjectGroupInput group={group} isProjectDisabled={group.studentResponseList.length >= group.maxGroupQuantity? true : isProjectDisabled}
+                                    <Data groupNo>{index + 1}</Data>
+                                    <ProjectGroupInput group={group}
+                                                       isProjectDisabled={group.studentResponseList.length >= group.maxGroupQuantity ? true : isProjectDisabled}
                                                        setIsProjectDisabled={setIsProjectDisabled}/>
                                 </Row>)
                             }
-                            {!isProjectDisabled &&<Row>
+                            {!isProjectDisabled && <Row>
                                 <Data>-</Data>
                                 <ProjectGroupInput isProjectDisabled={isProjectDisabled}
                                                    setIsProjectDisabled={setIsProjectDisabled}/>
