@@ -222,7 +222,7 @@ const StudentCourseDetails = () => {
                         )}
                         </tbody>
                     </Table>
-                    {projectGroups &&
+                    {projectGroups && (courseDetails.taskList[2].quantity !== 0) &&
                     <>
                         <Heading marginTop={'4rem'} marginBottom={'2rem'}>Grupy projektowe</Heading>
                         <Table>
@@ -234,11 +234,11 @@ const StudentCourseDetails = () => {
                             {projectGroups.map((group,index) =>
                                 <Row>
                                     <Data groupNo>{index+1}</Data>
-                                    <ProjectGroupInput group={group} isProjectDisabled={isProjectDisabled}
+                                    <ProjectGroupInput group={group} isProjectDisabled={group.studentResponseList.length >= group.maxGroupQuantity? true : isProjectDisabled}
                                                        setIsProjectDisabled={setIsProjectDisabled}/>
                                 </Row>)
                             }
-                            {!isProjectDisabled && <Row>
+                            {!isProjectDisabled &&<Row>
                                 <Data>-</Data>
                                 <ProjectGroupInput isProjectDisabled={isProjectDisabled}
                                                    setIsProjectDisabled={setIsProjectDisabled}/>

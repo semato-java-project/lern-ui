@@ -138,7 +138,7 @@ const CourseContainer = ({course}) => {
                     Ostatnio edytowany: <span>{new Date(course.updatedAt).toLocaleDateString()} - {new Date(course.updatedAt).toLocaleTimeString()}</span>
                 </CourseDateContainer>
                 <CourseInfoContainer>
-                    Ilośc uczestników: <span>??</span>
+                    Ilośc uczestników: <span>{course.numberOfParticipants}</span>
                 </CourseInfoContainer>
             </CourseContent>
             <CourseArrowWrapper>
