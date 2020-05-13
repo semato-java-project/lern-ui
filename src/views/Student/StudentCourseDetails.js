@@ -12,7 +12,6 @@ import {CourseIcon} from "../../components/atoms/Icons/CourseIcon";
 import {RowWrapper} from "../../components/molecules/Wrappers/RowWrapper";
 import Paragraph from "../../components/atoms/Paragraphs/Paragraph";
 import TableInput from "../../components/atoms/Input/TableInput";
-import Button from "../../components/atoms/Button/Button";
 import ProjectGroupInput from "../../components/atoms/Input/ProjectGroupInput";
 import {SpinnerContainer} from "../../components/molecules/Containers/SpinnerContainer";
 import {ACTION_TYPES} from "../../reducers/actionTypes";
@@ -145,21 +144,6 @@ const generateTaskArray = taskList => {
     });
     return Tasks;
 };
-
-const StyledButton = styled(Button)`
-     width: 16rem;
-     min-height: 1rem;
-     height: 3.5rem;
-     margin: 3rem 0 0;
-     font-weight: ${({theme}) => theme.fontWeight.regular};
-     
-     ${({disableEdit}) =>
-    disableEdit === false &&
-    css`
-        background-color: ${({theme}) => theme.app_yellow};
-        color: ${({theme}) => theme.app_blue_dark};
-      `}
-`;
 
 const StudentCourseDetails = () => {
 

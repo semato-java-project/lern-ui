@@ -217,7 +217,7 @@ const TeacherCourseDetails = () => {
                                 tryb edycji</StyledButton>
                         }
                     </RowWrapper>
-                    {projectGroups &&
+                    {projectGroups && (courseDetails.taskList[2].quantity !== 0) &&
                     <>
                         <Heading marginTop={'4rem'} marginBottom={'2rem'}>Grupy projektowe</Heading>
                         <Table>
