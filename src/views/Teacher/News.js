@@ -75,7 +75,7 @@ const News = () => {
 
     useEffect(() => {
         dispatch(getList(GET_NEWS))
-    }, []);
+    }, [dispatch]);
 
     const isUserLecturer = () => currentUser.role === USER_ROLES.ROLE_LECTURER.API_NAME;
 

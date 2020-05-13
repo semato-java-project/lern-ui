@@ -176,7 +176,7 @@ const AddCourse = () => {
 
         useEffect(() => {
             if (activeStep === ADD_PROCESS_STEPS.SET_GROUP) dispatch(getList(GET_GROUPS))
-        }, [activeStep]);
+        }, [activeStep,dispatch]);
 
         const isFirstStepValid = () => {
             if (courseToAdd.name && courseToAdd.name.trim() !== ''
@@ -339,7 +339,9 @@ const AddCourse = () => {
                                 }}>Zapisz kurs {'>'}</StyledButton>
                             </RowWrapper>
                         </ColumnWrapper>
-                    )
+                    );
+                default:
+                    return null
             }
         };
 

@@ -5,7 +5,6 @@ import Heading from "../../atoms/Headings/Heading";
 import arrow_icon from '../../../assets/arrow_icon.svg'
 import arrow_icon_active from '../../../assets/arrow_icon_active.svg'
 import {Link, useRouteMatch} from "react-router-dom";
-import {routes} from "../../../routes";
 
 const CourseArrowIcon = styled.div`
       height: 2.5rem;

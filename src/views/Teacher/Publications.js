@@ -79,7 +79,7 @@ const Publications = () => {
         dispatch(getList(GET_PUBLICATIONS));
         // --- CLEANUP ---
         return () => dispatch({type: ACTION_TYPES.DATA_CLEANUP, payload: GET_PUBLICATIONS.itemType})
-    }, []);
+    }, [dispatch]);
 
     const isUserLecturer = () => currentUser.role === USER_ROLES.ROLE_LECTURER.API_NAME;
 

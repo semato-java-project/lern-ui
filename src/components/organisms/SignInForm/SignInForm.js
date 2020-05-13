@@ -85,6 +85,8 @@ const SignInForm = ({hidden}) => {
                 return routes.ROLE_LECTURER.DASHBOARD;
             case USER_ROLES.ROLE_STUDENT.API_NAME:
                 return routes.ROLE_STUDENT.COURSES;
+            default:
+                return null;
         }
     };
 

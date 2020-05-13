@@ -44,6 +44,7 @@ export const ContentWrapper = styled.div`
       display: flex;
       width: 100%;
       padding-top: 4rem;
+      margin-bottom: 6rem;
       color: ${({theme}) => theme.app_blue_dark};
       font-size: ${({theme}) => theme.fontSize.l};
 `;

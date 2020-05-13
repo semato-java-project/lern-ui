@@ -7,7 +7,7 @@ import {isTokenValid} from "../actions";
 const PrivateRoute = ({component: Component, acceptedRoles, ...restProps}) => {
 
     let isUserLogged = useSelector(state => state.isUserLogged);
-    const role = useSelector(state => state.currentUser && state.currentUser.role || '');
+    const role = useSelector(state => (state.currentUser && state.currentUser.role) || '');
 
     return (
         <Route

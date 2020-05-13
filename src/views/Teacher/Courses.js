@@ -62,7 +62,7 @@ const Courses = () => {
     const dispatch = useDispatch();
     const courses = useSelector(state => state.courses || []);
 
-    useEffect(() => {dispatch(getList(GET_COURSES))}, []);
+    useEffect(() => {dispatch(getList(GET_COURSES))}, [dispatch]);
 
     return (
         <SidebarTemplate>
