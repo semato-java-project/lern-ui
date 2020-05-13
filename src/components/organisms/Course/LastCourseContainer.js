@@ -2,6 +2,7 @@ import React from "react";
 import {CourseIcon} from "../../atoms/Icons/CourseIcon";
 import styled from "styled-components";
 import Heading from "../../atoms/Headings/Heading";
+import {useHistory} from "react-router-dom";
 
 export const LastCourseWrapper = styled.div`
       height: auto;
@@ -75,19 +76,21 @@ const CourseDateContainer = styled.div`
 `;
 
 
-const LastCourseContainer = () => {
+const LastCourseContainer = ({course}) => {
+
+    const history = useHistory();
 
     return (
-        <LastCourseWrapper>
+        <LastCourseWrapper onClick={() => history.push(`courses/${course.courseId}`)}>
             <LastCourseIcon>
                 {CourseIcon()}
             </LastCourseIcon>
             <LastCourseContent>
                 <CourseNameContainer>
-                    <Heading>Nazwa kursu</Heading>
+                    <Heading>{course.name}</Heading>
                 </CourseNameContainer>
                 <CourseDateContainer>
-                    Ostatnio edytowany: <span>28.03.2020</span>
+                    Ostatnio edytowany: <span>{new Date(course.updatedAt).toLocaleDateString()}</span>
                 </CourseDateContainer>
             </LastCourseContent>
         </LastCourseWrapper>

@@ -7,6 +7,7 @@ import AddCourseContainer from "../../components/organisms/Course/AddCourseConta
 import CourseStats, {StatsWrapper} from "../../components/organisms/Stats/CourseStats";
 import AddPublicationContainer from "../../components/organisms/Publication/AddPublicationContainer";
 import NewsSideContainer from "../../components/organisms/News/NewsSideContainer";
+import {useSelector} from "react-redux";
 
 const HeaderPathInfoContainer = styled.div`
       display: flex;
@@ -79,6 +80,9 @@ const HorizontalTitle = styled.div`
 
 const DashboardTeacher = () => {
 
+    const courses = useSelector(state => state.courses || []);
+    const coursesSorted = courses.sort((a, b) => (new Date(b.updatedAt) - new Date(a.updatedAt))).slice(0, 3);
+
     return (
         <SidebarTemplate>
             <HeaderPathInfoContainer>
@@ -87,11 +91,9 @@ const DashboardTeacher = () => {
             </HeaderPathInfoContainer>
             <ContentWrapper>
                 <MainContentSection>
-                    <HorizontalTitle>Ostatnio wyświetlone kursy</HorizontalTitle>
+                    <HorizontalTitle>Ostatnio edytowane kursy</HorizontalTitle>
                     <LastCoursesSection>
-                        <LastCourseContainer/>
-                        <LastCourseContainer/>
-                        <LastCourseContainer/>
+                        {coursesSorted.map(course => <LastCourseContainer key={course.courseId} course={course}/>)}
                     </LastCoursesSection>
                     <AddCourseContainer/>
                     <StatsSection>
