@@ -157,12 +157,15 @@ const TeacherCourseDetails = () => {
     const isProjectIncluded = (taskList = courseDetails.taskList) => taskList.filter(task => task.taskType === 'PROJECT').length;
 
     const getCourseDetails = async () => {
-        let {payload} = await dispatch(getDetails(GET_COURSE_DETAILS(urlParams.id)));
+        try {
+            let {payload} = await dispatch(getDetails(GET_COURSE_DETAILS(urlParams.id)));
+            const isProjectIncludedValue = isProjectIncluded(payload.item.taskList);
+            if (isProjectIncludedValue) dispatch(getList(GET_PROJECT_GROUPS(urlParams.id)));
 
-        const isProjectIncludedValue = isProjectIncluded(payload.item.taskList);
-        if (isProjectIncludedValue) dispatch(getList(GET_PROJECT_GROUPS(urlParams.id)));
-
-        return isProjectIncludedValue;
+            return isProjectIncludedValue;
+        } catch (ex) {
+            alert(ex.message)
+        }
     };
 
     useEffect(() => {
@@ -172,7 +175,10 @@ const TeacherCourseDetails = () => {
         // --- CLEANUP ---
         return () => {
             dispatch({type: ACTION_TYPES.DATA_CLEANUP, payload: GET_COURSE_DETAILS().itemType});
-            if (isProjectIncludedValue) dispatch({type: ACTION_TYPES.DATA_CLEANUP, payload: GET_PROJECT_GROUPS().itemType})
+            if (isProjectIncludedValue) dispatch({
+                type: ACTION_TYPES.DATA_CLEANUP,
+                payload: GET_PROJECT_GROUPS().itemType
+            })
         }
     }, [dispatch, urlParams]);
 
