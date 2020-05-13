@@ -9,6 +9,7 @@ import AddPublicationContainer from "../../components/organisms/Publication/AddP
 import NewsSideContainer from "../../components/organisms/News/NewsSideContainer";
 import {useSelector} from "react-redux";
 import {SpinnerContainer} from "../../components/molecules/Containers/SpinnerContainer";
+import {cloneDeep} from 'lodash'
 
 const HeaderPathInfoContainer = styled.div`
       display: flex;
@@ -82,7 +83,7 @@ const HorizontalTitle = styled.div`
 const DashboardTeacher = () => {
 
     const courses = useSelector(state => state.courses || []);
-    const coursesSorted = courses.sort((a, b) => (new Date(b.updatedAt) - new Date(a.updatedAt))).slice(0, 3);
+    const coursesSorted = cloneDeep(courses).sort((a, b) => (new Date(b.updatedAt) - new Date(a.updatedAt))).slice(0, 3);
 
     return (
         <SidebarTemplate>

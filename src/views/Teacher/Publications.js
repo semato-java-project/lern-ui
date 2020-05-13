@@ -6,7 +6,7 @@ import NewsSideContainer from "../../components/organisms/News/NewsSideContainer
 import AddCourseSideContainer from "../../components/organisms/Course/AddCourseSideContainer";
 import {useDispatch, useSelector} from "react-redux";
 import {createItem, getList} from "../../actions";
-import {ADD_NEWS, ADD_PUBLICATION, GET_COURSE_DETAILS, GET_NEWS, GET_PUBLICATIONS} from "../../api-config/requestTypes";
+import {ADD_PUBLICATION, GET_PUBLICATIONS} from "../../api-config/requestTypes";
 import {USER_ROLES} from "../../utils/userRoles";
 import {RowWrapper} from "../../components/molecules/Wrappers/RowWrapper";
 import Button from "../../components/atoms/Button/Button";
@@ -16,6 +16,7 @@ import Input from "../../components/atoms/Input/Input";
 import TextArea from "../../components/atoms/Textarea/Textarea";
 import PublicationContainer from "../../components/molecules/Containers/PublicationContainer";
 import {ACTION_TYPES} from "../../reducers/actionTypes";
+import {SpinnerContainer} from "../../components/molecules/Containers/SpinnerContainer";
 
 const HeaderPathInfoContainer = styled.div`
       display: flex;
@@ -95,7 +96,7 @@ const Publications = () => {
                 <StyledSeparator/>
             </HeaderPathInfoContainer>
             <ContentWrapper>
-                <MainContentSection>
+                {publications.length? <MainContentSection>
                     {showAddForm ?
                         <ColumnWrapper>
                             <Heading>Tytuł</Heading>
@@ -138,7 +139,7 @@ const Publications = () => {
                             }
                         </>
                     }
-                </MainContentSection>
+                </MainContentSection> : <SpinnerContainer/>}
                 <SideContentSection>
                     <AddCourseSideContainer/>
                     <NewsSideContainer/>
