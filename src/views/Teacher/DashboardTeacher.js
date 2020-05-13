@@ -8,6 +8,7 @@ import CourseStats, {StatsWrapper} from "../../components/organisms/Stats/Course
 import AddPublicationContainer from "../../components/organisms/Publication/AddPublicationContainer";
 import NewsSideContainer from "../../components/organisms/News/NewsSideContainer";
 import {useSelector} from "react-redux";
+import {SpinnerContainer} from "../../components/molecules/Containers/SpinnerContainer";
 
 const HeaderPathInfoContainer = styled.div`
       display: flex;
@@ -93,7 +94,7 @@ const DashboardTeacher = () => {
                 <MainContentSection>
                     <HorizontalTitle>Ostatnio edytowane kursy</HorizontalTitle>
                     <LastCoursesSection>
-                        {coursesSorted.map(course => <LastCourseContainer key={course.courseId} course={course}/>)}
+                        {coursesSorted.length? coursesSorted.map(course => <LastCourseContainer key={course.courseId} course={course}/>) : <SpinnerContainer/>}
                     </LastCoursesSection>
                     <AddCourseContainer/>
                     <StatsSection>

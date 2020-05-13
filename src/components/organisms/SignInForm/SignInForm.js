@@ -10,7 +10,7 @@ import {useDispatch, useSelector} from "react-redux";
 import {authenticate, getList} from "../../../actions";
 import {USER_ROLES} from "../../../utils/userRoles";
 import {ACTION_TYPES} from "../../../reducers/actionTypes";
-import {GET_NEWS} from "../../../api-config/requestTypes";
+import {GET_COURSES, GET_NEWS} from "../../../api-config/requestTypes";
 
 const InfoParagraph = styled.h1`
    margin-bottom: 5rem;
@@ -111,8 +111,9 @@ const SignInForm = ({hidden}) => {
                 onSubmit={values => {
                     dispatch(authenticate(values.username, values.password))
                         .then(role => {
+                            if (role === USER_ROLES.ROLE_LECTURER.API_NAME) dispatch(getList(GET_COURSES));
                             dispatch(getList(GET_NEWS));
-                            history.replace(`${getRedirectPath(role)}`)
+                            history.replace(`${getRedirectPath(role)}`);
                         })
                         .catch(err => {
                             console.log(err);
