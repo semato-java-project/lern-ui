@@ -1,6 +1,11 @@
 <svg id="learn_logo_white" xmlns="http://www.w3.org/2000/svg" width="207.759" height="89.728" viewBox="0 0 207.759 89.728">
   <defs>
+    <style type="text/css">@import url(https://fonts.googleapis.com/css?family=Montserrat:400,500,600,700,800);</style>
     <style>
+
+      @font-face {
+      font-family: Montserrat-SemiBold, Montserrat;
+      }
       .cls-1 {
         fill: #f4f9fd;
         font-size: 47px;
@@ -18,6 +23,8 @@
       .cls-3 {
         fill: #fc0;
       }
+
+
     </style>
   </defs>
   <g id="Group_1" data-name="Group 1" transform="translate(20.759 32.728)">
