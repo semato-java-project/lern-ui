@@ -38,10 +38,10 @@ const Student = styled.div`
       transition: all 0.7s 0.4s ease-in-out;
       
       ${({hidden}) =>
-    hidden &&
-    css`
-        opacity: 1;
-        left: 60%;
+        hidden &&
+        css`
+          opacity: 1;
+          left: 60%;
       `}
 `;
 
@@ -58,9 +58,9 @@ const Laptop = styled.div`
       transition: left .4s;
       
       ${({hidden}) =>
-    hidden &&
-    css`
-            left: -55rem;
+        hidden &&
+        css`
+          left: -100%;
       `}
 `;
 const HomePage = () => {
@@ -86,6 +86,6 @@ const HomePage = () => {
             </ContentWrapper>
         </>
     );
-}
+};
 
 export default HomePage;
