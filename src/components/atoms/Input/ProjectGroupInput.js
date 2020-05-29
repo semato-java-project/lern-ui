@@ -31,7 +31,7 @@ const Input = styled.div`
       }
       
       &:hover{
-            background-color: ${({theme}) => theme.app_gray_light};
+            background-color: ${({theme}) => theme.colors.gray_light};
             &::after{
             display:flex;
             }

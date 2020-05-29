@@ -24,18 +24,18 @@ const NewsContent = styled.div`
       flex-direction: column;
       margin-top: 1rem;
       border-radius: 1.5rem;
-      background-color: ${({theme}) => theme.app_blue_dark};
+      background-color: ${({theme}) => theme.colors.blue_dark};
       align-items: center;
       padding: 10%;
 `;
 
 const StyledHeading = styled(Heading)`
       margin-top: 1rem;
-      color: ${({theme}) => theme.app_background};
+      color: ${({theme}) => theme.colors.background_white};
 `;
 
 const StyledParagraph = styled(Paragraph)`
-      color: ${({theme}) => theme.app_background};
+      color: ${({theme}) => theme.colors.background_white};
       display: flex;
       height: 50%;
       width: 100%;
@@ -49,11 +49,11 @@ const NewsActionContainer = styled(Paragraph)`
       display: flex;
       width: 100%;
       justify-content: space-between;
-      color: ${({theme}) => theme.app_background};
+      color: ${({theme}) => theme.colors.background_white};
       text-decoration: none;
 
       span{
-         color: ${({theme}) => theme.app_blue_light_text};
+         color: ${({theme}) => theme.colors.blue_light_text};
       }
 `;
 

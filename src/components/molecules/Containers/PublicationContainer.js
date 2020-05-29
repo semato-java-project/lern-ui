@@ -30,10 +30,10 @@ const TitleContainer = styled.div`
       padding-left: 1rem;
       font-size: ${({theme}) => theme.fontSize.xl};
       font-weight: ${({theme}) => theme.fontWeight.bold};
-      color: ${({theme}) => theme.app_blue_light};
+      color: ${({theme}) => theme.colors.blue_light};
       
       span{
-            color: ${({theme}) => theme.app_blue_dark};
+            color: ${({theme}) => theme.colors.blue_dark};
                   font-weight: ${({theme}) => theme.fontWeight.medium};
                   margin-left: 0.8rem;
 
@@ -45,7 +45,7 @@ const ContentContainer = styled.div`
       width: 100%;
       padding-left: 5rem;
       font-size: ${({theme}) => theme.fontSize.s};
-      color: ${({theme}) => theme.app_blue_dark};
+      color: ${({theme}) => theme.colors.blue_dark};
       margin-bottom: 3rem;
       margin-top: 1rem;
       text-align: justify;

@@ -1,16 +1,19 @@
 export const theme = {
-    primary: 'black',
-    app_background: '#F9FAFC',
-    app_blue_light: '#3C4BAD',
-    app_blue_light_text: '#5163c2',
-    app_blue_dark: '#252B69',
-    app_yellow: '#FFCC00',
-    app_text_gray: '#B2B2B2',
-    app_gray: '#D1D2D5',
-    app_gray_light: '#EDF2F6',
-    colors_error: '#DE242B',
+
     app_yellow_gradient: 'linear-gradient(#FFDD00, #FFCC00)',
     app_blue_gradient: 'linear-gradient(#3C4BAD, #1C268B)',
+
+    colors: {
+        background_white: '#F9FAFC',
+        blue_light: '#3C4BAD',
+        blue_light_text: '#5163c2',
+        blue_dark: '#252B69',
+        yellow: '#FFCC00',
+        text_gray: '#B2B2B2',
+        gray: '#D1D2D5',
+        gray_light: '#EDF2F6',
+        error_red: '#DE242B',
+    },
 
     fontWeight: {
         light: 300,

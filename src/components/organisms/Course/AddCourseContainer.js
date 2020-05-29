@@ -45,7 +45,7 @@ const AddCourseInfoWrapper = styled.div`
       width: 100%;
       height: 40%;
       font-size: ${({theme}) => theme.fontSize.s};
-      color: ${({theme}) => theme.app_blue_dark};
+      color: ${({theme}) => theme.colors.blue_dark};
       text-align: justify;
 `;
 
@@ -56,7 +56,7 @@ const StyledButton = styled(Button)`
     width: 16rem;
     height: 4rem;
     font-weight: ${({theme}) => theme.fontWeight.regular};
-    background-color: ${({theme}) => theme.app_blue_light};
+    background-color: ${({theme}) => theme.colors.blue_light};
 `;
 
 const AddCourseContainer = () => {
@@ -71,7 +71,7 @@ const AddCourseContainer = () => {
                     <StyledButton as={Link} to={routes.ROLE_LECTURER.ADD_COURSE}>Dodaj kurs {'>'}</StyledButton>
                     <Heading fontSize={'2rem'}>Gotowy na nowe wyzwania?
                     </Heading>
-                    <Heading fontWeight={theme.fontWeight.black} color={theme.app_blue_light}>Dodaj kurs już
+                    <Heading fontWeight={theme.fontWeight.black} color={theme.colors.blue_light}>Dodaj kurs już
                         teraz!</Heading>
                 </AddCourseTitleWrapper>
                 <AddCourseInfoWrapper>

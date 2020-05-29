@@ -12,8 +12,8 @@ const MenuShape = styled.div`
    min-width: 18rem;
    position: fixed;
    justify-content: center;
-   background-color: ${({theme}) => theme.app_blue_dark};
-   border-right: 10px solid ${({theme}) => theme.app_yellow};
+   background-color: ${({theme}) => theme.colors.blue_dark};
+   border-right: 10px solid ${({theme}) => theme.colors.yellow};
 `;
 
 const NavWrapper = styled.div`

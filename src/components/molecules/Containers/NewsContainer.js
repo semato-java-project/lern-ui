@@ -31,7 +31,7 @@ const TitleContainer = styled.div`
       padding-left: 1rem;
       font-size: ${({theme}) => theme.fontSize.xl};
       font-weight: ${({theme}) => theme.fontWeight.bold};
-      color: ${({theme}) => theme.app_blue_light};
+      color: ${({theme}) => theme.colors.blue_light};
 `;
 
 const ContentContainer = styled.div`
@@ -40,7 +40,7 @@ const ContentContainer = styled.div`
       width: 100%;
       padding-left: 5rem;
       font-size: ${({theme}) => theme.fontSize.s};
-      color: ${({theme}) => theme.app_blue_dark};
+      color: ${({theme}) => theme.colors.blue_dark};
       margin-bottom: 3rem;
 `;
 
@@ -49,7 +49,7 @@ const DateContainer = styled.div`
       margin-left: 5rem;
       span{
         font-weight: ${({theme}) => theme.fontWeight.bold};
-              color: ${({theme}) => theme.app_blue_light_text};
+              color: ${({theme}) => theme.colors.blue_light_text};
         margin-right: 0.5rem;
       }
 `;

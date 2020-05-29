@@ -20,7 +20,7 @@ const Spinner = styled.div`
 const DoubleBounce1 = styled.div`
       width: 100%;
       height: 100%;
-      background-color: ${({theme}) => theme.app_gray};
+      background-color: ${({theme}) => theme.colors.gray};
       border-radius: 50%;
       opacity: 0.4;
       position: absolute;

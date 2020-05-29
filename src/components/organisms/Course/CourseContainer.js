@@ -21,7 +21,7 @@ export const CourseWrapper = styled.div`
       width: 49%;
       display: flex;
       border-radius: 10px;
-      background-color: ${({theme}) => theme.app_background};
+      background-color: ${({theme}) => theme.colors.background_white};
       box-shadow: 0 10px 15px 0 rgba(0, 0, 0, 0.04), 0 10px 20px 0 rgba(0, 0, 0, 0.09);
       position: relative;
       align-items: center;
@@ -35,7 +35,7 @@ export const CourseWrapper = styled.div`
       }
     
       &:hover::before {
-        background-color: ${({theme}) => theme.app_blue_light};
+        background-color: ${({theme}) => theme.colors.blue_light};
       }
     
       &::before {
@@ -43,7 +43,7 @@ export const CourseWrapper = styled.div`
          height: 100%;
          width: 86%;
          border-radius: 10px;
-         background-color: ${({theme}) => theme.app_gray};
+         background-color: ${({theme}) => theme.colors.gray};
          transition: background-color .2s ease-in-out;
          display: flex;
          position: absolute;
@@ -94,7 +94,7 @@ const CourseNameContainer = styled.div`
 const CourseDateContainer = styled.div`
       width: 100%;
       display: flex;
-      color: ${({theme}) => theme.app_text_gray};
+      color: ${({theme}) => theme.colors.text_gray};
       font-size: ${({theme}) => theme.fontSize.s};
       margin-top: 0.2rem;
     
@@ -107,7 +107,7 @@ const CourseDateContainer = styled.div`
 const CourseInfoContainer = styled.div`
       width: 100%;
       display: flex;
-      color: ${({theme}) => theme.app_blue_light};
+      color: ${({theme}) => theme.colors.blue_light};
       font-size: ${({theme}) => theme.fontSize.s};
       margin-top: 0.5rem;
       span{

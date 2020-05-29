@@ -36,13 +36,13 @@ const NameWrapper = styled.div`
    display: flex;
    flex-direction: column;
    margin-left: 1.5rem;
-   color: ${({theme}) => theme.app_blue_dark};
+   color: ${({theme}) => theme.colors.blue_dark};
    
    p{
    margin: 0;
    padding: 0;
    font-size: 1rem;
-  color: ${({theme}) => theme.app_yellow};
+  color: ${({theme}) => theme.colors.yellow};
    }
 `;
 

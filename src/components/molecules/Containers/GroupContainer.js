@@ -19,7 +19,7 @@ const GroupWrapper = styled.div`
     ${({groupId, selectedGroupId}) =>
     groupId === selectedGroupId &&
     css`
-      background-color: ${({theme}) => theme.app_yellow};
+      background-color: ${({theme}) => theme.colors.yellow};
     `}
     
     ${({showOnly}) =>
@@ -40,7 +40,7 @@ const GroupNameContainer = styled.div`
       width: 58%;
       font-size: ${({theme}) => theme.fontSize.l};
       font-weight: ${({theme}) => theme.fontWeight.bold};
-      color: ${({theme}) => theme.app_blue_light};
+      color: ${({theme}) => theme.colors.blue_light};
 
 `;
 

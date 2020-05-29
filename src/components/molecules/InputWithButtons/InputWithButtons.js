@@ -35,7 +35,7 @@ const ActionButton = styled.div`
       justify-content: center;
       align-items: center;
       margin-left: ${({marginLeft}) => marginLeft || '1rem'};
-      background-color: ${({theme, backgroundColor}) => backgroundColor || theme.app_blue_dark};
+      background-color: ${({theme, backgroundColor}) => backgroundColor || theme.colors.blue_dark};
       cursor: pointer;
 `;
 
@@ -50,7 +50,7 @@ export const InputWithButtons = ({inputType, width, paddingLeft, value, setValue
                              width={width} paddingLeft={paddingLeft}/>
             <ActionButton onClick={() => value && setValue(value - 1)}><MinusIcon/></ActionButton>
             <ActionButton onClick={() => setValue(value + 1)} marginLeft={'0.5rem'}
-                          backgroundColor={theme.app_yellow}><PlusIcon/></ActionButton>
+                          backgroundColor={theme.colors.yellow}><PlusIcon/></ActionButton>
         </Wrapper>
     )
 };

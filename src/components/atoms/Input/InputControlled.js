@@ -7,7 +7,7 @@ const InputControlled = styled.input`
       padding: 15px ${({paddingRight}) => paddingRight || '1rem'} 15px ${({paddingLeft}) => paddingLeft || '6rem'};
       font-size: ${({theme}) => theme.fontSize.s};
       font-weight: ${({theme}) => theme.fontWeight.regular};
-      background-color: ${({theme}) => theme.app_gray_light};
+      background-color: ${({theme}) => theme.colors.gray_light};
       border: none;
       border-radius: 10px;
       width: ${({width}) => width || '10rem'};
@@ -23,7 +23,7 @@ const InputControlled = styled.input`
 
 
       ::placeholder {
-        color: ${({theme}) => theme.app_text_gray};
+        color: ${({theme}) => theme.colors.text_gray};
       }
       &:focus{
          outline: none;
@@ -33,7 +33,7 @@ const InputControlled = styled.input`
     withShadow &&
     css`
          box-shadow: 0 10px 10px 0 rgba(0, 0, 0, 0.06), 0 5px 15px 0 rgba(0, 0, 0, 0.05);
-               background-color: ${({theme}) => theme.app_background};
+               background-color: ${({theme}) => theme.colors.background_white};
       `}
 `;
 

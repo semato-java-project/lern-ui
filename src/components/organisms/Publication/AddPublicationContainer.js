@@ -11,11 +11,11 @@ const StyledButton = styled(Button)`
     width: 18rem;
     height: 4rem;
     font-weight: ${({theme}) => theme.fontWeight.regular};
-    background-color: ${({theme}) => theme.app_yellow};
-    color: ${({theme}) => theme.app_blue_dark};
+    background-color: ${({theme}) => theme.colors.yellow};
+    color: ${({theme}) => theme.colors.blue_dark};
     
     &:hover{
-      background-color: ${({theme}) => theme.app_blue_dark};
+      background-color: ${({theme}) => theme.colors.blue_dark};
       }
 `;
 
@@ -56,7 +56,7 @@ const AddPublicationTitle = styled(Heading)`
       top: 5.5rem;
       left: 33%;
       font-size: 1.5rem;
-      color: ${({theme}) => theme.app_blue_light};
+      color: ${({theme}) => theme.colors.blue_light};
       span{
         font-weight: ${({theme}) => theme.fontWeight.bold};
       }

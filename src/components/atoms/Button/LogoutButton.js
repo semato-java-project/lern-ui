@@ -2,7 +2,7 @@ import styled from 'styled-components';
 
 const LogoutButton = styled.button`
   padding: 0;
-  background-color: ${({theme}) => theme.app_gray};
+  background-color: ${({theme}) => theme.colors.gray};
   width: ${({width}) => width || '16rem'};
   margin-left: 7rem;
   height: 3.5rem;
@@ -10,7 +10,7 @@ const LogoutButton = styled.button`
   border-radius: 3rem;
   font-weight: ${({theme}) => theme.fontWeight.bold};
   font-size: ${({theme}) => theme.fontSize.s};
-  color: ${({theme}) => theme.app_blue_dark};
+  color: ${({theme}) => theme.colors.blue_dark};
   text-decoration: none;
   display: flex;
   justify-content: center;
@@ -20,10 +20,10 @@ const LogoutButton = styled.button`
  
   transition: background-position .2s;
   background-position: 0;
-  background-image: linear-gradient(120deg, transparent 0%, transparent 50%, ${({theme}) => theme.app_blue_dark} 50%);
+  background-image: linear-gradient(120deg, transparent 0%, transparent 50%, ${({theme}) => theme.colors.blue_dark} 50%);
   background-size: 220%;
           &:hover{
-            color: ${({theme}) => theme.app_background};
+            color: ${({theme}) => theme.colors.background_white};
             background-position: 100%;
           }
   }

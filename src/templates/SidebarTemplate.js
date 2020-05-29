@@ -19,7 +19,7 @@ const ContentWrapper = styled.div`
     min-height: 100vh;    
     display: flex;
     flex-direction: column;
-    background-color: ${({theme}) => theme.app_background};
+    background-color: ${({theme}) => theme.colors.background_white};
     margin: 0 auto 0 15%;
     padding: 0 5rem;
     z-index: 0;

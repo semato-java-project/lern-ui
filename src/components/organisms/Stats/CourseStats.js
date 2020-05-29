@@ -14,7 +14,7 @@ const StatsContent = styled.div`
       width: 100%;
       height: 100%;
       border-radius: 10px;
-      background-color: ${({theme}) => theme.app_background};
+      background-color: ${({theme}) => theme.colors.background_white};
       box-shadow: 0 10px 15px 0 rgba(0, 0, 0, 0.04), 0 10px 20px 0 rgba(0, 0, 0, 0.09);
       align-items: center;
       justify-content: center;

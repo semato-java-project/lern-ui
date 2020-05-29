@@ -40,7 +40,7 @@ const AddPublicationTitle = styled.div`
       top: 8rem;
       font-size: 1.8rem;
       left: 10%;
-      color: ${({theme}) => theme.app_blue_light};
+      color: ${({theme}) => theme.colors.blue_light};
       
       span{
         font-weight: ${({theme}) => theme.fontWeight.bold};
@@ -57,7 +57,7 @@ const StyledButton = styled(Button)`
     height: 4rem;
     margin: 2rem 0 0;
     font-weight: ${({theme}) => theme.fontWeight.regular};
-    background-color: ${({theme}) => theme.app_blue_light};
+    background-color: ${({theme}) => theme.colors.blue_light};
 `;
 
 const AddCourseSideContainer = () => {
@@ -74,7 +74,7 @@ const AddCourseSideContainer = () => {
                     <AddPublicationTitle>
                         <Heading fontSize={'2rem'}>Gotowy na nowe wyzwania?
                         </Heading>
-                        <Heading fontWeight={theme.fontWeight.black} color={theme.app_blue_light}>Dodaj kurs już
+                        <Heading fontWeight={theme.fontWeight.black} color={theme.colors.blue_light}>Dodaj kurs już
                             teraz!</Heading>
                     </AddPublicationTitle>
                     <AddPublicationTextWrapper>

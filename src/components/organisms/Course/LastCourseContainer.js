@@ -9,7 +9,7 @@ export const LastCourseWrapper = styled.div`
       width: 33.3%;
       display: flex;
       border-radius: 10px;
-      background-color: ${({theme}) => theme.app_background};
+      background-color: ${({theme}) => theme.colors.background_white};
       box-shadow: 0 10px 15px 0 rgba(0, 0, 0, 0.04), 0 10px 20px 0 rgba(0, 0, 0, 0.09);
       position: relative;
       align-items: center;
@@ -17,7 +17,7 @@ export const LastCourseWrapper = styled.div`
       margin-right: 1.5rem;
     
       &:hover::before {
-        background-color: ${({theme}) => theme.app_blue_light};
+        background-color: ${({theme}) => theme.colors.blue_light};
       }
     
       &::before {
@@ -25,7 +25,7 @@ export const LastCourseWrapper = styled.div`
          height: 100%;
          width: 86%;
          border-radius: 10px;
-         background-color: ${({theme}) => theme.app_gray};
+         background-color: ${({theme}) => theme.colors.gray};
          transition: background-color .2s;
          display: flex;
          position: absolute;
@@ -62,7 +62,7 @@ const CourseNameContainer = styled.div`
 const CourseDateContainer = styled.div`
       width: 100%;
       display: flex;
-      color: ${({theme}) => theme.app_text_gray};
+      color: ${({theme}) => theme.colors.text_gray};
       font-size: 1rem;
 
       @media only screen and (min-width: 1281px) {

@@ -7,7 +7,7 @@ const TextArea = styled.textarea`
   padding: 15px 30px;
   font-size: ${({theme}) => theme.fontSize.l};
   font-weight: ${({theme}) => theme.fontWeight.regular};
-  background-color: ${({theme}) => theme.app_background};
+  background-color: ${({theme}) => theme.colors.background_white};
   border: none;
   border-radius: 10px;
   width: ${({width}) => width || '100%'};
@@ -15,7 +15,7 @@ const TextArea = styled.textarea`
   resize: none;
 
   ::placeholder {
-    color: ${({theme}) => theme.app_text_gray};
+    color: ${({theme}) => theme.colors.text_gray};
  }
  &:focus{
       outline: none;

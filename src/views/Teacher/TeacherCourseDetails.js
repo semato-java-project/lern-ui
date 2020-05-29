@@ -23,7 +23,7 @@ const HeaderPathInfoContainer = styled.div`
       height: 9rem;
       flex-direction: column;
       justify-content: flex-end;
-      color: ${({theme}) => theme.app_yellow};
+      color: ${({theme}) => theme.colors.yellow};
       font-size: ${({theme}) => theme.fontSize.xxl};
       font-weight: ${({theme}) => theme.fontWeight.semiBold};
 `;
@@ -45,7 +45,7 @@ export const ContentWrapper = styled.div`
       width: 100%;
       padding-top: 4rem;
       margin-bottom: 6rem;
-      color: ${({theme}) => theme.app_blue_dark};
+      color: ${({theme}) => theme.colors.blue_dark};
       font-size: ${({theme}) => theme.fontSize.l};
 `;
 
@@ -64,7 +64,7 @@ const Row = styled.tr`
 
 const Header = styled.th`
       height: 2.5rem;
-      background-color: ${({theme}) => theme.app_gray_light};
+      background-color: ${({theme}) => theme.colors.gray_light};
       min-width: 5rem;
       border-radius: 1rem;
       font-size: ${({theme}) => theme.fontSize.s};
@@ -78,7 +78,7 @@ const Header = styled.th`
       ${({disableEdit}) =>
     disableEdit === false &&
     css`
-        background-color: ${({theme}) => theme.app_yellow};
+        background-color: ${({theme}) => theme.colors.yellow};
       `}
 `;
 
@@ -140,8 +140,8 @@ const StyledButton = styled(Button)`
      ${({disableEdit}) =>
     disableEdit === false &&
     css`
-        background-color: ${({theme}) => theme.app_yellow};
-        color: ${({theme}) => theme.app_blue_dark};
+        background-color: ${({theme}) => theme.colors.yellow};
+        color: ${({theme}) => theme.colors.blue_dark};
       `}
 `;
 

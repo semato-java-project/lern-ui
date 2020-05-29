@@ -17,11 +17,11 @@ const Input = styled.input`
       background-color: white;
       
       &:hover{
-            background-color: ${({theme}) => theme.app_gray_light};
+            background-color: ${({theme}) => theme.colors.gray_light};
       }
 
       ::placeholder {
-        color: ${({theme}) => theme.app_text_gray};
+        color: ${({theme}) => theme.colors.text_gray};
       }
       &:focus{
          outline: none;
@@ -30,7 +30,7 @@ const Input = styled.input`
       ${({valueError, disabled}) =>
         valueError === true && disabled === false &&
         css`
-          color: ${({theme}) => theme.colors_error};
+          color: ${({theme}) => theme.colors.error_red};
       `} 
 `;
 

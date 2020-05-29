@@ -23,13 +23,13 @@ const MenuItemWrapper = styled.div`
       font-weight: ${({theme}) => theme.fontWeight.regular};
       list-style: none;
       text-decoration: none;
-      color: ${({theme}) => theme.app_background};
+      color: ${({theme}) => theme.colors.background_white};
       margin-bottom: 2rem;
       
       transition: all .15s;
       transition-delay: .03s;
       background-position: 0;
-      background-image: linear-gradient(120deg, transparent 0%, transparent 50%, ${({ theme }) => theme.app_yellow} 50%);
+      background-image: linear-gradient(120deg, transparent 0%, transparent 50%, ${({ theme }) => theme.colors.yellow} 50%);
       background-size: 220%;
       
       &.active:before {
@@ -40,11 +40,11 @@ const MenuItemWrapper = styled.div`
         height: 4rem;
         width: 2rem;
         border-radius: 1.5rem;
-        background-color: ${({theme}) => theme.app_yellow};
+        background-color: ${({theme}) => theme.colors.yellow};
       }
       
       &:hover{
-        color: ${({theme}) => theme.app_blue_dark};
+        color: ${({theme}) => theme.colors.blue_dark};
         background-position: 100%;
        }
       &:hover ${MenuItemImage}{
@@ -52,8 +52,8 @@ const MenuItemWrapper = styled.div`
         transition-delay: .1s;
       }
       &.active {
-        background-color: ${({theme}) => theme.app_yellow};
-        color: ${({theme}) => theme.app_blue_dark};
+        background-color: ${({theme}) => theme.colors.yellow};
+        color: ${({theme}) => theme.colors.blue_dark};
 
       } 
       &.active ${MenuItemImage}{

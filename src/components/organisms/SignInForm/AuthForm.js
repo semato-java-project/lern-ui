@@ -26,7 +26,7 @@ const InfoParagraph = styled.h1`
     css`
        margin-bottom: 0;
        margin-top: 2rem;
-       color: ${({theme}) => theme.colors_error};
+       color: ${({theme}) => theme.colors.error_red};
     `}
 `;
 
@@ -46,7 +46,7 @@ const StyledErrorMsg = styled.div`
   margin: 10px 0 0;
   font-weight: ${({theme}) => theme.fontWeight.regular};
   font-size: ${({theme}) => theme.fontSize.s};
-  color: ${({theme}) => theme.colors_error};
+  color: ${({theme}) => theme.colors.error_red};
   text-align: center;
 `;
 

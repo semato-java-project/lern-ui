@@ -3,7 +3,7 @@ import styled, {css} from 'styled-components';
 const Button = styled.button`
   padding: 0;
   margin-top: 4rem;
-  background-color: ${({theme}) => theme.app_blue_dark};
+  background-color: ${({theme}) => theme.colors.blue_dark};
   width: ${({width}) => width || '220px'};
   height: 4rem;
   min-height: 4rem;
@@ -11,7 +11,7 @@ const Button = styled.button`
   border-radius: 3rem;
   font-weight: ${({theme}) => theme.fontWeight.bold};
   font-size: ${({theme}) => theme.fontSize.s};
-  color: ${({theme}) => theme.app_background};
+  color: ${({theme}) => theme.colors.background_white};
   text-decoration: none;
   display: flex;
   justify-content: center;
@@ -25,10 +25,10 @@ const Button = styled.button`
  
   transition: background-position .3s;
   background-position: 0;
-  background-image: linear-gradient(120deg, transparent 0%, transparent 50%, ${({theme}) => theme.app_yellow} 50%);
+  background-image: linear-gradient(120deg, transparent 0%, transparent 50%, ${({theme}) => theme.colors.yellow} 50%);
   background-size: 220%;
           &:hover{
-            color: ${({theme}) => theme.app_blue_dark};
+            color: ${({theme}) => theme.colors.blue_dark};
             background-position: 100%;
           }
   }
@@ -40,8 +40,8 @@ const Button = styled.button`
   ${({grayColor}) =>
     grayColor &&
     css`
-      background-color: ${({theme}) => theme.app_gray};
-      color: ${({theme}) => theme.app_blue_dark};
+      background-color: ${({theme}) => theme.colors.gray};
+      color: ${({theme}) => theme.colors.blue_dark};
     `}
 `;
 
