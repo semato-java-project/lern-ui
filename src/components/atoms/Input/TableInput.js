@@ -28,10 +28,9 @@ const Input = styled.input`
       }
       
       ${({valueError, disabled}) =>
-    valueError === true && disabled === false &&
-    css`
-        color: #DE242B;
-        
+        valueError === true && disabled === false &&
+        css`
+          color: ${({theme}) => theme.colors_error};
       `} 
 `;
 

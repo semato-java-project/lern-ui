@@ -100,9 +100,9 @@ const StyledButton = styled(Button)`
 `;
 
 const ErrorParagraph = styled.p`
-        font-weight: ${({theme}) => theme.fontWeight.regular};
-  font-size: ${({theme}) => theme.fontSize.s};
-  color: #DE242B;
+      font-weight: ${({theme}) => theme.fontWeight.regular};
+      font-size: ${({theme}) => theme.fontSize.s};
+      color: ${({theme}) => theme.colors_error};
 `;
 
 

@@ -10,7 +10,7 @@ import student from "../assets/student-girl.png";
 import {HomeInfoContainer} from "../components/molecules/Containers/HomeInfoContainer";
 import {LeftBottomSoftShape} from "../components/atoms/Shapes/LeftBottomSoftShape";
 import {RightBottomSoftShape} from "../components/atoms/Shapes/RightBottomSoftShape";
-import SignInForm from "../components/organisms/SignInForm/SignInForm";
+import AuthForm from "../components/organisms/SignInForm/AuthForm";
 import Logo from "../components/atoms/Logo/Logo";
 
 const ContentWrapper = styled.div`
@@ -73,7 +73,7 @@ const HomePage = () => {
             <HomeBackgroundShape/>
             <MainHomeImage>
                 <Laptop hidden={showAuthForm}/>
-                <SignInForm hidden={!showAuthForm}/>
+                <AuthForm hidden={!showAuthForm}/>
                 <Student hidden={showAuthForm}/>
             </MainHomeImage>
             <RightTopSoftShape/>
