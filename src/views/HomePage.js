@@ -63,6 +63,17 @@ const Laptop = styled.div`
           left: -100%;
       `}
 `;
+
+const AuthBackgroundShapes = () => (
+    <>
+        <HomeBackgroundShape/>
+        <RightTopSoftShape/>
+        <RightTopYellowShape/>
+        <LeftBottomSoftShape/>
+        <RightBottomSoftShape/>
+    </>
+);
+
 const HomePage = () => {
 
     const [showAuthForm, setShowAuthForm] = useState(false);
@@ -70,20 +81,18 @@ const HomePage = () => {
     return (
         <>
             <Logo/>
-            <HomeBackgroundShape/>
             <MainHomeImage>
                 <Laptop hidden={showAuthForm}/>
                 <AuthForm hidden={!showAuthForm}/>
                 <Student hidden={showAuthForm}/>
             </MainHomeImage>
-            <RightTopSoftShape/>
-            <RightTopYellowShape/>
-            <LeftBottomSoftShape/>
-            <RightBottomSoftShape/>
+            <AuthBackgroundShapes/>
+            {!showAuthForm &&
             <ContentWrapper>
-                {!showAuthForm && <HomeInfoContainer/>}
-                {!showAuthForm && <Button onClick={() => setShowAuthForm(true)}>Przejdź do systemu {'>'}</Button>}
+                <HomeInfoContainer/>
+                <Button onClick={() => setShowAuthForm(true)}>Przejdź do systemu {'>'}</Button>
             </ContentWrapper>
+            }
         </>
     );
 };
