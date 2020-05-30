@@ -2,10 +2,10 @@ import React from "react";
 import styled from "styled-components";
 import {UserPathShape} from "../../atoms/Shapes/UserPathSHape";
 import {PersonIcon} from "../../atoms/Icons/PersonIcon";
-import LogoutButton from "../../atoms/Button/LogoutButton";
+import LogoutButton from "../../atoms/Buttons/LogoutButton";
 import {logOutUser} from "../../../services/userService";
 import {useDispatch, useSelector} from "react-redux";
-import {USER_ROLES} from "../../../utils/userRoles";
+import {USER_ROLES} from "../../../utils/types";
 
 const CurrentUserWrapper = styled.div`
    display: flex;

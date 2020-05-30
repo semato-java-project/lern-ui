@@ -7,17 +7,17 @@ You can find backend for this app (created by rest of the team) here: [SEMATO LE
 
 ### SCREENSHOTS
 
-![home](src/assets/screenshots/home.jpg)
+![home](src/assets/gh-screenshots/home.jpg)
 
-![auth](src/assets/screenshots/auth.jpg)
+![auth](src/assets/gh-screenshots/auth.jpg)
 
-![dashboard](src/assets/screenshots/dashboard.jpg)
+![dashboard](src/assets/gh-screenshots/dashboard.jpg)
 
-![courses](src/assets/screenshots/courses.jpg)
+![courses](src/assets/gh-screenshots/courses.jpg)
 
-![course_details](src/assets/screenshots/course_details.jpg)
+![course_details](src/assets/gh-screenshots/course_details.jpg)
 
-![add_course](src/assets/screenshots/add_course.jpg)
+![add_course](src/assets/gh-screenshots/add_course.jpg)
 
 ### RUN
 

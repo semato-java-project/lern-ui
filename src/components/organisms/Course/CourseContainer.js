@@ -2,8 +2,8 @@ import React from "react";
 import {CourseIcon} from "../../atoms/Icons/CourseIcon";
 import styled from "styled-components";
 import Heading from "../../atoms/Headings/Heading";
-import arrow_icon from '../../../assets/arrow_icon.svg'
-import arrow_icon_active from '../../../assets/arrow_icon_active.svg'
+import arrow_icon from '../../../assets/icons/course/arrow_icon.svg'
+import arrow_icon_active from '../../../assets/icons/course/arrow_icon_active.svg'
 import {Link, useRouteMatch} from "react-router-dom";
 
 const CourseArrowIcon = styled.div`

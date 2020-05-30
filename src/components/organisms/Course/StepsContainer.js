@@ -3,8 +3,8 @@ import Heading from "../../atoms/Headings/Heading";
 import React from "react";
 import styled from "styled-components";
 import {StepContainer} from "../../molecules/Containers/StepContainer";
-import arrow_icon from "../../../assets/arrow_icon.svg";
-import {ADD_PROCESS_STEPS} from "../../../views/Teacher/AddCourse";
+import arrow_icon from "../../../assets/icons/course/arrow_icon.svg";
+import {ADD_PROCESS_STEPS} from "../../views/Teacher/AddCourse";
 
 const AddCourseImageWrapper = styled.div`
       display: flex;

@@ -5,7 +5,7 @@ import Paragraph from "../../atoms/Paragraphs/Paragraph";
 import {InfoIcon} from "../../atoms/Icons/InfoIcon";
 import {useSelector} from "react-redux";
 import {Link} from "react-router-dom";
-import {routes} from "../../../routes";
+import {routes} from "../../../utils/routes";
 
 const NewsSideWrapper = styled.div`
       width: 100%;

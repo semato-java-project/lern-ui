@@ -1,13 +1,13 @@
 import React from "react";
 import styled from "styled-components";
 import Heading from "../../atoms/Headings/Heading";
-import Button from "../../atoms/Button/Button";
-import {theme} from "../../../theme/mainTheme";
+import Button from "../../atoms/Buttons/Button";
+import {theme} from "../../appUIConfig/theme/MainTheme";
 import {AddCourseImage} from "../../molecules/Images/AddCourseImage";
 import {Link} from "react-router-dom";
-import {routes} from "../../../routes";
+import {routes} from "../../../utils/routes";
 import {useSelector} from "react-redux";
-import {USER_ROLES} from "../../../utils/userRoles";
+import {USER_ROLES} from "../../../utils/types/index";
 
 const AddCourseSideWrapper = styled.div`
       display: flex;

@@ -2,7 +2,7 @@ import Heading from "../../atoms/Headings/Heading";
 import Paragraph from "../../atoms/Paragraphs/Paragraph";
 import React from "react";
 import styled from "styled-components";
-import {theme} from "../../../theme/mainTheme";
+import {theme} from "../../appUIConfig/theme/MainTheme";
 
 const InfoSection = styled.section`
       display: flex;

@@ -1,14 +1,14 @@
 import React from "react";
 import styled, {css} from "styled-components";
-import Input from "../../atoms/Input/Input";
-import Button from "../../atoms/Button/Button";
-import {routes} from "../../../routes";
+import Input from "../../atoms/Inputs/Input";
+import Button from "../../atoms/Buttons/Button";
+import {routes} from "../../../utils/routes";
 import {useHistory} from "react-router-dom";
 import {PersonIcon} from "../../atoms/Icons/PersonIcon";
 import {useDispatch, useSelector} from "react-redux";
 import {authenticate} from "../../../services/userService";
-import {USER_ROLES} from "../../../utils/userRoles";
-import {ACTION_TYPES} from "../../../reducers/actionTypes";
+import {USER_ROLES} from "../../../utils/types/index";
+import {ACTION_TYPES} from "../../../store/reducers/actionTypes";
 import {useForm} from "react-hook-form";
 
 const InfoParagraph = styled.h1`

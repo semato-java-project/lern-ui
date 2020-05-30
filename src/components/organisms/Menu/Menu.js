@@ -1,8 +1,8 @@
 import React from "react";
 import styled from "styled-components";
-import {USER_ROLES} from "../../../utils/userRoles";
-import {MENU_ITEMS} from "../../../utils/menuItems";
-import MenuButton from "../../atoms/Button/MenuButton";
+import {USER_ROLES} from "../../../utils/types";
+import {MENU_ITEMS} from "../../../utils/types/menuItems";
+import MenuButton from "../../atoms/Buttons/MenuButton";
 import {useSelector} from "react-redux";
 
 const MenuShape = styled.div`

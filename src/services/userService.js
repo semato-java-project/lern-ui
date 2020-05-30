@@ -1,8 +1,7 @@
 import jwtDecode from 'jwt-decode';
-import {ACTION_TYPES} from "../reducers/actionTypes";
-import {authRequest, getList} from './httpService'
-import {USER_ROLES} from "../utils/userRoles";
-import {GET_COURSES, GET_NEWS} from "../api-config/requestTypes";
+import {ACTION_TYPES} from "../store/reducers/actionTypes";
+import {authRequest, getList, requestTypes} from './httpService'
+import {USER_ROLES} from "../utils/types";
 
 // --- TOKEN ---
 const AUTH_TOKEN = 'AUTH_TOKEN';
@@ -27,8 +26,8 @@ export const authenticate = (email, password) => async dispatch => {
         dispatch({type: ACTION_TYPES.AUTHENTICATION_SUCCESS, payload: getJWTUser(token)});
         logInUser(token);
         let userRole = getJWTUser(token).role;
-        if (userRole === USER_ROLES.ROLE_LECTURER.API_NAME) dispatch(getList(GET_COURSES));
-        dispatch(getList(GET_NEWS));
+        if (userRole === USER_ROLES.ROLE_LECTURER.API_NAME) dispatch(getList(requestTypes.GET_COURSES));
+        dispatch(getList(requestTypes.GET_NEWS));
         return userRole;
 
     } catch (ex) {

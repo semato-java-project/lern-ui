@@ -3,7 +3,7 @@ import Heading from "../../atoms/Headings/Heading";
 import React from "react";
 import {RowWrapper} from "../Wrappers/RowWrapper";
 import {CourseIcon} from "../../atoms/Icons/CourseIcon";
-import {IconWrapper} from "../../../views/Teacher/TeacherCourseDetails";
+import {IconWrapper} from "../../views/Teacher/TeacherCourseDetails";
 
 const CourseDetailsHeaderContainer = ({courseName, courseDescription}) => (
     <>
