@@ -3,7 +3,7 @@ import styled from "styled-components";
 import {UserPathShape} from "../../atoms/Shapes/UserPathSHape";
 import {PersonIcon} from "../../atoms/Icons/PersonIcon";
 import LogoutButton from "../../atoms/Button/LogoutButton";
-import {logOutUser} from "../../../actions";
+import {logOutUser} from "../../../services/userService";
 import {useDispatch, useSelector} from "react-redux";
 import {USER_ROLES} from "../../../utils/userRoles";
 

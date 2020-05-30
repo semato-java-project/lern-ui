@@ -5,7 +5,7 @@ import {HorizontalSeparator} from "../../components/atoms/Shapes/HorizontalSepar
 import NewsSideContainer from "../../components/organisms/News/NewsSideContainer";
 import AddCourseSideContainer from "../../components/organisms/Course/AddCourseSideContainer";
 import {useDispatch, useSelector} from "react-redux";
-import {createItem, getList} from "../../actions";
+import {createItem, getList} from "../../services/httpService";
 import {ADD_PUBLICATION, GET_PUBLICATIONS} from "../../api-config/requestTypes";
 import {USER_ROLES} from "../../utils/userRoles";
 import {RowWrapper} from "../../components/molecules/Wrappers/RowWrapper";

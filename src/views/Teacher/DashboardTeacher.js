@@ -95,7 +95,11 @@ const DashboardTeacher = () => {
                 <MainContentSection>
                     <HorizontalTitle>Ostatnio edytowane kursy</HorizontalTitle>
                     <LastCoursesSection>
-                        {coursesSorted.length? coursesSorted.map(course => <LastCourseContainer key={course.courseId} course={course}/>) : <SpinnerContainer/>}
+                        {coursesSorted.length ?
+                            coursesSorted.map(course => <LastCourseContainer key={course.courseId} course={course}/>)
+                            :
+                            <SpinnerContainer/>
+                        }
                     </LastCoursesSection>
                     <AddCourseContainer/>
                     <StatsSection>

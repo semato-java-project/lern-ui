@@ -6,10 +6,9 @@ import {routes} from "../../../routes";
 import {useHistory} from "react-router-dom";
 import {PersonIcon} from "../../atoms/Icons/PersonIcon";
 import {useDispatch, useSelector} from "react-redux";
-import {authenticate, getList} from "../../../actions";
+import {authenticate} from "../../../services/userService";
 import {USER_ROLES} from "../../../utils/userRoles";
 import {ACTION_TYPES} from "../../../reducers/actionTypes";
-import {GET_COURSES, GET_NEWS} from "../../../api-config/requestTypes";
 import {useForm} from "react-hook-form";
 
 const InfoParagraph = styled.h1`
@@ -88,20 +87,8 @@ const AuthForm = ({hidden}) => {
     const {handleSubmit, register, errors} = useForm();
 
     const onSubmit = async ({username, password}) => {
-        try {
-            let role = await dispatch(authenticate(username, password));
-
-            // smelly code -> move this request to teacher dashboard and add loader animation there!
-            if (role === USER_ROLES.ROLE_LECTURER.API_NAME) {
-                dispatch(getList(GET_COURSES));
-            }
-
-            dispatch(getList(GET_NEWS));
-            history.replace(`${getRedirectPathByUserRole(role)}`);
-
-        } catch (err) {
-            dispatch({type: ACTION_TYPES.AUTHENTICATION_FAILURE});
-        }
+        let role = await dispatch(authenticate(username, password));
+        if (role) history.replace(`${getRedirectPathByUserRole(role)}`);
     };
 
     return (

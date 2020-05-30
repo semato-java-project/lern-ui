@@ -3,7 +3,7 @@ import SidebarTemplate from "../../templates/SidebarTemplate";
 import styled, {css} from "styled-components";
 import {HorizontalSeparator} from "../../components/atoms/Shapes/HorizontalSeparator";
 import Heading from "../../components/atoms/Headings/Heading";
-import {getDetails, getList} from "../../actions";
+import {getDetails, getList} from "../../services/httpService";
 import {GET_COURSE_DETAILS, GET_PROJECT_GROUPS} from "../../api-config/requestTypes";
 import {useDispatch, useSelector} from "react-redux";
 import {useParams} from "react-router-dom";
@@ -182,7 +182,7 @@ export const Headers = ({taskList, disableEdit}) => (
     <Row>
         <Header StudentName disableEdit={true}>STUDENT</Header>
         {generateTaskArray(taskList).map(task =>
-            <Header disableEdit={disableEdit} key={task.index}>{task.type} {task.number}</Header>)}
+            <Header disableEdit={disableEdit} key={task.httpService}>{task.type} {task.number}</Header>)}
         <Header disableEdit={true}>OCENA KONCOWA</Header>
     </Row>
 );

@@ -84,15 +84,15 @@ const Data = styled.td`
       background-color: white;
       
       ${({StudentName}) =>
-    StudentName &&
-    css`
-        min-width: 25rem;
+        StudentName &&
+        css`
+         min-width: 25rem;
       `}  
 
-    ${({groupNo}) =>
-    groupNo &&
-    css`
-              width: 8rem;
+      ${({groupNo}) =>
+        groupNo &&
+        css`
+         width: 8rem;
       `} 
 `;
 

@@ -1,7 +1,7 @@
 import styled, {css} from 'styled-components';
 import React, {useRef, useState} from "react";
 import {useDispatch} from "react-redux";
-import {updateItem} from "../../../actions";
+import {updateItem} from "../../../services/httpService";
 import {EDIT_GRADE} from "../../../api-config/requestTypes";
 
 const Input = styled.input`

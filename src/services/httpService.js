@@ -1,37 +1,17 @@
 import axios from 'axios';
 import {ACTION_TYPES} from "../reducers/actionTypes";
 import {getAPIAddress} from "../api-config";
-import jwtDecode from 'jwt-decode';
+import {getToken} from "./userService";
 
-// --- TOKEN ---
-const AUTH_TOKEN = 'AUTH_TOKEN';
-export const getToken = () => localStorage.getItem(AUTH_TOKEN);
-export const isTokenValid = () => getToken() && jwtDecode(getToken()).sub === 'semato-learn-project';
 export const getHeaders = () => ({Authorization: `Bearer ${getToken()}`});
 
-
-// --- LOGIN / LOGOUT ---
-export const logInUser = token => localStorage.setItem(AUTH_TOKEN, token);
-
-export const logOutUser = () => dispatch => {
-    localStorage.removeItem(AUTH_TOKEN);
-    dispatch({type: ACTION_TYPES.USER_LOGOUT});
-};
-
 // --- AUTH ---
-export const authenticate = (email, password) => dispatch => {
-    dispatch({type: ACTION_TYPES.AUTHENTICATION_REQUEST});
+export const authRequest = (email, password) => {
     return axios
         .post(`${getAPIAddress()}/auth/signin`, {
             email,
             password
         })
-        .then(response => {
-            dispatch({type: ACTION_TYPES.AUTHENTICATION_SUCCESS, payload: jwtDecode(response.data).userJwtInfo});
-            logInUser(response.data);
-            return jwtDecode(response.data).userJwtInfo.role
-        })
-    // --- CATCH IMPLEMENTED INSIDE SIGNINFORM ---
 };
 
 // --- FETCH LIST ---

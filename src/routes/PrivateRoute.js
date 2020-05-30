@@ -2,7 +2,7 @@ import React from 'react';
 import {Route, Redirect} from 'react-router-dom';
 import {routes} from '../routes';
 import {useSelector} from "react-redux";
-import {isTokenValid} from "../actions";
+import {isTokenValid} from "../services/userService";
 
 const PrivateRoute = ({component: Component, acceptedRoles, ...restProps}) => {
 

@@ -1,7 +1,7 @@
 import styled, {css} from 'styled-components';
 import React from "react";
 import {useDispatch, useSelector} from "react-redux";
-import {createItem, getList, updateItem} from "../../../actions";
+import {createItem, getList, updateItem} from "../../../services/httpService";
 import {ADD_PROJECT_GROUP, EDIT_PROJECT_GROUP, GET_PROJECT_GROUPS} from "../../../api-config/requestTypes";
 import {useParams} from "react-router-dom";
 

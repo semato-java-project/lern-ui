@@ -14,7 +14,7 @@ import {INPUT_TYPES, TASK_TYPES} from "../../utils/Types";
 import {GroupContainer} from "../../components/molecules/Containers/GroupContainer";
 import {useDispatch, useSelector} from "react-redux";
 import {ACTION_TYPES} from "../../reducers/actionTypes";
-import {createItem, getList} from "../../actions";
+import {createItem, getList} from "../../services/httpService";
 import {ADD_COURSE, GET_GROUPS} from "../../api-config/requestTypes";
 import AddPublicationContainer from "../../components/organisms/Publication/AddPublicationContainer";
 import NewsSideContainer from "../../components/organisms/News/NewsSideContainer";

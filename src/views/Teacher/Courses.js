@@ -5,7 +5,7 @@ import {HorizontalSeparator} from "../../components/atoms/Shapes/HorizontalSepar
 import NewsSideContainer from "../../components/organisms/News/NewsSideContainer";
 import AddCourseSideContainer from "../../components/organisms/Course/AddCourseSideContainer";
 import CourseContainer from "../../components/organisms/Course/CourseContainer";
-import {getList} from "../../actions";
+import {getList} from "../../services/httpService";
 import {GET_COURSES} from "../../api-config/requestTypes";
 import {useDispatch, useSelector} from "react-redux";
 
