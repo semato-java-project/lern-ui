@@ -1,7 +1,7 @@
 import React from "react";
 import styled from "styled-components";
 import {RowWrapper} from "../Wrappers/RowWrapper";
-import publications from "../../../assets/MenuIcons/publications-icon-active.svg";
+import publications from "../../../assets/menuIcons/publications-icon-active.svg";
 
 const PublicationWrapper = styled.div`
       display: flex;

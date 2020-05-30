@@ -8,10 +8,11 @@ const Column = styled.div`
       align-items: center;
       justify-content: ${({justifyContent}) => justifyContent || 'flex-start'};
       margin-bottom: ${({marginBottom}) => marginBottom || 0};;
+      margin-top: ${({marginTop}) => marginTop || 0};
 `;
 
-export const RowWrapper = ({children,spaceBetween, justifyContent,marginBottom}) => (
-    <Column spaceBetween={spaceBetween} justifyContent={justifyContent} marginBottom={marginBottom}>
+export const RowWrapper = ({children,spaceBetween, justifyContent,marginBottom,marginTop}) => (
+    <Column spaceBetween={spaceBetween} justifyContent={justifyContent} marginBottom={marginBottom} marginTop={marginTop}>
         {children}
     </Column>
 );

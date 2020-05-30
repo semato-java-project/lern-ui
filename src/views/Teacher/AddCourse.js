@@ -300,7 +300,7 @@ const AddCourse = () => {
                                                   paddingLeft={'10rem'}
                                 />
                             </RowWrapper>
-                            <RowWrapper justifyContent={'space-between'}>
+                            <RowWrapper justifyContent={'space-between'} marginTop={'4rem'}>
                                 <StyledButton grayColor
                                               onClick={() => setActiveStep(ADD_PROCESS_STEPS.SET_NAME_WITH_DESCRIPTION)}>{'<'} Wstecz</StyledButton>
                                 <StyledButton onClick={() => {
