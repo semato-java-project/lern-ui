@@ -180,8 +180,8 @@ const ParticipantList = ({participantList, disableEdit}) => (
 export const Headers = ({taskList, disableEdit}) => (
     <Row>
         <Header StudentName disableEdit={true}>STUDENT</Header>
-        {generateTaskArray(taskList).map(task =>
-            <Header disableEdit={disableEdit} key={task.httpService}>{task.type} {task.number}</Header>)}
+        {generateTaskArray(taskList).map((task, index)=>
+            <Header key={index} disableEdit={disableEdit}>{task.type} {task.number}</Header>)}
         <Header disableEdit={true}>OCENA KONCOWA</Header>
     </Row>
 );
