@@ -7,15 +7,12 @@ import {GET_COURSE_DETAILS, GET_PROJECT_GROUPS} from "../../api-config/requestTy
 import {useDispatch, useSelector} from "react-redux";
 import {useParams} from "react-router-dom";
 import {GroupContainer} from "../../components/molecules/Containers/GroupContainer";
-import {CourseIcon} from "../../components/atoms/Icons/CourseIcon";
-import {RowWrapper} from "../../components/molecules/Wrappers/RowWrapper";
-import Paragraph from "../../components/atoms/Paragraphs/Paragraph";
 import TableInput from "../../components/atoms/Input/TableInput";
 import ProjectGroupInput from "../../components/atoms/Input/ProjectGroupInput";
 import {SpinnerContainer} from "../../components/molecules/Containers/SpinnerContainer";
 import {ACTION_TYPES} from "../../reducers/actionTypes";
-import {IconWrapper} from "../Teacher/TeacherCourseDetails";
-import {getDetails, getList} from "../../actions";
+import {checkIsProjectIncluded, getCourseDetails, Headers} from "../Teacher/TeacherCourseDetails";
+import CourseDetailsHeaderContainer from "../../components/molecules/Containers/CourseDetailsHeaderContainer";
 
 const HeaderPathInfoContainer = styled.div`
       display: flex;
@@ -99,43 +96,45 @@ const Data = styled.td`
       `} 
 `;
 
+const ProjectGroupSection = ({projectGroups, isProjectDisabled, setIsProjectDisabled}) => (
+    <>
+        <Heading marginTop={'4rem'} marginBottom={'2rem'}>Grupy projektowe</Heading>
+        <Table>
+            <tbody>
+            <Row>
+                <Header groupNo disableEdit={true}>NUMER GRUPY</Header>
+                <Header groupNo disableEdit={true}>SKŁAD GRUPY</Header>
+            </Row>
+            {projectGroups.map((group, index) =>
+                <Row key={index}>
+                    <Data groupNo>{index + 1}</Data>
+                    <ProjectGroupInput group={group}
+                                       isProjectDisabled={group.studentResponseList.length >= group.maxGroupQuantity ? true : isProjectDisabled}
+                                       setIsProjectDisabled={setIsProjectDisabled}/>
+                </Row>)
+            }
+            {!isProjectDisabled && <Row>
+                <Data>-</Data>
+                <ProjectGroupInput isProjectDisabled={isProjectDisabled}
+                                   setIsProjectDisabled={setIsProjectDisabled}/>
+            </Row>}
+            </tbody>
+        </Table>
+    </>
+);
 
-const translateTaskType = (type, taskQuantity) => {
-    switch (type) {
-        case 'EXAM':
-            return 'EGZAMIN';
-        case 'PROJECT':
-            return 'PROJEKT';
-        case 'DISCUSSIONS': {
-            if (taskQuantity > 2) {
-                return 'ĆW';
-            } else return 'ĆWICZENIA';
-        }
-        case 'LAB':
-            return 'LAB';
-        default:
-            return 'NULL'
-    }
-};
+const ParticipantList = ({participantList}) => (
 
-const generateTaskArray = taskList => {
-    let index = 0;
-    let Tasks = [];
+    participantList && participantList.map(student =>
+        <Row key={student.studentId}>
+            <Data StudentName>{student.firstName} {student.lastName}</Data>
+            {student.gradeList.map(grade =>
+                <TableInput key={grade.id} grade={grade} disableEdit={true}/>)}
+            <TableInput grade={{gradeValue: student.finalGrade, id: null}} disableEdit={true}/>
+        </Row>
+    )
+);
 
-    taskList.map(task => {
-        [...Array(task.quantity)].map(
-            (e, i) => {
-                index = index + 1;
-                // --- INDEX RESOLVES PROBLEM WITH THE SAME KEYS INSIDE MAP ---
-                Tasks.push({
-                    type: translateTaskType(task.taskType, task.quantity),
-                    index: index,
-                    number: task.quantity > 1 ? i + 1 : null
-                })
-            })
-    });
-    return Tasks;
-};
 
 const StudentCourseDetails = () => {
 
@@ -145,28 +144,13 @@ const StudentCourseDetails = () => {
     const projectGroups = useSelector(state => state.projectGroups);
     const [isProjectDisabled, setIsProjectDisabled] = useState(false);
 
-    const isProjectIncluded = (taskList = courseDetails.taskList) => taskList.filter(task => task.taskType === 'PROJECT').length;
-
-    const getCourseDetails = async () => {
-        try {
-            let {payload} = await dispatch(getDetails(GET_COURSE_DETAILS(urlParams.id)));
-            const isProjectIncludedValue = isProjectIncluded(payload.item.taskList);
-            if (isProjectIncludedValue) dispatch(getList(GET_PROJECT_GROUPS(urlParams.id)));
-
-            return isProjectIncludedValue;
-        } catch (ex) {
-            alert(ex.message)
-        }
-    };
-
     useEffect(() => {
+        let isProjectIncluded = getCourseDetails(dispatch, urlParams);
 
-        let isProjectIncludedValue = getCourseDetails();
-
-        // --- CLEANUP ---W
+        // --- CLEANUP ---
         return () => {
             dispatch({type: ACTION_TYPES.DATA_CLEANUP, payload: GET_COURSE_DETAILS().itemType});
-            if (isProjectIncludedValue) dispatch({
+            if (isProjectIncluded) dispatch({
                 type: ACTION_TYPES.DATA_CLEANUP,
                 payload: GET_PROJECT_GROUPS().itemType
             })
@@ -181,66 +165,28 @@ const StudentCourseDetails = () => {
                 <StyledSeparator/>
             </HeaderPathInfoContainer>
             <ContentWrapper>
-                {courseDetails ? <MainContentSection>
-                    <RowWrapper>
-                        <IconWrapper>
-                            {CourseIcon()}
-                        </IconWrapper>
-                        <Heading marginLeft={'2rem'} fontSize={'2.2rem'}>{courseDetails.name}</Heading>
-                    </RowWrapper>
-                    <Paragraph marginTop={'1rem'} marginLeft={'5rem'}>
-                        {courseDetails.description}
-                    </Paragraph>
-                    {courseDetails && <GroupContainer group={courseDetails.group} showOnly={true}/>}
-                    <Table>
-                        <tbody>
-                        <Row>
-                            <Header StudentName disableEdit={true}>STUDENT</Header>
-                            {courseDetails.taskList &&
-                            generateTaskArray(courseDetails.taskList)
-                                .map(task =>
-                                    <Header disableEdit={true} key={task.index}>{task.type} {task.number}</Header>)}
-                            <Header disableEdit={true}>OCENA KONCOWA</Header>
-                        </Row>
-                        {courseDetails.participantList &&
-                        courseDetails.participantList.map(student =>
-                            <Row key={student.studentId}>
-                                <Data StudentName>{student.firstName} {student.lastName}</Data>
-                                {student.gradeList
-                                    .map(grade =>
-                                        <TableInput key={grade.id} grade={grade} disableEdit={true}/>)}
-                                <TableInput grade={{gradeValue: student.finalGrade, id: null}} disableEdit={true}/>
-                            </Row>
-                        )}
-                        </tbody>
-                    </Table>
-                    {projectGroups && isProjectIncluded() &&
-                    <>
-                        <Heading marginTop={'4rem'} marginBottom={'2rem'}>Grupy projektowe</Heading>
+                {courseDetails ?
+                    <MainContentSection>
+                        <CourseDetailsHeaderContainer
+                            courseName={courseDetails.name}
+                            courseDescription={courseDetails.description}/>
+                        <GroupContainer group={courseDetails.group} showOnly={true}/>
                         <Table>
                             <tbody>
-                            <Row>
-                                <Header groupNo disableEdit={true}>NUMER GRUPY</Header>
-                                <Header groupNo disableEdit={true}>SKŁAD GRUPY</Header>
-                            </Row>
-                            {projectGroups.map((group, index) =>
-                                <Row>
-                                    <Data groupNo>{index + 1}</Data>
-                                    <ProjectGroupInput group={group}
-                                                       isProjectDisabled={group.studentResponseList.length >= group.maxGroupQuantity ? true : isProjectDisabled}
-                                                       setIsProjectDisabled={setIsProjectDisabled}/>
-                                </Row>)
-                            }
-                            {!isProjectDisabled && <Row>
-                                <Data>-</Data>
-                                <ProjectGroupInput isProjectDisabled={isProjectDisabled}
-                                                   setIsProjectDisabled={setIsProjectDisabled}/>
-                            </Row>}
+                            <Headers taskList={courseDetails.taskList} disableEdit={true}/>
+                            <ParticipantList participantList={courseDetails.participantList}/>
                             </tbody>
                         </Table>
-                    </>
-                    }
-                </MainContentSection> : <SpinnerContainer/>}
+                        {Boolean(projectGroups) && checkIsProjectIncluded(courseDetails.taskList) &&
+                        <ProjectGroupSection
+                            isProjectDisabled={isProjectDisabled}
+                            setIsProjectDisabled={setIsProjectDisabled}
+                            projectGroups={projectGroups}
+                        />}
+                    </MainContentSection>
+                    :
+                    <SpinnerContainer/>
+                }
             </ContentWrapper>
         </SidebarTemplate>
     );

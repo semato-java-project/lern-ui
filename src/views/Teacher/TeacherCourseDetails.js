@@ -8,14 +8,14 @@ import {GET_COURSE_DETAILS, GET_PROJECT_GROUPS} from "../../api-config/requestTy
 import {useDispatch, useSelector} from "react-redux";
 import {useParams} from "react-router-dom";
 import {GroupContainer} from "../../components/molecules/Containers/GroupContainer";
-import {CourseIcon} from "../../components/atoms/Icons/CourseIcon";
 import {RowWrapper} from "../../components/molecules/Wrappers/RowWrapper";
-import Paragraph from "../../components/atoms/Paragraphs/Paragraph";
 import TableInput from "../../components/atoms/Input/TableInput";
 import Button from "../../components/atoms/Button/Button";
 import ProjectGroupInput from "../../components/atoms/Input/ProjectGroupInput";
 import {SpinnerContainer} from "../../components/molecules/Containers/SpinnerContainer";
 import {ACTION_TYPES} from "../../reducers/actionTypes";
+import CourseDetailsHeaderContainer from "../../components/molecules/Containers/CourseDetailsHeaderContainer";
+import {TASK_TYPES} from "../../utils/Types";
 
 const HeaderPathInfoContainer = styled.div`
       display: flex;
@@ -98,32 +98,31 @@ const Data = styled.td`
 
 const translateTaskType = (type, taskQuantity) => {
     switch (type) {
-        case 'EXAM':
+        case TASK_TYPES.EXAM:
             return 'EGZAMIN';
-        case 'PROJECT':
+        case TASK_TYPES.PROJECT:
             return 'PROJEKT';
-        case 'DISCUSSIONS': {
+        case TASK_TYPES.DISCUSSIONS: {
             if (taskQuantity > 2) {
                 return 'ĆW';
             } else return 'ĆWICZENIA';
         }
-        case 'LAB':
+        case TASK_TYPES.LAB:
             return 'LAB';
     }
 };
 
-const generateTaskArray = taskList => {
+export const generateTaskArray = taskList => {
     let index = 0;
     let Tasks = [];
 
-    taskList.map(task => {
+    taskList && taskList.map(task => {
         [...Array(task.quantity)].map(
             (e, i) => {
                 index = index + 1;
-                // --- INDEX RESOLVES PROBLEM WITH THE SAME KEYS INSIDE MAP ---
                 Tasks.push({
                     type: translateTaskType(task.taskType, task.quantity),
-                    index: index,
+                    index,
                     number: task.quantity > 1 ? i + 1 : null
                 })
             })
@@ -146,6 +145,68 @@ const StyledButton = styled(Button)`
 `;
 
 
+const ProjectGroupSection = ({projectGroups}) => (
+    <>
+        <Heading marginTop={'4rem'} marginBottom={'2rem'}>Grupy projektowe</Heading>
+        <Table>
+            <tbody>
+            <Row>
+                <Header groupNo disableEdit={true}>NUMER GRUPY</Header>
+                <Header groupNo disableEdit={true}>SKŁAD GRUPY</Header>
+            </Row>
+            {projectGroups.map((group, index) =>
+                <Row key={index}>
+                    <Data groupNo>{index + 1}</Data>
+                    <ProjectGroupInput teacher={true} group={group} isProjectDisabled={true}/>
+                </Row>
+            )}
+            </tbody>
+        </Table>
+    </>
+);
+
+
+const ParticipantList = ({participantList, disableEdit}) => (
+
+    participantList && participantList.map(student =>
+        <Row key={student.studentId}>
+            <Data StudentName>{student.firstName} {student.lastName}</Data>
+            {student.gradeList.map((grade, index) =>
+                <TableInput key={index} grade={grade} disableEdit={disableEdit}/>)}
+            <TableInput grade={{gradeValue: student.finalGrade, id: null}} disableEdit={true}/>
+        </Row>
+    )
+);
+
+export const Headers = ({taskList, disableEdit}) => (
+    <Row>
+        <Header StudentName disableEdit={true}>STUDENT</Header>
+        {generateTaskArray(taskList).map(task =>
+            <Header disableEdit={disableEdit} key={task.index}>{task.type} {task.number}</Header>)}
+        <Header disableEdit={true}>OCENA KONCOWA</Header>
+    </Row>
+);
+
+
+export const checkIsProjectIncluded = (taskList) => {
+    let indexOfProject = taskList.findIndex(task => task.taskType === TASK_TYPES.PROJECT);
+    if (indexOfProject !== -1) return Boolean(taskList[indexOfProject].quantity);
+    return false;
+};
+
+export const getCourseDetails = async (dispatch, urlParams) => {
+    try {
+        let {payload} = await dispatch(getDetails(GET_COURSE_DETAILS(urlParams.id)));
+        let isProjectIncluded = checkIsProjectIncluded(payload.item.taskList);
+        if (isProjectIncluded) dispatch(getList(GET_PROJECT_GROUPS(urlParams.id)));
+        return isProjectIncluded;
+
+    } catch (ex) {
+        alert(ex.message)
+    }
+};
+
+
 const TeacherCourseDetails = () => {
 
     const dispatch = useDispatch();
@@ -154,28 +215,13 @@ const TeacherCourseDetails = () => {
     const projectGroups = useSelector(state => state.projectGroups);
     const [disableEdit, setDisableEdit] = useState(true);
 
-    const isProjectIncluded = (taskList = courseDetails.taskList) => taskList.filter(task => task.taskType === 'PROJECT').length;
-
-    const getCourseDetails = async () => {
-        try {
-            let {payload} = await dispatch(getDetails(GET_COURSE_DETAILS(urlParams.id)));
-            const isProjectIncludedValue = isProjectIncluded(payload.item.taskList);
-            if (isProjectIncludedValue) dispatch(getList(GET_PROJECT_GROUPS(urlParams.id)));
-
-            return isProjectIncludedValue;
-        } catch (ex) {
-            alert(ex.message)
-        }
-    };
-
     useEffect(() => {
-
-        let isProjectIncludedValue = getCourseDetails();
+        let isProjectIncluded = getCourseDetails(dispatch, urlParams);
 
         // --- CLEANUP ---
         return () => {
             dispatch({type: ACTION_TYPES.DATA_CLEANUP, payload: GET_COURSE_DETAILS().itemType});
-            if (isProjectIncludedValue) dispatch({
+            if (isProjectIncluded) dispatch({
                 type: ACTION_TYPES.DATA_CLEANUP,
                 payload: GET_PROJECT_GROUPS().itemType
             })
@@ -190,65 +236,39 @@ const TeacherCourseDetails = () => {
                 <StyledSeparator/>
             </HeaderPathInfoContainer>
             <ContentWrapper>
-                {courseDetails ? <MainContentSection>
-                    <RowWrapper>
-                        <IconWrapper>
-                            {CourseIcon()}
-                        </IconWrapper>
-                        <Heading marginLeft={'2rem'} fontSize={'2.2rem'}>{courseDetails.name}</Heading>
-                    </RowWrapper>
-                    <Paragraph marginTop={'1rem'} marginLeft={'5rem'}>
-                        {courseDetails.description}
-                    </Paragraph>
-                    {courseDetails && <GroupContainer group={courseDetails.group} showOnly={true}/>}
-                    <Table>
-                        <tbody>
-                        <Row>
-                            <Header StudentName disableEdit={true}>STUDENT</Header>
-                            {courseDetails.taskList && generateTaskArray(courseDetails.taskList).map(task => <Header
-                                disableEdit={disableEdit} key={task.index}>{task.type} {task.number}</Header>)}
-                            <Header disableEdit={true}>OCENA KONCOWA</Header>
-                        </Row>
-                        {courseDetails.participantList && courseDetails.participantList.map(student =>
-                            <Row key={student.studentId}>
-                                <Data StudentName>{student.firstName} {student.lastName}</Data>
-                                {student.gradeList.map((grade, index) => <TableInput key={index} grade={grade}
-                                                                                     disableEdit={disableEdit}/>)}
-                                <TableInput grade={{gradeValue: student.finalGrade, id: null}} disableEdit={true}/>
-                            </Row>
-                        )}
-                        </tbody>
-                    </Table>
-                    <RowWrapper justifyContent={'flex-end'}>
-                        {disableEdit ?
-                            <StyledButton onClick={() => setDisableEdit(!disableEdit)}>Włącz tryb edycji</StyledButton>
-                            :
-                            <StyledButton disableEdit={disableEdit} onClick={async () => {
-                                await dispatch(getDetails(GET_COURSE_DETAILS(urlParams.id)));
-                                setDisableEdit(!disableEdit)
-                            }}>Wyłącz
-                                tryb edycji</StyledButton>
-                        }
-                    </RowWrapper>
-                    {projectGroups && isProjectIncluded() &&
-                    <>
-                        <Heading marginTop={'4rem'} marginBottom={'2rem'}>Grupy projektowe</Heading>
+                {courseDetails ?
+                    <MainContentSection>
+                        <CourseDetailsHeaderContainer
+                            courseName={courseDetails.name}
+                            courseDescription={courseDetails.description}/>
+                        <GroupContainer group={courseDetails.group} showOnly={true}/>
                         <Table>
                             <tbody>
-                            <Row>
-                                <Header groupNo disableEdit={true}>NUMER GRUPY</Header>
-                                <Header groupNo disableEdit={true}>SKŁAD GRUPY</Header>
-                            </Row>
-                            {projectGroups.map((group, index) =>
-                                <Row>
-                                    <Data groupNo>{index + 1}</Data>
-                                    <ProjectGroupInput teacher={true} group={group} isProjectDisabled={true}/>
-                                </Row>)
-                            }
+                            <Headers taskList={courseDetails.taskList} disableEdit={disableEdit}/>
+                            <ParticipantList participantList={courseDetails.participantList} disableEdit={disableEdit}/>
                             </tbody>
                         </Table>
-                    </>}
-                </MainContentSection> : <SpinnerContainer/>}
+                        <RowWrapper justifyContent={'flex-end'}>
+                            {disableEdit ?
+                                <StyledButton onClick={() => setDisableEdit(!disableEdit)}>
+                                    Włącz tryb edycji
+                                </StyledButton>
+                                :
+                                <StyledButton disableEdit={disableEdit}
+                                              onClick={async () => {
+                                                  await dispatch(getDetails(GET_COURSE_DETAILS(urlParams.id)));
+                                                  setDisableEdit(!disableEdit)
+                                              }}>
+                                    Wyłącz tryb edycji
+                                </StyledButton>
+                            }
+                        </RowWrapper>
+                        {Boolean(projectGroups) && checkIsProjectIncluded(courseDetails.taskList) &&
+                        <ProjectGroupSection projectGroups={projectGroups}/>}
+                    </MainContentSection>
+                    :
+                    <SpinnerContainer/>
+                }
             </ContentWrapper>
         </SidebarTemplate>
     );

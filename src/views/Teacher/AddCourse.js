@@ -10,7 +10,7 @@ import TextArea from "../../components/atoms/Textarea/Textarea";
 import Button from "../../components/atoms/Button/Button";
 import {InputWithButtons} from "../../components/molecules/InputWithButtons/InputWithButtons";
 import {RowWrapper} from "../../components/molecules/Wrappers/RowWrapper";
-import {INPUT_TYPES} from "../../utils/Types";
+import {INPUT_TYPES, TASK_TYPES} from "../../utils/Types";
 import {GroupContainer} from "../../components/molecules/Containers/GroupContainer";
 import {useDispatch, useSelector} from "react-redux";
 import {ACTION_TYPES} from "../../reducers/actionTypes";
@@ -112,13 +112,6 @@ export const ADD_PROCESS_STEPS = {
     SET_GROUP: 'SET_GROUP',
 };
 
-
-const TASK_TYPES = {
-    LAB: 'LAB',
-    PROJECT: 'PROJECT',
-    EXAM: 'EXAM',
-    DISCUSSIONS: 'DISCUSSIONS'
-};
 
 const AddCourse = () => {
 
