@@ -1,27 +1,24 @@
-import React, {useEffect, useState} from 'react';
+import React, {useState} from 'react';
 import SidebarTemplate from "../../appUIConfig/templates/SidebarTemplate";
 import styled from "styled-components";
 import {HorizontalSeparator} from "../../atoms/Shapes/HorizontalSeparator";
 import StepsContainer from "../../organisms/Course/StepsContainer";
-import {ColumnWrapper} from "../../molecules/Wrappers/ColumnWrapper";
 import Heading from "../../atoms/Headings/Heading";
-import Input from "../../atoms/Inputs/Input";
-import TextArea from "../../atoms/Textareas/Textarea";
 import Button from "../../atoms/Buttons/Button";
-import {InputWithButtons} from "../../molecules/ValueSelectors/InputWithButtons";
-import {RowWrapper} from "../../molecules/Wrappers/RowWrapper";
-import {INPUT_TYPES} from "../../../utils/types/index";
-import {GroupContainer} from "../../molecules/Containers/GroupContainer";
 import {useDispatch, useSelector} from "react-redux";
 import {ACTION_TYPES} from "../../../store/reducers/actionTypes";
-import {createItem, getList, requestTypes} from "../../../services/httpService";
 import AddPublicationContainer from "../../organisms/Publication/AddPublicationContainer";
 import NewsSideContainer from "../../organisms/News/NewsSideContainer";
 import {CheckIcon} from "../../atoms/Icons/CheckIcon";
 import {WarnIcon} from "../../atoms/Icons/WarnIcon";
 import {routes} from "../../../utils/routes";
 import {Link} from "react-router-dom";
-import {TASK_TYPES} from "../../../utils/types";
+import AddCourseNameForm from "../../organisms/Course/AddCourseNameForm";
+import AddCourseDetailsForm from "../../organisms/Course/AddCourseDetailsForm";
+import AddCourseGroupForm from "../../organisms/Course/AddCourseGroupForm";
+
+export const AddCourseContext = React.createContext(null);
+
 
 const HeaderPathInfoContainer = styled.div`
       display: flex;
@@ -92,14 +89,14 @@ const AddCourseFormSection = styled.section`
       margin-top: 4rem;
 `;
 
-const StyledButton = styled(Button)`
+export const AddCourseButton = styled(Button)`
      width: 16rem;
      height: 4rem;
      margin: 2rem 0 0;
      font-weight: ${({theme}) => theme.fontWeight.regular};
 `;
 
-const ErrorParagraph = styled.p`
+export const ErrorParagraph = styled.p`
       font-weight: ${({theme}) => theme.fontWeight.regular};
       font-size: ${({theme}) => theme.fontSize.s};
       color: ${({theme}) => theme.colors.error_red};
@@ -115,275 +112,98 @@ export const ADD_PROCESS_STEPS = {
 
 const AddCourse = () => {
 
-        const dispatch = useDispatch();
-        const [activeStep, setActiveStep] = useState(ADD_PROCESS_STEPS.SET_NAME_WITH_DESCRIPTION);
-        const [addResponse, setAddResponse] = useState({status: undefined, message: ''});
-        const [validationError, setValidationError] = useState(false);
-        const [groupValidationError, setGroupValidationError] = useState(false);
-        const courseToAdd = useSelector(state => state.courseToAdd || {});
-        const groups = useSelector(state => state.groups || []);
+    // --- INITIALIZATION ---
+    const dispatch = useDispatch();
+    const [activeStep, setActiveStep] = useState(ADD_PROCESS_STEPS.SET_NAME_WITH_DESCRIPTION);
+    const [addResponse, setAddResponse] = useState({status: undefined, message: ''});
+    const [validationError, setValidationError] = useState(false);
+    const [groupValidationError, setGroupValidationError] = useState(false);
+    const courseToAdd = useSelector(state => state.courseToAdd || {});
 
+    // --- REUSABLE FUNCTION TO SET COURSE DATA ---
+    const setCourseData = (type, data) => dispatch({
+        type: ACTION_TYPES.SET_COURSE_TO_ADD,
+        payload: {...courseToAdd, [type]: data}
+    });
 
-        // --- EXAM VALUES ---
-        const [examValues, setExamValues] = useState({
-            quantity: 0,
-            markWeight: 0,
-            taskType: TASK_TYPES.EXAM
-        });
+    // --- CONTEXT PREPARED ---
+    const addCourseContext = {
+        activeStep,
+        setActiveStep,
+        addResponse,
+        setAddResponse,
+        validationError,
+        setValidationError,
+        groupValidationError,
+        setGroupValidationError,
+        setCourseData,
+        courseToAdd,
+    };
 
-        // --- EXERCISES VALUES ---
-        const [discussionsValues, setDiscussionsValues] = useState({
-            quantity: 0,
-            markWeight: 0,
-            taskType: TASK_TYPES.DISCUSSIONS
-        });
+    // --- RETURNS FORM BY CURRENT STEP ---
+    const generateFormByActiveStep = (step) => {
+        switch (step) {
+            case ADD_PROCESS_STEPS.SET_NAME_WITH_DESCRIPTION :
+                return <AddCourseNameForm/>;
 
+            case ADD_PROCESS_STEPS.SET_DETAILS :
+                return <AddCourseDetailsForm/>;
 
-        // --- EXERCISES VALUES ---
-        const [labValues, setLabValues] = useState({
-            quantity: 0,
-            markWeight: 0,
-            maxGroupQuantity: 0,
-            taskType: TASK_TYPES.LAB
-        });
+            case ADD_PROCESS_STEPS.SET_GROUP :
+                return <AddCourseGroupForm/>;
+            default:
+                return null
+        }
+    };
 
-
-        // --- EXERCISES VALUES ---
-        const [projectValues, setProjectValues] = useState({
-            quantity: 0,
-            markWeight: 0,
-            maxGroupQuantity: 0,
-            taskType: TASK_TYPES.PROJECT
-        });
-
-        // --- VALUES HANDLER ---
-        const setValue = (property, value, handler, prevValues) => {
-            handler({...prevValues, [property]: value})
-        };
-
-
-        const setCourseData = (type, data) => dispatch({
-            type: ACTION_TYPES.SET_COURSE_TO_ADD,
-            payload: {...courseToAdd, [type]: data}
-        });
-
-        useEffect(() => {
-            if (activeStep === ADD_PROCESS_STEPS.SET_GROUP) dispatch(getList(requestTypes.GET_GROUPS))
-        }, [activeStep,dispatch]);
-
-        const isFirstStepValid = () => {
-            if (courseToAdd.name && courseToAdd.name.trim() !== ''
-                && courseToAdd.description && courseToAdd.description.trim() !== '') {
-                return true;
-            } else {
-                setValidationError(true);
-                return false;
-            }
-        };
-
-        const isGroupStepValid = () => {
-            if (courseToAdd.groupId) {
-                return true;
-            } else {
-                setGroupValidationError(true);
-                return false;
-            }
-        };
-
-
-        const generateFormByActiveStep = (step) => {
-            switch (step) {
-                case ADD_PROCESS_STEPS.SET_NAME_WITH_DESCRIPTION :
-                    return (
-                        <ColumnWrapper>
-                            <Heading>Nazwa kursu</Heading>
-                            <Input
-                                withShadow
-                                placeholder={'Wprowadź nazwę kursu...'}
-                                marginTop={'1rem'}
-                                width={'40rem'}
-                                value={courseToAdd.name}
-                                onFocus={() => validationError && setValidationError(false)}
-                                onChange={(e) => setCourseData('name', e.target.value)}
-                            />
-                            <Heading marginTop={'4rem'}>Opis kursu</Heading>
-                            <TextArea
-                                placeholder={'Wprowadź opis kursu...'}
-                                width={'100%'}
-                                value={courseToAdd.description}
-                                onFocus={() => validationError && setValidationError(false)}
-                                onChange={(e) => setCourseData('description', e.target.value)}
-                            />
-                            <RowWrapper justifyContent={'space-between'}>
-                                {validationError ?
-                                    <ErrorParagraph>Nie wszystkie pola zostały uzupełnione/</ErrorParagraph> : <p></p>}
-                                <StyledButton
-                                    onClick={() => isFirstStepValid() && setActiveStep(ADD_PROCESS_STEPS.SET_DETAILS)}>
-                                    Następny krok {'>'}
-                                </StyledButton>
-                            </RowWrapper>
-                        </ColumnWrapper>
-                    );
-                case ADD_PROCESS_STEPS.SET_DETAILS :
-                    return (
-                        <ColumnWrapper>
-                            <Heading marginTop={'3rem'}>Egzamin</Heading>
-                            <RowWrapper>
-                                <InputWithButtons inputType={INPUT_TYPES.NUMBER}
-                                                  value={examValues.quantity}
-                                                  setValue={(value) =>
-                                                      setValue('quantity', value, setExamValues, examValues)}
-                                />
-                                <InputWithButtons inputType={INPUT_TYPES.WEIGHT}
-                                                  value={examValues.markWeight}
-                                                  setValue={(value) =>
-                                                      setValue('markWeight', value, setExamValues, examValues)}
-                                />
-                            </RowWrapper>
-                            <Heading marginTop={'3rem'}>Ćwiczenia</Heading>
-                            <RowWrapper>
-                                <InputWithButtons inputType={INPUT_TYPES.NUMBER}
-                                                  value={discussionsValues.quantity}
-                                                  setValue={(value) =>
-                                                      setValue('quantity', value, setDiscussionsValues, discussionsValues)}
-                                />
-                                <InputWithButtons inputType={INPUT_TYPES.WEIGHT}
-                                                  value={discussionsValues.markWeight}
-                                                  setValue={(value) =>
-                                                      setValue('markWeight', value, setDiscussionsValues, discussionsValues)}
-                                />
-                            </RowWrapper>
-                            <Heading marginTop={'3rem'}>Laboratorium</Heading>
-                            <RowWrapper>
-                                <InputWithButtons inputType={INPUT_TYPES.NUMBER}
-                                                  value={labValues.quantity}
-                                                  setValue={(value) =>
-                                                      setValue('quantity', value, setLabValues, labValues)}
-                                />
-                                <InputWithButtons inputType={INPUT_TYPES.WEIGHT}
-                                                  value={labValues.markWeight}
-                                                  setValue={(value) =>
-                                                      setValue('markWeight', value, setLabValues, labValues)}
-                                />
-                                <InputWithButtons inputType={INPUT_TYPES.PERSON_NUMBER}
-                                                  value={labValues.maxGroupQuantity}
-                                                  setValue={(value) =>
-                                                      setValue('maxGroupQuantity', value, setLabValues, labValues)}
-                                                  width={'13rem'}
-                                                  paddingLeft={'10rem'}
-                                />
-                            </RowWrapper>
-                            <Heading marginTop={'3rem'}>Projekt</Heading>
-                            <RowWrapper>
-                                <InputWithButtons inputType={INPUT_TYPES.NUMBER}
-                                                  value={projectValues.quantity}
-                                                  setValue={(value) =>
-                                                      setValue('quantity', value, setProjectValues, projectValues)}
-                                />
-                                <InputWithButtons inputType={INPUT_TYPES.WEIGHT}
-                                                  value={projectValues.markWeight}
-                                                  setValue={(value) =>
-                                                      setValue('markWeight', value, setProjectValues, projectValues)}
-                                />
-                                <InputWithButtons inputType={INPUT_TYPES.PERSON_NUMBER}
-                                                  value={projectValues.maxGroupQuantity}
-                                                  setValue={(value) =>
-                                                      setValue('maxGroupQuantity', value, setProjectValues, projectValues)}
-                                                  width={'13rem'}
-                                                  paddingLeft={'10rem'}
-                                />
-                            </RowWrapper>
-                            <RowWrapper justifyContent={'space-between'} marginTop={'4rem'}>
-                                <StyledButton grayColor
-                                              onClick={() => setActiveStep(ADD_PROCESS_STEPS.SET_NAME_WITH_DESCRIPTION)}>{'<'} Wstecz</StyledButton>
-                                <StyledButton onClick={() => {
-                                    setCourseData('taskList', [examValues, discussionsValues, labValues, projectValues]);
-                                    setActiveStep(ADD_PROCESS_STEPS.SET_GROUP)
-                                }}>Następny
-                                    krok {'>'}</StyledButton>
-                            </RowWrapper>
-                        </ColumnWrapper>
-                    );
-                case ADD_PROCESS_STEPS.SET_GROUP :
-                    return (
-                        <ColumnWrapper spaceBetween>
-                            <Heading>Studenci</Heading>
-                            {groups.map(group => <GroupContainer key={group.id} group={group}
-                                                                 selectedGroupId={courseToAdd.groupId || null}
-                                                                 setCourseData={setCourseData}/>)}
-                            <RowWrapper justifyContent={'space-between'}>
-                                <StyledButton grayColor
-                                              onClick={() => setActiveStep(ADD_PROCESS_STEPS.SET_DETAILS)}>{'<'} Wstecz</StyledButton>
-                                {groupValidationError ? <ErrorParagraph>Nie wybrano grupy.</ErrorParagraph> : null}
-                                <StyledButton onClick={() => {
-                                    isGroupStepValid() && dispatch(createItem(requestTypes.ADD_COURSE, courseToAdd))
-                                        .then(() => setAddResponse({
-                                            status: 'success',
-                                            message: 'Tworzenie kursu zakończone sukcesem.'
-                                        }))
-                                        .then(() => dispatch({
-                                            type: ACTION_TYPES.DATA_CLEANUP,
-                                            payload: 'courseToAdd'
-                                        }))
-                                        .catch(() => setAddResponse({
-                                            status: 'error',
-                                            message: 'Wystąpił błąd. Spróbuj ponownie później.'
-                                        }))
-                                }}>Zapisz kurs {'>'}</StyledButton>
-                            </RowWrapper>
-                        </ColumnWrapper>
-                    );
-                default:
-                    return null
-            }
-        };
-
-        return (
-            <SidebarTemplate>
-                <HeaderPathInfoContainer>
-                    Dodaj kurs
-                    <StyledSeparator/>
-                </HeaderPathInfoContainer>
-                <ContentWrapper>
-                    {addResponse.status ?
-                        <MainContentSection>
-                            <StatusInfoContainer>
-                                {addResponse.status === 'success' ?
-                                    <>
-                                        {CheckIcon()}
-                                        <Heading marginTop={'3rem'} margin-left={'4rem'}>{addResponse.message}</Heading>
-                                        <Button as={Link} to={routes.ROLE_LECTURER.COURSES}>Pokaż listę kursów{'>'}</Button>
-                                    </>
-                                    :
-                                    <>
-                                        {WarnIcon()}
-                                        <Heading marginTop={'3rem'} margin-left={'4rem'}>{addResponse.message}</Heading>
-                                        <Button onClick={() => {
-                                            setActiveStep(ADD_PROCESS_STEPS.SET_NAME_WITH_DESCRIPTION);
-                                            setAddResponse({status: undefined, message: ''});
-                                        }}>Spróbuj ponownie{'>'}</Button>
-                                    </>
-                                }
-                            </StatusInfoContainer>
-                        </MainContentSection>
-                        :
-                        <MainContentSection>
-                            <StepsSection>
-                                <StepsContainer activeStep={activeStep}/>
-                            </StepsSection>
-                            <AddCourseFormSection>
+    return (
+        <SidebarTemplate>
+            <HeaderPathInfoContainer>
+                Dodaj kurs
+                <StyledSeparator/>
+            </HeaderPathInfoContainer>
+            <ContentWrapper>
+                {addResponse.status ?
+                    <MainContentSection>
+                        <StatusInfoContainer>
+                            {addResponse.status === 'success' ?
+                                <>
+                                    {CheckIcon()}
+                                    <Heading marginTop={'3rem'} margin-left={'4rem'}>{addResponse.message}</Heading>
+                                    <Button as={Link} to={routes.ROLE_LECTURER.COURSES}>Pokaż listę
+                                        kursów{'>'}</Button>
+                                </>
+                                :
+                                <>
+                                    {WarnIcon()}
+                                    <Heading marginTop={'3rem'} margin-left={'4rem'}>{addResponse.message}</Heading>
+                                    <Button onClick={() => {
+                                        setActiveStep(ADD_PROCESS_STEPS.SET_NAME_WITH_DESCRIPTION);
+                                        setAddResponse({status: undefined, message: ''});
+                                    }}>Spróbuj ponownie{'>'}</Button>
+                                </>
+                            }
+                        </StatusInfoContainer>
+                    </MainContentSection>
+                    :
+                    <MainContentSection>
+                        <StepsSection>
+                            <StepsContainer activeStep={activeStep}/>
+                        </StepsSection>
+                        <AddCourseFormSection>
+                            <AddCourseContext.Provider value={addCourseContext}>
                                 {generateFormByActiveStep(activeStep)}
-                            </AddCourseFormSection>
-                        </MainContentSection>
-                    }
-                    <SideContentSection>
-                        <AddPublicationContainer/>
-                        <NewsSideContainer/>
-                    </SideContentSection>
-                </ContentWrapper>
-            </SidebarTemplate>
-        );
-    }
-;
+                            </AddCourseContext.Provider>
+                        </AddCourseFormSection>
+                    </MainContentSection>
+                }
+                <SideContentSection>
+                    <AddPublicationContainer/>
+                    <NewsSideContainer/>
+                </SideContentSection>
+            </ContentWrapper>
+        </SidebarTemplate>
+    );
+};
 
 export default AddCourse;
