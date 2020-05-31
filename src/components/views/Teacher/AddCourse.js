@@ -156,6 +156,29 @@ const AddCourse = () => {
         }
     };
 
+    // --- RETURNS STATUS COMPONENT ---
+    const getResponseStatus = () => (
+        <StatusInfoContainer>
+            {addResponse.status === 'success' ?
+                <>
+                    {CheckIcon()}
+                    <Heading marginTop={'3rem'} margin-left={'4rem'}>{addResponse.message}</Heading>
+                    <Button as={Link} to={routes.ROLE_LECTURER.COURSES}>Pokaż listę
+                        kursów{'>'}</Button>
+                </>
+                :
+                <>
+                    {WarnIcon()}
+                    <Heading marginTop={'3rem'} margin-left={'4rem'}>{addResponse.message}</Heading>
+                    <Button onClick={() => {
+                        setActiveStep(ADD_PROCESS_STEPS.SET_NAME_WITH_DESCRIPTION);
+                        setAddResponse({status: undefined, message: ''});
+                    }}>Spróbuj ponownie{'>'}</Button>
+                </>
+            }
+        </StatusInfoContainer>
+    );
+
     return (
         <SidebarTemplate>
             <HeaderPathInfoContainer>
@@ -163,40 +186,20 @@ const AddCourse = () => {
                 <StyledSeparator/>
             </HeaderPathInfoContainer>
             <ContentWrapper>
-                {addResponse.status ?
-                    <MainContentSection>
-                        <StatusInfoContainer>
-                            {addResponse.status === 'success' ?
-                                <>
-                                    {CheckIcon()}
-                                    <Heading marginTop={'3rem'} margin-left={'4rem'}>{addResponse.message}</Heading>
-                                    <Button as={Link} to={routes.ROLE_LECTURER.COURSES}>Pokaż listę
-                                        kursów{'>'}</Button>
-                                </>
-                                :
-                                <>
-                                    {WarnIcon()}
-                                    <Heading marginTop={'3rem'} margin-left={'4rem'}>{addResponse.message}</Heading>
-                                    <Button onClick={() => {
-                                        setActiveStep(ADD_PROCESS_STEPS.SET_NAME_WITH_DESCRIPTION);
-                                        setAddResponse({status: undefined, message: ''});
-                                    }}>Spróbuj ponownie{'>'}</Button>
-                                </>
-                            }
-                        </StatusInfoContainer>
-                    </MainContentSection>
-                    :
-                    <MainContentSection>
-                        <StepsSection>
-                            <StepsContainer activeStep={activeStep}/>
-                        </StepsSection>
-                        <AddCourseFormSection>
-                            <AddCourseContext.Provider value={addCourseContext}>
-                                {generateFormByActiveStep(activeStep)}
-                            </AddCourseContext.Provider>
-                        </AddCourseFormSection>
-                    </MainContentSection>
-                }
+                <MainContentSection>
+                    {addResponse.status ? getResponseStatus() :
+                        <>
+                            <StepsSection>
+                                <StepsContainer activeStep={activeStep}/>
+                            </StepsSection>
+                            <AddCourseFormSection>
+                                <AddCourseContext.Provider value={addCourseContext}>
+                                    {generateFormByActiveStep(activeStep)}
+                                </AddCourseContext.Provider>
+                            </AddCourseFormSection>
+                        </>
+                    }
+                </MainContentSection>
                 <SideContentSection>
                     <AddPublicationContainer/>
                     <NewsSideContainer/>
